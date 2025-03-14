@@ -1,0 +1,41 @@
+@font-face {
+    font-family: 'SFRProText';
+    src: url('../fonts/SFProText-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SFRProText';
+    src: url('../fonts/SFProText-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SFRProText';
+    src: url('../fonts/SFProText-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+@font-face {
+    font-family: 'SFRProDisplay';
+    src: url('../fonts/sfr-pro-display-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SFRProDisplay';
+    src: url('../fonts/sfr-pro-display-medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SFRProDisplay';
+    src: url('../fonts/sfr-pro-display-semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
