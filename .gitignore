@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 
 .env
+
+.vercel
+vercel.txt
+
+# local api server for testing
+server.js

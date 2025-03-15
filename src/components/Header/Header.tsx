@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../../../public/header/logo.svg'
+import logo from '/header/logo.svg?url'
 import './Header.css'
 import { useState } from 'react'
 

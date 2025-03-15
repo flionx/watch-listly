@@ -3,6 +3,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 15px 35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
 }
 .header__logo {
     min-height: 25px;
