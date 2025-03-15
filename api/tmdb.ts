@@ -11,7 +11,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const TMDB_API_TOKEN = process.env.VITE_TMDB_API_TOKEN;
+    const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
     if (!TMDB_API_TOKEN) {
       return res.status(500).json({ error: "API Token is missing" });
     }
