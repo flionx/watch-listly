@@ -2,7 +2,7 @@ import { FC} from "react"
 import { Link, NavLink } from "react-router-dom"
 import test1 from '../../../public/sidebar/test1.png'
 import test2 from '../../../public/sidebar/test2.png'
-import test3 from '../../../public/sidebar/test3png.png'
+import test3 from '../../../public/sidebar/test3.png'
 import './Sidebar.css'
 import { TSetState } from "@/types/global"
 import { mainSidebarLinks } from "./links"
@@ -23,7 +23,7 @@ const SideBar:FC<Props> = ({open}) => {
         <nav className="sidebar__top-nav">
             <ul className="sidebar__links">
                 {mainSidebarLinks.map(link => (
-                    <NavLink to={link.path} className={!isOpen ? 'less' : ''}>
+                    <NavLink key={link.path} to={link.path} className={!isOpen ? 'less' : ''}>
                         <li className={!isOpen ? 'anim-close' : ''}>{link.text}</li>
                     </NavLink>
                 ))}

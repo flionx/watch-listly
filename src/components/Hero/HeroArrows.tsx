@@ -1,24 +1,41 @@
-import { FC } from 'react'
-import { IMovie } from '../../types/movies'
+import { FC, useEffect, useState } from 'react'
 import { TSetState } from '../../types/global';
 interface Props {
-    select: {
-        selectMovie: number,
-        setSelectMovie: TSetState<number>,
+    spin: {
+        spinCount : number,
+        setSpinCount: TSetState<number>,
     },
-    movies: IMovie[]
+    hideCards: {
+        hiddenCards: number,
+        setHiddenCards: TSetState<number>
+    },
+    heroRef: React.RefObject<HTMLElement | null>,
+    oneScroll: number,
 }
 
-const HeroArrows:FC<Props> = ({select, movies}) => {
-    const {selectMovie, setSelectMovie} = select;
+const HeroArrows:FC<Props> = ({heroRef, oneScroll, spin, hideCards}) => {
+    const [initialHidden, setInitianHidden] = useState(0)
+    const {spinCount, setSpinCount} = spin;
+    const {hiddenCards, setHiddenCards} = hideCards;
+    
+    useEffect(() => {
+        if (heroRef.current) {            
+            const width = heroRef.current.getBoundingClientRect().width;
+            setHiddenCards(20 - Math.floor(width / oneScroll));    
+            setInitianHidden(20 - Math.floor(width / oneScroll))        
+        }
+    }, []);
+
     const nextHandle = () => {
-        if (selectMovie < movies.length - 1) {
-            setSelectMovie(curr => curr + 1)
+        if (hiddenCards > 0) {
+            setSpinCount(curr => curr + 2)
+            setHiddenCards(curr => curr - 2)
         }
     }
-    const prevHandle = () => {
-        if (selectMovie > 0) {
-            setSelectMovie(curr => curr - 1)
+    const prevHandle = () => {        
+        if (hiddenCards < initialHidden) {
+            setSpinCount(curr => curr - 2)
+            setHiddenCards(curr => curr + 2)
         }
     }
 

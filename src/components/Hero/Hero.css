@@ -121,7 +121,7 @@
     position: relative;
     z-index: 2;
     transform: translateX(0);
-    transition: .5s all;
+    transition: transform .7s ease;
     position: relative;
     bottom: -10px;
 }
