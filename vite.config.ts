@@ -12,12 +12,12 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: "dist/client",
+    outDir: "dist",
     emptyOutDir: true,
     assetsDir: "assets",
     rollupOptions: {
-      input: "index.html"
-    }
+      input: "index.html",
+    },
   },
-  base: "./"
+  base: "/"
 });

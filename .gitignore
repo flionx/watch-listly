@@ -26,7 +26,6 @@ dist-ssr
 .env
 
 .vercel
-vercel.txt
 
 # local api server for testing
 server.js

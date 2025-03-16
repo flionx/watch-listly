@@ -1,41 +1,25 @@
-import { useState, useEffect } from 'react'
-import { useAppDispatch } from './useRedux';
-import { setMoviesHero } from '../store/slices/moviesSlice';
+import { useAppDispatch } from "./useRedux";
+import { setMoviesHero } from "../store/slices/moviesSlice";
 
-const useFetchTMDB = (
-    path: string, 
-    type: 'movies-hero',
-) => {
+const useFetchTMDB = () => {
     const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchMovies() {
+    const fetchTMDB = async (path: string, type: "movies-hero") => {
         try {
-            setLoading(true);
             const response = await fetch(`/api/tmdb?path=${path}&language=en-EN`);
-            
             if (!response.ok) {
                 throw new Error(`API request failed with status ${response.status}`);
             }
-            
-            const result = await response.json();            
-            if (type === 'movies-hero') {
+    
+            const result = await response.json();
+            if (type === "movies-hero") {
                 dispatch(setMoviesHero(result.results));
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
             console.error("Error fetching data:", err);
-        } finally {
-            setLoading(false);
         }
-    }
-    
-    fetchMovies();
-  }, [path]);
-
-  return { loading, error };
+    };
+    return {fetchTMDB};
 }
 
-export default useFetchTMDB
+export default useFetchTMDB;

@@ -1,23 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/client/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "api/tmdb.ts",
-      "use": "@vercel/node"
-    }
-  ],
+  "buildCommand": "npm run build",
   "rewrites": [
-    {
-      "source": "/api/tmdb",
-      "destination": "/api/tmdb.ts"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/dist/client/index.html"
-    }
+    { "source": "/api/tmdb", "destination": "/api/tmdb.js" },
+    { "source": "/(.*)", "destination": "/dist/index.html" }
   ]
 }
