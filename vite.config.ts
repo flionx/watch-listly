@@ -19,5 +19,5 @@ export default defineConfig({
       input: "index.html"
     }
   },
-  base: "/"
+  base: "./"
 });
