@@ -104,7 +104,12 @@
 }
 .hero__button:nth-child(3) span::after {
     content: '+';
-    color: #000000;
+    font-family: var(--second-font);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 133%;
+    text-align: center;
+    color: #080808;
 }
 
 /* лист карточек */
