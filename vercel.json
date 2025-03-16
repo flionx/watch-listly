@@ -6,7 +6,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "api/*.ts",
+      "src": "api/tmdb.ts",
       "use": "@vercel/node"
     }
   ],
@@ -19,6 +19,5 @@
       "src": "/(.*)",
       "dest": "/dist/client/index.html"
     }
-  ],
-  "ignoreBuildStep": ["server.js"]
+  ]
 }
