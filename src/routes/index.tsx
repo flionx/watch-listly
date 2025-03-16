@@ -7,11 +7,11 @@ import MainLayout from "../layouts/MainLayout";
 
 const router = createBrowserRouter([
     {
-        path: '',
+        path: '/',
         element: <App />,
         children: [
             {
-                path: '/',
+                path: '',
                 element: <MainLayout />,
                 children: [
                     {
@@ -19,11 +19,11 @@ const router = createBrowserRouter([
                         element: <MainPage />
                     },
                     {
-                        path: '/categories',
+                        path: 'categories',
                         element: <CategoriesPage />
                     },
                     {
-                        path: '/genres',
+                        path: 'genres',
                         element: <GenresPage />
                     },
                 ]
