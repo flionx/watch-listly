@@ -6,21 +6,14 @@
       "use": "@vercel/node"
     },
     {
-      "src": "client/index.html",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client"
-      }
+      "src": "dist/client/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/tmdb.ts?path=$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/index.html"
-    }
+    { "src": "/api/tmdb", "dest": "/api/tmdb.ts" }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/dist/client/index.html" }
   ]
 }
