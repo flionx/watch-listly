@@ -1,7 +1,17 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "dist/client/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/tmdb.ts",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     { "src": "/api/tmdb", "dest": "/api/tmdb.ts" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/(.*)", "dest": "/dist/client/index.html" }
   ]
 }
