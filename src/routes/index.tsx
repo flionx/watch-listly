@@ -1,9 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import MainPage from '../pages/MainPage'
-import CategoriesPage from "../pages/CategoriesPage";
-import GenresPage from "../pages/GenresPage";
-import MainLayout from "../layouts/MainLayout";
+
+import LibraryPage from "@/pages/LibraryPage";
+import App from "@/App";
+import MainLayout from "@/layouts/MainLayout";
+import MainPage from "@/pages/MainPage";
+import CategoriesPage from "@/pages/CategoriesPage";
+import GenresPage from "@/pages/GenresPage";
+import FriendsPage from "@/pages/FriendsPage";
 
 const router = createBrowserRouter([
     {
@@ -26,13 +29,16 @@ const router = createBrowserRouter([
                         path: 'genres',
                         element: <GenresPage />
                     },
+                    {
+                        path: 'library',
+                        element: <LibraryPage />
+                    },
+                    {
+                        path: 'friends',
+                        element: <FriendsPage />
+                    },
                 ]
             },
-            
-            // {
-            //     path: 'movie/:movie',
-            //     element: <GenresPage />
-            // },
         ]
     }
 ])

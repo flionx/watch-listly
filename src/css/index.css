@@ -16,3 +16,18 @@ body {
 a {
   color: currentColor;
 }
+.container-main-page {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+.container-main-content {
+  width: calc(100vw - 280px);
+  margin-left: 280px;
+  transition: all .5s ease;
+  position: relative;
+}
+.container-main-content-open {
+  width: calc(100vw - 70px);
+  margin-left: 70px;
+}
