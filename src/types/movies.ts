@@ -1,6 +1,7 @@
 export interface IMovie {
     id: number,
-    title: string,
+    title?: string,
+    name?: string,
     overview: string,
     backdrop_path: string,
     poster_path: string,

@@ -12,28 +12,28 @@ const Hero = () => {
     const [selectMovie, setSelectMovie] = useState(0);
     const callSetSelectMovie = useCallback<TSetState<number>>((value) => setSelectMovie(value), [])
     const oneScroll = 170;
-    useCheckStorage('movie/popular', 'movies-hero')
+    useCheckStorage('trending/all/day', 'movies-hero', movies)
 
 
-    const intervalId = useRef<NodeJS.Timeout>(null)
-    useEffect(() => {
-        intervalId.current = setInterval(() => {
-            setSelectMovie((curr) => {
-                return (movies.length - 1 > curr) ? curr + 1 : 0;
-            });
-        }, 5000);
+    // const intervalId = useRef<NodeJS.Timeout>(null)
+    // useEffect(() => {
+    //     intervalId.current = setInterval(() => {
+    //         setSelectMovie((curr) => {
+    //             return (movies.length - 1 > curr) ? curr + 1 : 0;
+    //         });
+    //     }, 5000);
     
-        return () => {
-            if (intervalId.current) clearInterval(intervalId.current);
-        };
-    }, []);
+    //     return () => {
+    //         if (intervalId.current) clearInterval(intervalId.current);
+    //     };
+    // }, []);
 
   return (
     <section className="hero" 
         style={{backgroundImage: `url(${getImageUrl(movies[selectMovie]?.backdrop_path, 'original')})`}}>
 
-        <HeroInfo movie={movies[selectMovie]}/>
-        <HeroArrows movies={movies} select={{selectMovie, setSelectMovie: callSetSelectMovie}}/>
+        {movies.length > 0 && <HeroInfo movie={movies[selectMovie]}/>}
+        {movies.length > 0 && <HeroArrows movies={movies} select={{selectMovie, setSelectMovie: callSetSelectMovie}}/>}
 
         <section className="hero__list" 
             style={{transform: `translate(-${selectMovie * oneScroll}px)`}}>
