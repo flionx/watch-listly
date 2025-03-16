@@ -116,7 +116,7 @@
     position: relative;
     z-index: 2;
     transform: translateX(0);
-    transition: .3s all;
+    transition: .5s all;
     position: relative;
     bottom: -10px;
 }

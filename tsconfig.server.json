@@ -1,14 +1,11 @@
 {
-    "compilerOptions": {
-      "target": "ES2022",
-      "lib": ["ES2022"],
-      "module": "CommonJS",
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "strict": true,
-      "noEmit": false,
-      "outDir": "dist/api"
-    },
-    "include": ["api"]
-  }
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "outDir": "dist/api",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": ["api/**/*.ts"]
+}

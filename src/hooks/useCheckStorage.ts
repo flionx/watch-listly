@@ -1,9 +1,9 @@
+import { IMovie } from '@/types/movies';
 import useFetchTMDB from './useFetchTMDB';
 
-const useCheckStorage = (path: string, key: 'movies-hero',) => {
+const useCheckStorage = (path: string, key: 'movies-hero', movies: IMovie[]) => {
     
-    const storage = localStorage.getItem(key); 
-    if (!storage) {
+    if (movies.length === 0) {
         useFetchTMDB(path, key);
     }
 

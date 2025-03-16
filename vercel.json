@@ -1,18 +1,24 @@
-Copy{
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/client/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/*.ts",
+      "use": "@vercel/node"
+    }
   ],
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "@vercel/node"
+  "routes": [
+    {
+      "src": "/api/tmdb",
+      "dest": "/api/tmdb"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/client/index.html"
     }
-  },
-  "git": {
-    "deploymentEnabled": {
-      "main": true,
-      "development": false,
-      "feature/*": false
-    }
-  }
+  ],
+  "ignoreBuildStep": ["server.js"]
 }
