@@ -28,9 +28,12 @@ const HeroArrows:FC<Props> = ({heroRef, oneScroll, spin, hideCards}) => {
 
     const nextHandle = () => {
         if (hiddenCards > 0) {
-            setSpinCount(curr => curr + 2)
-            setHiddenCards(curr => curr - 2)
+            setSpinCount(curr => (hiddenCards >= 2) ? curr + 2 : 
+                (hiddenCards >= 1) ? curr + 1 : curr)
+            setHiddenCards(curr => (hiddenCards >= 2) ? curr - 2 : 
+                (hiddenCards >= 1) ? curr - 1 : curr)
         }
+
     }
     const prevHandle = () => {        
         if (hiddenCards < initialHidden) {
@@ -41,8 +44,8 @@ const HeroArrows:FC<Props> = ({heroRef, oneScroll, spin, hideCards}) => {
 
   return (
     <div className='hero__arrows'>
-        <button onClick={prevHandle} className='hero__arrow-btn'></button>
-        <button onClick={nextHandle} className='hero__arrow-btn'></button>
+        <button onClick={prevHandle} className='hero__arrows-btn arrow-btn'></button>
+        <button onClick={nextHandle} className='hero__arrows-btn arrow-btn'></button>
     </div>
   )
 }

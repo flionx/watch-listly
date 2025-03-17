@@ -7,7 +7,7 @@ interface Props {
 
 const ButtonHero: FC<Props> = ({noBg, onClick, children}) => {
   return (
-    <button className={`hero__button ${noBg && 'hero__button-nobg'}`}
+    <button className={`hero__button ${noBg ? 'hero__button-nobg' : ''}`}
         onClick={onClick}
     ><span></span>{children}</button>
   )

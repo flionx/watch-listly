@@ -26,14 +26,15 @@ const Hero = () => {
         intervalId.current = setInterval(() => {            
             setSelectMovie((curr) => {
                 return (movies.length - 1 > curr) ? curr + 1 : 0;
-            });            
+            });       
             if (selectMovie >= (20 - hiddenCards - 1)) {
-                setSpinCount(curr => curr + 2)
-                setHiddenCards(curr => curr - 2)
-            }
-            if (selectMovie === 19 && hiddenCards === 0) {
-                setSpinCount(0)
-            }
+                if (movies.length - 1 > selectMovie) {
+                    setSpinCount(curr => curr + 1)
+                } else {
+                    setSpinCount(0)
+                }
+            }   
+            
         }, 5000);
     
         return () => {
