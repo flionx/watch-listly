@@ -30,7 +30,7 @@
 }
 .hero__title {
     font-weight: 600;
-    font-size: 60px;
+    font-size: 55px;
 }
 .hero__info-info {
     display: flex;
@@ -68,22 +68,24 @@
 
 .hero__info-btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    gap: 15px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .hero__button {
     display: flex;
+    /* flex: 1 1 140px; */
     align-items: center;
     justify-content: center;
     column-gap: 8px;
-    padding: 16px 0;
+    padding: 10px 12px;
     border-radius: 8px;
     background: var(--main-color);
     border: 1px solid var(--main-color);
     transition: .3s all;
     color: #000000;
-    width: 140px;
 }
 .hero__button-nobg {
     background: transparent;

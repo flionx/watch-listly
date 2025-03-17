@@ -13,17 +13,21 @@ body {
   overflow-x: hidden;
 
 }
+
 a {
   color: currentColor;
 }
 .container-main-page {
   display: flex;
+  width: 100%;
+  overflow: hidden;
   min-height: 100vh;
   position: relative;
 }
 .container-main-content {
   width: calc(100vw - 280px);
   margin-left: 280px;
+  overflow: hidden;
   transition: all .5s ease;
   position: relative;
 }
