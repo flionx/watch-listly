@@ -1,15 +1,21 @@
-import { useAppSelector } from "@/hooks/useRedux"
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux"
+import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
 import ListCards from "../ListCards/ListCards"
 import './PopularSection.css'
-import useCheckStorage from "@/hooks/useCheckStorage";
 
 const PopularSection = () => {
     const moviesPopular =  useAppSelector(state => state.movies.popular);    
-    useCheckStorage('movie/popular', 'movies-popular', moviesPopular)
+    const loading =  useAppSelector(state => state.movies.loading);    
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+      dispatch(getOrFetchMovies({path: 'movie/popular', key: 'movies-popular'}))
+    }, [])
 
   return (
     <section className='popular-movies'>
-        <ListCards movies={moviesPopular}/>
+      {moviesPopular.length > 0 && <ListCards movies={moviesPopular}/>}
+      {loading === 'pending' && <p>Загрузка</p>}
     </section>
   )
 }

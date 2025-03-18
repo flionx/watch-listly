@@ -1,19 +1,14 @@
 import { FC } from 'react'
-import './ArrowsList.css'
-import { IMovie } from '@/types/movies'
 import { TSetState } from '@/types/global'
+import './ButtonsArrow.css'
 const step = 3;
+
 interface Props {
-  movies: IMovie[],
-  spin: {
-    countSpin:number, 
-    setCountSpin: TSetState<number>
-  },
+  setCountSpin: TSetState<number>
   maxSteps: number
 }
 
-const ArrowsList: FC<Props> = ({movies, spin, maxSteps}) => {
-  const {countSpin, setCountSpin} = spin;
+const ButtonsArrow: FC<Props> = ({setCountSpin, maxSteps}) => {
   const prevHandle = () => {
     setCountSpin((prev) => Math.max(0, prev - step));
   };
@@ -30,4 +25,4 @@ const ArrowsList: FC<Props> = ({movies, spin, maxSteps}) => {
   )
 }
 
-export default ArrowsList
+export default ButtonsArrow

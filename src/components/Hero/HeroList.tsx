@@ -2,6 +2,7 @@ import { FC} from 'react'
 import { TSetState } from '@/types/global'
 import { IMovie } from '@/types/movies'
 import getImageUrl from '@/utils/getImageUrl'
+import { oneScroll } from '@/app/constants/movies'
 
 interface Props {
     movies: IMovie[],
@@ -13,10 +14,9 @@ interface Props {
         spinCount : number,
         setSpinCount: TSetState<number>,
     },
-    oneScroll: number,
 }
 
-const HeroList:FC<Props> = ({movies, select, spin, oneScroll}) => {
+const HeroList:FC<Props> = ({movies, select, spin}) => {
     const addedClass = (index: number) => (index === selectMovie) ? 'hero__card-active' : '';
     const {selectMovie, setSelectMovie} = select;
     const {spinCount, setSpinCount} = spin;

@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { TSetState } from '../../types/global';
+import { oneScroll } from '@/app/constants/movies';
 interface Props {
     spin: {
         spinCount : number,
@@ -10,10 +11,9 @@ interface Props {
         setHiddenCards: TSetState<number>
     },
     heroRef: React.RefObject<HTMLElement | null>,
-    oneScroll: number,
 }
 
-const HeroArrows:FC<Props> = ({heroRef, oneScroll, spin, hideCards}) => {
+const HeroArrows:FC<Props> = ({heroRef, spin, hideCards}) => {
     const [initialHidden, setInitianHidden] = useState(0)
     const {spinCount, setSpinCount} = spin;
     const {hiddenCards, setHiddenCards} = hideCards;

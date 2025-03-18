@@ -1,23 +1,27 @@
 import {useCallback, useEffect, useRef, useState } from 'react';
-import getImageUrl from '../../utils/getImageUrl';
-import { useAppSelector } from '../../hooks/useRedux';
-import HeroInfo from './HeroInfo';
-import useCheckStorage from '../../hooks/useCheckStorage';
-import HeroArrows from './HeroArrows';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { getOrFetchMovies } from '@/app/store/slices/moviesSlice';
 import { TSetState } from '../../types/global';
-import './Hero.css'
+import HeroInfo from './HeroInfo';
+import HeroArrows from './HeroArrows';
 import HeroList from './HeroList';
-const oneScroll = 170;
+import getImageUrl from '@/utils/getImageUrl';
+import './Hero.css'
 
 const Hero = () => {
     const movies = useAppSelector(state => state.movies.hero)
+    const loading = useAppSelector(state => state.movies.loading)
+    
     const [selectMovie, setSelectMovie] = useState(0);
     const [spinCount, setSpinCount] = useState(0);
     const [hiddenCards, setHiddenCards] = useState(20)
     const callSetSelectMovie = useCallback<TSetState<number>>((value) => setSelectMovie(value), [])
     const callSetSpinCount = useCallback<TSetState<number>>((value) => setSpinCount(value), [])
     const callSethiddenCards = useCallback<TSetState<number>>((value) => setHiddenCards(value), [])
-    useCheckStorage('trending/all/day', 'movies-hero', movies)
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(getOrFetchMovies({path: 'trending/all/day', key: 'movies-hero'}))
+    }, [])
 
     const heroRef = useRef<HTMLElement>(null)
 
@@ -45,22 +49,22 @@ const Hero = () => {
   return (
     <section className="hero" ref={heroRef} 
         style={{backgroundImage: `url(${getImageUrl(movies[selectMovie]?.backdrop_path, 'original')})`}}>
+        {loading === 'pending' && <p>Загрузка</p>}
 
-        {movies.length > 0 && <HeroInfo movie={movies[selectMovie]}/>}
         {movies.length > 0 && 
-        <HeroArrows 
-            heroRef={heroRef}
-            oneScroll={oneScroll} 
-            hideCards={{hiddenCards, setHiddenCards: callSethiddenCards}}
-            spin={{spinCount, setSpinCount: callSetSpinCount}}
-        />}
-
-        <HeroList 
-            movies={movies} 
-            oneScroll={oneScroll} 
-            spin={{spinCount, setSpinCount: callSetSpinCount}}
-            select={{selectMovie, setSelectMovie: callSetSelectMovie}} 
-        />
+        <>
+            <HeroInfo movie={movies[selectMovie]}/>
+            <HeroArrows 
+                heroRef={heroRef}
+                hideCards={{hiddenCards, setHiddenCards: callSethiddenCards}}
+                spin={{spinCount, setSpinCount: callSetSpinCount}}
+            />
+            <HeroList 
+                movies={movies} 
+                spin={{spinCount, setSpinCount: callSetSpinCount}}
+                select={{selectMovie, setSelectMovie: callSetSelectMovie}} 
+            />
+        </>}
     </section>
   )
 }

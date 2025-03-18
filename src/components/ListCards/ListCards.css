@@ -1,6 +1,7 @@
 .card-list {
-    padding: 0 0 100px 35px;
+    padding: 0 0 0 35px;
     position: relative;
+    margin-bottom: 20px;
 }
 .card-list__title {
     width: fit-content;
@@ -22,7 +23,7 @@
     background: var(--main-color);
 }
 .card-list__row {
-    height: 150px;
+    height: 210px;
     display: flex;
     column-gap: 25px;
     position: relative;

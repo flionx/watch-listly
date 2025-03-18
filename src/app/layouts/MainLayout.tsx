@@ -1,9 +1,8 @@
-import { Outlet } from "react-router-dom"
-import Footer from "../components/Footer/Footer"
-import Header from "../components/Header/Header"
-import SideBar from "../components/SideBar/SideBar";
 import { useCallback, useState } from "react";
+import { Outlet } from "react-router-dom"
 import { TSetState } from "@/types/global";
+import SideBar from "@/components/SideBar/SideBar";
+import Footer from "@/components/Footer/Footer";
 
 const MainLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +12,6 @@ const MainLayout = () => {
     <div className="container-main-page">
       <SideBar open={{isOpen, setIsOpen: callSetOpen}}/>
       <div className={`container-main-content ${!isOpen ? 'container-main-content-open' : ''}`}>
-        <Header />
         <Outlet />
         <Footer />
       </div>
