@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, Ref } from "react"
 import { oneScroll } from "@/app/constants/movies"
 import { IMovie } from "@/types/movies"
 import getImageUrl from "@/utils/getImageUrl"
@@ -16,10 +16,14 @@ const ListCards: FC<Props> = ({movies}) => {
     <section className="card-list">
         <h3 className="card-list__title">Popular</h3>
         <ButtonsArrow 
+            parentClass="arrows-full-w"
+            buttonClass="arrow-circle arrow-btn"
             maxSteps={maxSteps}
             setCountSpin={setCountSpin}
         />
-        <div className="card-list__row" ref={listRef} style={{transform: `translateX(-${countSpin * oneScroll}px)`}}>
+        <div className="card-list__row" 
+            ref={listRef as Ref<HTMLDivElement>} 
+            style={{transform: `translateX(-${countSpin * oneScroll}px)`}}>
             {movies.length > 0 &&  movies.map((movie, index) => (
                 <button 
                     className='card-list__card'
