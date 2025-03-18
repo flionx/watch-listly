@@ -1,6 +1,6 @@
 import { FC } from "react"
-import { IMovie } from "../../types/movies"
-import ButtonHero from "../Button/ButtonHero"
+import { IMovie } from "@/types/movies"
+import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 interface Props {
     movie: IMovie
 }
