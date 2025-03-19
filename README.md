@@ -43,6 +43,10 @@ WatchListly is actively in development with an MVP targeted for **April, 2025**.
    npm run dev
    ```
 
+## 📸 Screenshots
+![Image](https://github.com/user-attachments/assets/9bb52bdc-76c7-497c-b032-bc0599311151)
+Main interface.
+
 ## 🛠 Technologies
 
 - Frontend: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
