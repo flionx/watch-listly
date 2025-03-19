@@ -23,8 +23,8 @@
     background: var(--main-color);
 }
 .card-list__row {
-    height: 210px;
     display: flex;
+    height: 210px;
     column-gap: 25px;
     position: relative;
     transform: translateX(0);
@@ -37,6 +37,9 @@
     overflow: hidden;
     position: relative;
     transition: .3s all;
+}   
+.card-list__card:hover:not(.hero__card-active) {
+    transform: scale(1.05);
 }   
 .card-list__card::after {
     content: '';

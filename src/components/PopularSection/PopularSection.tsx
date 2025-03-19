@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux"
 import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
-import ListCards from "../ListCards/ListCards"
+import SectionListCards from "../SectionListCards/SectionListCards";
 import './PopularSection.css'
 
 const PopularSection = () => {
@@ -14,7 +14,7 @@ const PopularSection = () => {
 
   return (
     <section className='popular-movies'>
-      {moviesPopular.length > 0 && <ListCards movies={moviesPopular}/>}
+      {moviesPopular.length > 0 && <SectionListCards movies={moviesPopular}/>}
       {loading === 'pending' && <p>Загрузка</p>}
     </section>
   )

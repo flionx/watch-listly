@@ -183,10 +183,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: .5s all;
 }
 .profile-sidebar {
-    padding: 10px 12px;
+    padding: 10px 7px;
 }
+
 .profile-sidebar__main {
     display: flex;
     align-items: center;

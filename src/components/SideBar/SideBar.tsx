@@ -52,7 +52,7 @@ const SideBar:FC<Props> = ({open}) => {
                 </ul>
                 <button className='sidebar__button'><span></span>Create list</button>
             </nav>
-            <div className="sidebar__profile profile-sidebar">
+            <div className='sidebar__profile profile-sidebar'>
                 <div className="profile-sidebar__main">
                     <div className="profile-sidebar__icon">
                         <img src={test3} alt="icon" />

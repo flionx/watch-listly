@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/app/firebase";
 import { IMovie } from "../../../types/movies";
 
 export type TStorageKey = 'movies-hero' | 'movies-popular'
@@ -8,29 +10,76 @@ interface IFetchProps {
 }
 interface IFetchResult {
   key: TStorageKey,
-  result: IMovie[]
+  movies: IMovie[],
+  lastUpdated: string,
 }
 
 export const getOrFetchMovies = createAsyncThunk(
   'movies/getOrFetchMovies',
   async ({path, key}: IFetchProps, {rejectWithValue}) => {
-    const storage = localStorage.getItem(key);  
-    if (storage) {
-      return {key, result: JSON.parse(storage)}
-    } 
+    const CACHE_HOURS = 8;
+    const ON_STORAGE_DAYS = 7;
+
     try {
-      
+      const storage = localStorage.getItem(key);
+      if (storage) {
+        const { movies, lastUpdated } = JSON.parse(storage) as {
+          movies: IMovie[], 
+          lastUpdated: string
+        }; 
+        const lastUpdatedDate = new Date(lastUpdated);
+        const now = new Date();
+        const hoursDiff = (now.getTime() - lastUpdatedDate.getTime()) / 1000 / 60 / 60;
+
+        if (hoursDiff < CACHE_HOURS) { 
+          return { key, movies, lastUpdated}; // 1 - storage
+        }
+      } 
+
+      const docRef = doc(db, "movies", key);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const {movies, lastUpdated} = docSnap.data() as {
+          movies: IMovie[], 
+          lastUpdated: string
+        };  
+        const lastUpdatedDate = new Date(lastUpdated);
+        const now = new Date();
+
+        const hoursDiff = (now.getTime() - lastUpdatedDate.getTime()) / 1000 / 60 / 60;
+        const daysDiff = (now.getTime() - lastUpdatedDate.getTime()) / 1000 / 60 / 60 / 24;
+
+        if (movies.length > 0) {
+          if (hoursDiff < CACHE_HOURS) {
+            return { key, movies, lastUpdated}; // 2 - db firebase
+          }
+        }
+        if (0 === 0) {
+          console.log('консоль');
+          
+        }
+        if (daysDiff >= ON_STORAGE_DAYS) {
+          await deleteDoc(docRef);
+        }
+        
+      }
       const response = await fetch(`/api/tmdb?path=${path}&language=en-EN`);
       if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
       }
 
       const result = await response.json();
-      return {key, result: result.results}
+      const resultData = {
+        movies: result.results,
+        lastUpdated: new Date().toISOString(),
+      };
+      await setDoc(docRef, resultData); 
+      return { key, movies: result.results, lastUpdated: new Date().toISOString()}; // 3 - tmdb api
 
     } catch (err: any) {
         console.error("Error fetching data:", err);
-        return rejectWithValue(err.response.data)
+        return rejectWithValue(err.response.data) 
     }
   }
 
@@ -69,12 +118,15 @@ const moviesSlice = createSlice({
     })
     .addCase(getOrFetchMovies.fulfilled, (state, action: PayloadAction<IFetchResult>) => {
       if (action.payload.key === "movies-hero") {
-        state.hero = action.payload.result;
+        state.hero = action.payload.movies;
       }
       if (action.payload.key === "movies-popular") {
-        state.popular = action.payload.result;
+        state.popular = action.payload.movies;
       }
-      localStorage.setItem(action.payload.key, JSON.stringify(action.payload.result))
+      localStorage.setItem(action.payload.key, JSON.stringify({ 
+        movies: action.payload.movies, 
+        lastUpdated: action.payload.lastUpdated 
+      }))
       state.loading = 'succeeded';
     })
     .addCase(getOrFetchMovies.rejected, (state, action) => {
