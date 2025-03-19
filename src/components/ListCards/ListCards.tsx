@@ -30,7 +30,7 @@ const ListCards: FC<Props> = ({movies}) => {
                     key={movie.id} 
                     onClick={() => {}}
                 >
-                    <img src={`${getImageUrl(movie.poster_path, 'original')}`} alt={movie.title} />
+                    <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt={movie.title} />
                 </button>
             ))}
         </div>

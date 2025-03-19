@@ -26,7 +26,7 @@ const HeroList:FC<Props> = ({movies, listRef, select, countSpin}) => {
                 key={movie.id} 
                 onClick={() => setSelectMovie(index)}
             >
-                <img src={`${getImageUrl(movie.poster_path, 'original')}`} alt={movie.title} />
+                <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt={movie.title} />
             </button>
         ))}
     </section>

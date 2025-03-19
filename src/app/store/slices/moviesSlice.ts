@@ -19,6 +19,7 @@ export const getOrFetchMovies = createAsyncThunk(
       return {key, result: JSON.parse(storage)}
     } 
     try {
+      
       const response = await fetch(`/api/tmdb?path=${path}&language=en-EN`);
       if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
