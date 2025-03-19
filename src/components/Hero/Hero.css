@@ -115,24 +115,12 @@
 
 /* лист карточек */
 .hero__list {
-    display: flex;
-    height: 210px;
     align-items: end;
-    column-gap: 25px;
-    position: relative;
     z-index: 2;
-    transform: translateX(0);
-    transition: transform .7s ease;
-    position: relative;
     bottom: 30px;
 }
 .hero__card {
-    min-width: 145px;
-    height: 195px;
-    border-radius: 8px;
-    overflow: hidden;
     position: relative;
-    transition: .3s all;
 }
 .hero__card::after {
     content: '';
@@ -141,14 +129,14 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5) !important;
 }
 
 .hero__card-active {
     transform: scale(1.1);
 }
 .hero__card-active::after {
-    background: none;
+    background: none !important;
 }
 .hero__card img{
     width: 100%;

@@ -7,7 +7,8 @@
     top: 57%;
     left: 0;
     transform: translateY(-50%);
-    z-index: 3;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .arrow-circle {
@@ -17,4 +18,6 @@
     background: #232323;
     border: 1px solid rgba(56, 56, 56, 0.5);
     position: relative;
+    pointer-events: auto;
+
 }
