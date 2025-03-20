@@ -1,8 +1,13 @@
 import MainLayout from "@/app/layouts/MainLayout";
 import { createBrowserRouter } from "react-router-dom";
-import MainPage from "./main/MainPage";
-import LibraryPage from "./library/LibraryPage";
-import FriendsPage from "./friends/FriendsPage";
+import MainPage from "./MainPage";
+import LibraryPage from "./LibraryPage";
+import FriendsPage from "./FriendsPage";
+import AuthLayout from "@/app/layouts/AuthLayout";
+import SignInPage from "./SignInPage";
+import SignUpPage from "./SignUpPage";
+import ErrorPage from "./ErrorPage";
+import SignUpStepPage from "./SignUpStepPage";
 
 
 const router = createBrowserRouter([
@@ -11,7 +16,7 @@ const router = createBrowserRouter([
         element: <MainLayout />,
         children: [
             {
-                path: '',
+                index: true,
                 element: <MainPage />
             },
             {
@@ -22,7 +27,30 @@ const router = createBrowserRouter([
                 path: 'friends',
                 element: <FriendsPage />
             },
+            
         ]
-    }
+    },
+    {
+        path: '/auth',
+        element: <AuthLayout />,
+        children: [
+            {
+                path: 'signup',
+                element: <SignUpPage />,
+            },
+            {
+                path: 'signin',
+                element: <SignInPage />,
+            },
+            {
+                path: '/auth/signup/:username',
+                element: <SignUpStepPage />,
+            }
+        ]
+    },
+    {
+        path: '*',
+        element: <ErrorPage />,
+    },
 ])
 export default router;

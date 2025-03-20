@@ -6,7 +6,7 @@ import test1 from '/sidebar/test1.png?url'
 import test2 from '/sidebar/test2.png?url'
 import test3 from '/sidebar/test3.png?url'
 import './Sidebar.css'
-import logo from '../../../public/sidebar/logo.svg'
+import logo from '/sidebar/logo.svg?url'
 interface Props {
     open: {
         isOpen: boolean,
