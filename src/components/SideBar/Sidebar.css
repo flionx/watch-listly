@@ -198,6 +198,7 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
+    border: 1px solid #464646;
     overflow: hidden;
 }
 .profile-sidebar__info {}
@@ -216,6 +217,10 @@
     font-size: 13px;
     line-height: 123%;
     color: #8e8e8e;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .profile-sidebar__dots {
     width: 30px;
@@ -239,6 +244,35 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+
+.profile-sidebar__auth {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+    align-items: center;
+}
+.profile-sidebar__auth a {
+    min-width: fit-content;
+    white-space: nowrap;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--main-color);
+    transition: .3s;
+}
+.profile-sidebar__auth a:hover:not(.auth-btn-main) {
+    background: #22ab94;
+    color: #080808;
+}
+.profile-sidebar__auth a.auth-btn-main {
+    color: #080808;
+    background: var(--main-color);
+}
+.profile-sidebar__auth a.auth-btn-main:hover {
+    background: #22ab94;
+}
+
 
 
 .anim-close {

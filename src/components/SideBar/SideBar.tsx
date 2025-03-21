@@ -1,12 +1,13 @@
 import { FC, useRef} from "react"
 import { Link, NavLink } from "react-router-dom"
 import { mainSidebarLinks } from "./links"
+import { useAppSelector } from "@/hooks/useRedux"
 import { TSetState } from "@/types/global"
 import test1 from '/sidebar/test1.png?url'
 import test2 from '/sidebar/test2.png?url'
 import test3 from '/sidebar/test3.png?url'
-import './Sidebar.css'
 import logo from '/sidebar/logo.svg?url'
+import './Sidebar.css'
 interface Props {
     open: {
         isOpen: boolean,
@@ -22,6 +23,7 @@ const SideBar:FC<Props> = ({open}) => {
         if (!searchRef.current) return;
         searchRef.current.focus()
     }
+    const {username, userid, userIcon} = useAppSelector(state => state.user)
 
   return (
     <aside className={`sidebar ${!isOpen ? 'sidebar-close' : ''}`} 
@@ -53,16 +55,25 @@ const SideBar:FC<Props> = ({open}) => {
                 <button className='sidebar__button'><span></span>Create list</button>
             </nav>
             <div className='sidebar__profile profile-sidebar'>
-                <div className="profile-sidebar__main">
-                    <div className="profile-sidebar__icon">
-                        <img src={test3} alt="icon" />
+                {username ? 
+                    <>
+                    <div className="profile-sidebar__main">
+                        <div className="profile-sidebar__icon">
+                            <img src={userIcon || test3} alt="icon" />
+                        </div>
+                        <div className={`profile-sidebar__info ${defineClass}`}>
+                            <p className="profile-sidebar__name">{username}</p>
+                            <p className="profile-sidebar__id">@{userid}</p>
+                        </div>
                     </div>
-                    <div className={`profile-sidebar__info ${defineClass}`}>
-                        <p className="profile-sidebar__name">Danila</p>
-                        <p className="profile-sidebar__id">@flionx</p>
-                    </div>
+                    <button className={`profile-sidebar__dots ${defineClass}`}></button>
+                </> : 
+                <div className={`profile-sidebar__auth ${defineClass}`}>
+                    <Link to='/auth/signin'>Log in</Link>
+                    or
+                    <Link to='/auth/signup' className="auth-btn-main">Sign up</Link>
                 </div>
-                <button className={`profile-sidebar__dots ${defineClass}`}></button>
+                }
             </div>
         </div>
     </aside>

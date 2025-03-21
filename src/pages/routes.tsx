@@ -4,10 +4,11 @@ import MainPage from "./MainPage";
 import LibraryPage from "./LibraryPage";
 import FriendsPage from "./FriendsPage";
 import AuthLayout from "@/app/layouts/AuthLayout";
-import SignInPage from "./SignInPage";
-import SignUpPage from "./SignUpPage";
+import SignInPage from "./auth/SignInPage";
+import SignUpPage from "./auth/SignUpPage";
 import ErrorPage from "./ErrorPage";
-import SignUpStepPage from "./SignUpStepPage";
+import SignUpStepPage from "./auth/SignUpStepPage";
+import SignUpEmailPage from "./auth/SignUpEmailPage";
 
 
 const router = createBrowserRouter([
@@ -35,17 +36,21 @@ const router = createBrowserRouter([
         element: <AuthLayout />,
         children: [
             {
-                path: 'signup',
-                element: <SignUpPage />,
-            },
-            {
                 path: 'signin',
                 element: <SignInPage />,
             },
             {
+                path: 'signup',
+                element: <SignUpPage />,
+            },
+            {
                 path: '/auth/signup/:username',
+                element: <SignUpEmailPage />,
+            },
+            {
+                path: '/auth/signup/create',
                 element: <SignUpStepPage />,
-            }
+            },
         ]
     },
     {

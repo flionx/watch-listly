@@ -55,10 +55,7 @@ export const getOrFetchMovies = createAsyncThunk(
             return { key, movies, lastUpdated}; // 2 - db firebase
           }
         }
-        if (0 === 0) {
-          console.log('консоль');
-          
-        }
+
         if (daysDiff >= ON_STORAGE_DAYS) {
           await deleteDoc(docRef);
         }
