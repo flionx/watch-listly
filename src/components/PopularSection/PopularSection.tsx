@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux"
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
 import SectionListCards from "../SectionListCards/SectionListCards";
 import './PopularSection.css'

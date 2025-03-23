@@ -2,14 +2,15 @@ import { FC } from "react"
 import { IMovie } from "@/types/movies"
 import useSpinStep from "@/hooks/useSpinStep"
 import ButtonsArrow from "../../ui/ButtonsArrow/ButtonsArrow"
-import ListCardsRow from "../ListCardsRow/ListCardsRow"
+import ListCards from "../ListCards/ListCards"
 import './SectionListCards.css'
+import { oneScroll } from "@/app/constants/movies"
 interface Props {
     movies: IMovie[],
 }
 
 const SectionListCards: FC<Props> = ({movies}) => {
-    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(movies);
+    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(movies, oneScroll);
 
   return (
     <section className="card-list">
@@ -20,7 +21,7 @@ const SectionListCards: FC<Props> = ({movies}) => {
             maxSteps={maxSteps}
             setCountSpin={setCountSpin}
         />
-        <ListCardsRow 
+        <ListCards 
             listRef={listRef} 
             movies={movies} 
             countSpin={countSpin}

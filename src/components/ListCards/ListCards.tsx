@@ -13,7 +13,7 @@ interface Props {
     },
     hero?: boolean,
 }
-const ListCardsRow: FC<Props> = ({listRef, movies, countSpin, select, hero = false}) => {
+const ListCards: FC<Props> = ({listRef, movies, countSpin, select, hero = false}) => {
     const addedClass = ((index: number) => (index === select?.selectMovie) ? 'hero__card-active' : '');
 
   return (
@@ -35,4 +35,4 @@ const ListCardsRow: FC<Props> = ({listRef, movies, countSpin, select, hero = fal
   )
 }
 
-export default ListCardsRow
+export default ListCards

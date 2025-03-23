@@ -1,0 +1,98 @@
+.list-wide {
+    display: flex;
+    width: 100%;
+    column-gap: 28px;
+    transition: transform .7s ease;
+}
+.list-wide__card {
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+    row-gap: 10px;
+}
+
+.list-wide__card-img {
+    width: 100%;
+    min-height: 190px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    border-radius: 12px;
+    position: relative;
+    transition: .4s;
+}
+.list-wide__card-img:hover {
+    transform: scale(1.02);
+}
+.list-wide__card-img:hover::after {
+    background: rgba(0, 0, 0, 0.1);
+}
+.list-wide__card-img::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    transition: .4s;
+
+}
+.list-wide__card-title {
+    text-align: left;
+    font-family: var(--main-font);
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 110%;
+    color: #fff;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+.list-wide__card-title:hover {
+    text-decoration: underline;
+}
+.list-wide__card-bottom {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list-wide__card-info {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+
+
+.list-wide__card-vote {
+    position: relative;
+    padding-left: 18px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 110%;
+    color: #fff;
+}
+.list-wide__card-vote::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 15px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-image: url('../../../public/hero/star.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.list-wide__card-date {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 110%;
+    color: rgba(244, 244, 244, 0.81);
+}

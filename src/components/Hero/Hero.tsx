@@ -2,7 +2,7 @@ import HeroInfo from './HeroInfo';
 import getImageUrl from '@/utils/getImageUrl';
 import ButtonsArrow from '@/ui/ButtonsArrow/ButtonsArrow';
 import useManageHero from '@/hooks/useManageHero';
-import ListCardsRow from '../ListCardsRow/ListCardsRow';
+import ListCards from '../ListCards/ListCards';
 import './Hero.css'
 
 const Hero = () => {
@@ -25,7 +25,7 @@ const Hero = () => {
                 maxSteps={maxSteps}
                 setCountSpin={setCountSpin}
             />
-            <ListCardsRow 
+            <ListCards
                 hero
                 listRef={listRef} 
                 movies={movies} 
