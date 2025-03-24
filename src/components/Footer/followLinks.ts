@@ -1,4 +1,9 @@
-export const followLinks = [
+interface IFollowLinks {
+    href: string,
+    text: string,
+}
+
+export const followLinks: IFollowLinks[] = [
     {
         href: 'https://github.com/flionx',
         text: 'Github'

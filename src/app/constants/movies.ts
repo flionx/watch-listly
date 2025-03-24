@@ -1,1 +1,1 @@
-export const oneScroll = 170;
+export const oneScrollHero = 170;

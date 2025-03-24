@@ -7,15 +7,13 @@ import './Hero.css'
 
 const Hero = () => {
     const {
-        movies, selectMovie, setSelectMovie, loading, 
+        movies, selectMovie, setSelectMovie, 
         countSpin, setCountSpin, maxSteps, heroRef, listRef
     } = useManageHero();
 
   return (
     <section className="hero" ref={heroRef} 
         style={{backgroundImage: `url(${getImageUrl(movies[selectMovie]?.backdrop_path, 'original')})`}}>
-        {loading === 'pending' && <p>Загрузка</p>}
-
         {movies.length > 0 && 
         <>
             <HeroInfo movie={movies[selectMovie]}/>
