@@ -1,8 +1,6 @@
 import { FC } from 'react'
 import { TSetState } from '@/types/global'
 import './ButtonsArrow.css'
-const step = 3;
-
 interface Props {
   parentClass: string,
   buttonClass: string,
@@ -12,11 +10,11 @@ interface Props {
 
 const ButtonsArrow: FC<Props> = ({setCountSpin, maxSteps, parentClass, buttonClass}) => {
   const prevHandle = () => {
-    setCountSpin((prev) => Math.max(0, prev - step));
+    setCountSpin((prev) => Math.max(0, prev - 1));
   };
   
   const nextHandle = () => {
-    setCountSpin((prev) => Math.min(maxSteps, prev + Math.min(step, maxSteps - prev)));
+    setCountSpin((prev) => Math.min(maxSteps, prev + 1));
   };
 
   return (

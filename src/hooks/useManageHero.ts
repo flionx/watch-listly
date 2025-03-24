@@ -3,16 +3,15 @@ import { useAppDispatch, useAppSelector } from './useRedux';
 import { getOrFetchMovies } from '@/app/store/slices/moviesSlice';
 import { TSetState } from '@/types/global';
 import useSpinStep from './useSpinStep';
+import { smallCardWith } from '@/app/constants/movies';
 
 const useManageHero = () => {
-
-    const movies = useAppSelector(state => state.movies.hero)
-    const loading = useAppSelector(state => state.movies.loading)
-    
     const [selectMovie, setSelectMovie] = useState(0);
     const callSetSelectMovie = useCallback<TSetState<number>>((value) => setSelectMovie(value), [])
-
-    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(movies)
+    
+    const movies = useAppSelector(state => state.movies.hero)
+    
+    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(movies, 3, smallCardWith)
 
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -34,7 +33,7 @@ const useManageHero = () => {
     
     
     return {
-        movies, selectMovie, setSelectMovie: callSetSelectMovie, loading, 
+        movies, selectMovie, setSelectMovie: callSetSelectMovie, 
         countSpin, setCountSpin, maxSteps, heroRef, listRef
     }
 }

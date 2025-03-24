@@ -1,6 +1,7 @@
 import { FC } from "react"
 import { IMovie } from "@/types/movies"
 import ButtonHero from "@/ui/ButtonHero/ButtonHero"
+import getColor from "@/utils/getColorVote"
 interface Props {
     movie: IMovie
 }
@@ -14,7 +15,7 @@ const HeroInfo:FC<Props> = ({movie}) => {
                 <div className="hero__vote" style={{background: getColor(movie?.vote_average)}}
                 >{movie?.vote_average.toFixed(1)}</div> }
             <div className="hero__vote-count">{'(' + movie?.vote_count + ')'}</div>
-            <span>|</span>
+            {movie?.release_date && <span>|</span>}
             <div className="hero__year">{movie?.release_date}</div>
             {/* <div className="hero__genres">comedy</div> */}
         </div>
@@ -30,13 +31,3 @@ const HeroInfo:FC<Props> = ({movie}) => {
 
 
 export default HeroInfo
-
-function getColor(vote: number) {
-    if(vote >= 8) {
-        return '#009E2A'
-    } else if (vote >= 5) {
-        return '#F2BC1A'
-    } else {
-        return '#A10000'
-    }
-}

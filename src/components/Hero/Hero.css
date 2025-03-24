@@ -45,6 +45,21 @@
     font-size: 14px;
     color: #ffffff;
     border-radius: 4px;
+    position: relative;
+    margin-left: 23px;
+}
+.hero__vote::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -23px;
+    width: 19px;
+    height: 18px;
+    transform: translateY(-50%);
+    background-image: url('../../../public/hero/star.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .hero__vote-count {
     font-weight: 400;
@@ -89,6 +104,9 @@
 .hero__button-nobg {
     background: transparent;
     color: #ffffff;
+}
+.hero__button-nobg span{
+    display: none;
 }
 
 .hero__button:hover {
