@@ -2,7 +2,7 @@ import { TSetState } from '@/types/global';
 import { IMovie } from '@/types/movies';
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-const useSpinStep = (movies: IMovie[], oneScroll: number) => {
+const useSpinStep = (movies: IMovie[] | Array<{}>, oneScroll: number) => {
     const [countSpin, setCountSpin] = useState(0);
     const [maxSteps, setMaxSteps] = useState(0);
     const callSetCount = useCallback<TSetState<number>>((value) => setCountSpin(value), []);

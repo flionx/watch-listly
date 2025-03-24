@@ -39,6 +39,7 @@
 
 }
 .list-wide__card-title {
+    width: fit-content;
     text-align: left;
     font-family: var(--main-font);
     font-weight: 600;

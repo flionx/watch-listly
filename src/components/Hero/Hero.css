@@ -90,6 +90,9 @@
     background: transparent;
     color: #ffffff;
 }
+.hero__button-nobg span{
+    display: none;
+}
 
 .hero__button:hover {
     background: #2bcaaf;

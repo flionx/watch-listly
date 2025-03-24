@@ -1,10 +1,10 @@
 import { FC } from "react"
-import { IMovie } from "@/types/movies"
 import useSpinStep from "@/hooks/useSpinStep"
-import ButtonsArrow from "../../ui/ButtonsArrow/ButtonsArrow"
 import ListCards from "../ListCards/ListCards"
-import './SectionListCards.css'
+import ButtonsArrow from "@/ui/ButtonsArrow/ButtonsArrow"
 import { oneScroll } from "@/app/constants/movies"
+import { IMovie } from "@/types/movies"
+import './SectionListCards.css'
 interface Props {
     movies: IMovie[],
 }

@@ -3,7 +3,7 @@ import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { IMovie } from "../../../types/movies";
 
-export type TStorageKey = 'movies-hero' | 'movies-popular' | 'movies-watching'
+export type TStorageKey = 'movies-hero' | 'movies-popular' | 'movies-watching' | 'movies-upcoming'
 interface IFetchProps {
   path: string,
   key: TStorageKey,
@@ -86,6 +86,7 @@ interface IState {
   hero: IMovie[],
   popular: IMovie[],
   watching: IMovie[],
+  upcoming: IMovie[],
   loading: 'idle' | 'pending' | 'succeeded' | 'failed',
   error: string | null | undefined;
 }
@@ -94,6 +95,7 @@ const initialState: IState = {
     hero: [],
     popular: [],
     watching: [],
+    upcoming: [],
     loading: 'idle',
     error: null
 }
@@ -124,6 +126,9 @@ const moviesSlice = createSlice({
       }
       if (action.payload.key === "movies-watching") {
         state.watching = action.payload.movies;
+      }
+      if (action.payload.key === "movies-upcoming") {
+        state.upcoming = action.payload.movies;
       }
       localStorage.setItem(action.payload.key, JSON.stringify({ 
         movies: action.payload.movies, 

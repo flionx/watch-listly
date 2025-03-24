@@ -9,9 +9,11 @@ const MainPage = () => {
     <>
       <Hero />
       <PopularSection />
-      <CurrWatchingSection />
+      <CurrWatchingSection title='Currently Watching'
+        path='movie/now_playing' storageKey="movies-watching"/>
       <MoodSection />
-      <CurrWatchingSection />
+      <CurrWatchingSection title='Upcoming' 
+        path='movie/upcoming' storageKey="movies-upcoming"/>
     </>
   )
 }

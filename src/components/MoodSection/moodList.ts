@@ -1,9 +1,9 @@
-import img0 from '../../../public/mood/laugh.jpg?url';
-import img1 from '../../../public/mood/cry.jpg';
-import img2 from '../../../public/mood/romance.jpg';
-import img3 from '../../../public/mood/scared.jpg';
-import img4 from '../../../public/mood/inspared.jpg';
-import img5 from '../../../public/mood/action.jpg';
+import img0 from '/mood/laugh.jpg';
+import img1 from '/mood/cry.jpg';
+import img2 from '/mood/romance.jpg';
+import img3 from '/mood/scared.jpg';
+import img4 from '/mood/inspared.jpg';
+import img5 from '/mood/action.jpg';
 
 export const moodList = [
     {
