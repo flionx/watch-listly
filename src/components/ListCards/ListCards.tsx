@@ -1,4 +1,4 @@
-import { oneScrollHero } from "@/app/constants/movies"
+import { smallCardWith } from "@/app/constants/movies"
 import { TSetState } from "@/types/global"
 import { IMovie } from "@/types/movies"
 import getColor from "@/utils/getColorVote"
@@ -21,7 +21,7 @@ const ListCards: FC<Props> = ({listRef, movies, countSpin, select, hero = false,
   return (
     <div className={`card-list__row ${hero ? 'hero__list' : ''}`} 
         ref={listRef as Ref<HTMLDivElement>} 
-        style={{transform: `translateX(-${countSpin * oneScrollHero}px)`}}>
+        style={{transform: `translateX(-${countSpin * 3 * smallCardWith}px)`}}>
         {movies.length > 0 &&  movies.map((movie, index) => (
             <button 
                 className={`card-list__card ${hero ? 'hero__card ' + addedClass(index) : ''}`}

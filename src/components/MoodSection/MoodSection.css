@@ -14,21 +14,23 @@
 }
 .mood__cards {
     display: flex;
-    width: 100%;
     justify-content: start;
     column-gap: 35px;
     margin-bottom: 25px;
-    overflow-y: hidden;
-    overflow-x: auto; /* Включаем горизонтальный скролл */
-    scrollbar-width: none; /* Скрываем скроллбар в Firefox */
-    -ms-overflow-style: none;
+    /* overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;  */
+    transition: transform .7s ease;
 }
 .mood__cards::-webkit-scrollbar {
     display: none;
 }
 
 .mood__cards button {
-    flex: 1 0 185px;
+    width: 185px;
+    flex-shrink: 0;
     height: 226px;
     border-radius: 19px;
     background-position: center;

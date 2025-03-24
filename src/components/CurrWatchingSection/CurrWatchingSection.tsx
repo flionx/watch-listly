@@ -4,7 +4,7 @@ import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
 import ButtonsArrow from "@/ui/ButtonsArrow/ButtonsArrow"
 import ListCardsWide from "../ListCardsWide/ListCardsWide";
 import useSpinStep from "@/hooks/useSpinStep";
-const oneScroll = 205.4;
+import { countScrollWide, wideCardWith } from "@/app/constants/movies";
 interface Props {
   title: string,
   path: string,
@@ -12,14 +12,14 @@ interface Props {
 }
 
 const CurrWatchingSection:FC<Props> = ({title, path, storageKey}) => {
+  const dispatch = useAppDispatch();
     const moviesWatching =  useAppSelector(state => (
       storageKey === 'movies-watching' ? state.movies.watching : state.movies.upcoming
     ));    
-    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(getOrFetchMovies({path, key: storageKey}))
     }, [])
-    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(moviesWatching, oneScroll);
+    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(moviesWatching, countScrollWide, wideCardWith);
 
   return (
     <section className="card-list">
@@ -32,7 +32,6 @@ const CurrWatchingSection:FC<Props> = ({title, path, storageKey}) => {
         />
         <ListCardsWide
             countSpin={countSpin}
-            oneScroll={oneScroll}
             movies={moviesWatching} listRef={listRef}/>
     </section>
   )

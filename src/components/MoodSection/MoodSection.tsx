@@ -4,10 +4,10 @@ import './MoodSection.css'
 import ButtonsArrow from '@/ui/ButtonsArrow/ButtonsArrow'
 import useSpinStep from '@/hooks/useSpinStep'
 import { Ref } from 'react'
-const oneScroll = 173;
+import { moodCardWith } from '@/app/constants/movies'
 
 const MoodSection = () => {
-    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(moodList, oneScroll);
+    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(moodList, 1, moodCardWith);
 
   return (
     <section className='mood'>
@@ -24,7 +24,7 @@ const MoodSection = () => {
                 </div>
                 <div className="mood__cards" 
                     ref={listRef as Ref<HTMLDivElement>}
-                    style={{transform: `translateX(-${countSpin * oneScroll}px)`}}
+                    style={{transform: `translateX(-${countSpin * moodCardWith}px)`}}
                 >
                     {moodList.map((card) => (
                         <button key={card.text}

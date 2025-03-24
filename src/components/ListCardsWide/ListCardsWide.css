@@ -1,7 +1,7 @@
 .list-wide {
     display: flex;
     width: 100%;
-    column-gap: 28px;
+    column-gap: 25px;
     transition: transform .7s ease;
 }
 .list-wide__card {
