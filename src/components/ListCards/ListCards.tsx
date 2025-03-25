@@ -1,4 +1,3 @@
-import { smallCardWith } from "@/app/constants/movies"
 import { TSetState } from "@/types/global"
 import { IMovie } from "@/types/movies"
 import getColor from "@/utils/getColorVote"
@@ -7,7 +6,6 @@ import { FC, Ref, RefObject } from "react"
 interface Props {
     listRef: RefObject<HTMLElement | null>,
     movies: IMovie[],
-    countSpin: number,
     hero?: boolean,
     voting?: boolean,
     select?: {
@@ -15,13 +13,12 @@ interface Props {
         setSelectMovie: TSetState<number>,
     },
 }
-const ListCards: FC<Props> = ({listRef, movies, countSpin, select, hero = false, voting=false}) => {
+const ListCards: FC<Props> = ({listRef, movies, select, hero = false, voting=false}) => {
     const addedClass = ((index: number) => (index === select?.selectMovie) ? 'hero__card-active' : '');
 
   return (
-    <div className={`card-list__row ${hero ? 'hero__list' : ''}`} 
-        ref={listRef as Ref<HTMLDivElement>} 
-        style={{transform: `translateX(-${countSpin * 3 * smallCardWith}px)`}}>
+    <div className={`card-list__row list-scroll ${hero ? 'hero__list' : ''}`} 
+        ref={listRef as Ref<HTMLDivElement>}>
         {movies.length > 0 &&  movies.map((movie, index) => (
             <button 
                 className={`card-list__card ${hero ? 'hero__card ' + addedClass(index) : ''}`}

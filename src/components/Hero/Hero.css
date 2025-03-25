@@ -133,9 +133,8 @@
 
 /* лист карточек */
 .hero__list {
-    align-items: end;
     z-index: 2;
-    bottom: 30px;
+    bottom: 20px;
 }
 .hero__card {
     position: relative;

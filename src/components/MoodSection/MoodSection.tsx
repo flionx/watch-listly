@@ -1,13 +1,12 @@
+import { Ref, useRef } from 'react'
 import ButtonHero from '@/ui/ButtonHero/ButtonHero'
+import ButtonsArrow from '@/ui/ButtonsArrow/ButtonsArrow'
+import { moodCardWith } from '@/app/constants/movies'
 import { moodList } from './moodList'
 import './MoodSection.css'
-import ButtonsArrow from '@/ui/ButtonsArrow/ButtonsArrow'
-import useSpinStep from '@/hooks/useSpinStep'
-import { Ref } from 'react'
-import { moodCardWith } from '@/app/constants/movies'
 
 const MoodSection = () => {
-    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(moodList, 1, moodCardWith);
+    const listRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className='mood'>
@@ -18,13 +17,13 @@ const MoodSection = () => {
                     <ButtonsArrow
                         parentClass="arrows-full-w"
                         buttonClass="arrow-circle arrow-btn"
-                        maxSteps={maxSteps}
-                        setCountSpin={setCountSpin}
+                        cardWith={moodCardWith}
+                        listRef={listRef}
+                        countScroll={1}
                     />
                 </div>
-                <div className="mood__cards" 
+                <div className="mood__cards list-scroll" 
                     ref={listRef as Ref<HTMLDivElement>}
-                    style={{transform: `translateX(-${countSpin * moodCardWith}px)`}}
                 >
                     {moodList.map((card) => (
                         <button key={card.text}

@@ -2,25 +2,22 @@ import { FC, Ref, RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import getImageUrl from '@/utils/getImageUrl'
 import { IMovie } from '@/types/movies'
-import { countScrollWide, wideCardWith } from '@/app/constants/movies'
 import './ListCardsWide.css'
 interface Props {
     movies: IMovie[],
     listRef: RefObject<HTMLElement | null>,
-    countSpin: number,
 }
 
-const ListCardsWide:FC<Props> = ({movies, listRef, countSpin}) => {
+const ListCardsWide:FC<Props> = ({movies, listRef}) => {
 
   return (
-    <div className='list-wide'
-        style={{transform: `translateX(-${countSpin * countScrollWide * wideCardWith}px)`}}
+    <div className='list-wide list-scroll'
         ref={listRef as Ref<HTMLDivElement>}>
         {movies.length > 0 && movies.map((movie, index) => (
             <div className='list-wide__card'
                 key={movie.id}
             >
-                <Link to='/' className="list-wide__card-img" style={{backgroundImage: `url(${getImageUrl(movie.poster_path, 'w400')})`}}></Link>
+                <Link to='/' className="list-wide__card-img" style={{backgroundImage: `url(${getImageUrl(movie.backdrop_path, 'w500')})`}}></Link>
                 <div className="list-wide__card-bottom">
                     <Link to='/' className="list-wide__card-title">{movie.title || movie.name}</Link>
                     <div className="list-wide__card-info">
