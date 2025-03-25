@@ -24,17 +24,15 @@
 }
 .card-list__row {
     display: flex;
-    height: 210px;
+    height: 215px;
     column-gap: 25px;
     position: relative;
-    transform: translateX(0);
-    transition: transform .7s ease;
 }
 .card-list__card {
     min-width: 145px;
     height: 195px;
+    max-height: 210px;
     border-radius: 8px;
-    overflow: hidden;
     position: relative;
     transition: .3s all;
 }   
@@ -49,10 +47,12 @@
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.3);
+    border-radius: inherit;
 }
 .card-list__card img{
     width: 100%;
     height: 100%;
+    border-radius: inherit;
 }
 
 .card-list__vote {

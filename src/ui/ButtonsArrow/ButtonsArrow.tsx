@@ -1,26 +1,27 @@
-import { FC } from 'react'
-import { TSetState } from '@/types/global'
+import { FC, RefObject } from 'react'
 import './ButtonsArrow.css'
 interface Props {
   parentClass: string,
   buttonClass: string,
-  setCountSpin: TSetState<number>
-  maxSteps: number
+  listRef: RefObject<HTMLDivElement | null>,
+  cardWith: number,
+  countScroll: number,
 }
 
-const ButtonsArrow: FC<Props> = ({setCountSpin, maxSteps, parentClass, buttonClass}) => {
-  const prevHandle = () => {
-    setCountSpin((prev) => Math.max(0, prev - 1));
-  };
+const ButtonsArrow: FC<Props> = ({parentClass, buttonClass, listRef, cardWith, countScroll}) => {
   
-  const nextHandle = () => {
-    setCountSpin((prev) => Math.min(maxSteps, prev + 1));
-  };
+  const scrollList = (toLeft: boolean) => {
+    if (!listRef.current) return;    
+    listRef.current.scrollBy({
+      left: toLeft ? -(cardWith * countScroll) : (cardWith * countScroll),
+      behavior:'smooth'
+    })
+  }
 
   return (
     <div className={parentClass}>
-        <button onClick={prevHandle} className={`${buttonClass} arrow-btn`}></button>
-        <button onClick={nextHandle} className={`${buttonClass} arrow-btn`}></button>
+        <button onClick={() => scrollList(true)} className={`${buttonClass} arrow-btn`}></button>
+        <button onClick={() => scrollList(false)} className={`${buttonClass} arrow-btn`}></button>
     </div>
   )
 }

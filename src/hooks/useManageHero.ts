@@ -2,23 +2,19 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from './useRedux';
 import { getOrFetchMovies } from '@/app/store/slices/moviesSlice';
 import { TSetState } from '@/types/global';
-import useSpinStep from './useSpinStep';
-import { smallCardWith } from '@/app/constants/movies';
-
 const useManageHero = () => {
     const [selectMovie, setSelectMovie] = useState(0);
     const callSetSelectMovie = useCallback<TSetState<number>>((value) => setSelectMovie(value), [])
     
     const movies = useAppSelector(state => state.movies.hero)
     
-    const {countSpin, maxSteps, listRef, setCountSpin} = useSpinStep(movies, 3, smallCardWith)
-
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(getOrFetchMovies({path: 'trending/all/day', key: 'movies-hero'}))
     }, [])
 
     const heroRef = useRef<HTMLElement>(null)
+    const listRef = useRef<HTMLDivElement >(null)
 
     const intervalId = useRef<NodeJS.Timeout>(null)
     useEffect(() => {
@@ -31,11 +27,7 @@ const useManageHero = () => {
         };
     }, [selectMovie, movies]);
     
-    
-    return {
-        movies, selectMovie, setSelectMovie: callSetSelectMovie, 
-        countSpin, setCountSpin, maxSteps, heroRef, listRef
-    }
+    return { movies, selectMovie, setSelectMovie: callSetSelectMovie, heroRef, listRef}
 }
 
 export default useManageHero
