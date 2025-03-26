@@ -3,7 +3,13 @@ import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { IMovie } from "../../../types/movies";
 
-export type TStorageKey = 'movies-hero' | 'movies-popular' | 'movies-watching' | 'movies-upcoming'
+export type TStorageKey = 
+| 'movies-hero' 
+| 'movies-popular' 
+| 'movies-watching' 
+| 'movies-upcoming' 
+| 'movie';
+
 interface IFetchProps {
   path: string,
   key: TStorageKey,
@@ -21,20 +27,20 @@ export const getOrFetchMovies = createAsyncThunk(
     const ON_STORAGE_DAYS = 7;
 
     try {
-      const storage = localStorage.getItem(key);
-      if (storage) {
-        const { movies, lastUpdated } = JSON.parse(storage) as {
-          movies: IMovie[], 
-          lastUpdated: string
-        }; 
-        const lastUpdatedDate = new Date(lastUpdated);
-        const now = new Date();
-        const hoursDiff = (now.getTime() - lastUpdatedDate.getTime()) / 1000 / 60 / 60;
-
-        if (hoursDiff < CACHE_HOURS) { 
-          return { key, movies, lastUpdated}; // 1 - storage
-        }
-      } 
+        const storage = localStorage.getItem(key);
+        if (storage) {
+          const { movies, lastUpdated } = JSON.parse(storage) as {
+            movies: IMovie[], 
+            lastUpdated: string
+          }; 
+          const lastUpdatedDate = new Date(lastUpdated);
+          const now = new Date();
+          const hoursDiff = (now.getTime() - lastUpdatedDate.getTime()) / 1000 / 60 / 60;
+  
+          if (hoursDiff < CACHE_HOURS) { 
+            return { key, movies, lastUpdated}; // 1 - storage
+          }
+        } 
 
       const docRef = doc(db, "movies", key);
       const docSnap = await getDoc(docRef);
@@ -61,7 +67,7 @@ export const getOrFetchMovies = createAsyncThunk(
         }
         
       }
-      const response = await fetch(`/api/tmdb?path=${path}&language=en-EN`);
+      const response = await fetch(`/api/tmdb?path=${path}&language=en-US`);
       if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
       }
@@ -82,13 +88,64 @@ export const getOrFetchMovies = createAsyncThunk(
 
 )
 
+
+export const fetchMovieWithId = createAsyncThunk(
+  'movies/fetchMovieWithId',
+  async (id: string, {rejectWithValue}) => {
+    const ON_STORAGE_DAYS = 100;
+
+    try {
+      const docRef = doc(db, "movies-id", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const {movie, lastUpload} = docSnap.data() as {
+          movie: IMovie, 
+          lastUpload: string
+        };  
+        const lastUploadDate = new Date(lastUpload);
+        const now = new Date();
+        const daysDiff = (now.getTime() - lastUploadDate.getTime()) / 86400000  // 86400000 = 1000 / 60 / 60 / 24;
+        
+        if (movie && daysDiff < ON_STORAGE_DAYS) {
+          return movie
+        } else {
+          await deleteDoc(docRef);
+        }
+      }
+      const response = await fetch(`/api/tmdb?path=movie/${id}&language=en-US`);
+      if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const result = await response.json() as IMovie;
+
+      const saveData = {movie: result, lastUpload: new Date().toISOString()};
+      await setDoc(docRef, saveData); 
+      return result; // 3 - tmdb api
+
+    } catch (err: any) {
+        console.error("Error fetching data:", err);
+        return rejectWithValue(err.response.data) 
+    } 
+  }
+
+)
+
+type TLoading = 'idle' | 'pending' | 'succeeded' | 'failed';
+type TError = string | null | undefined;
 interface IState {
   hero: IMovie[],
   popular: IMovie[],
   watching: IMovie[],
   upcoming: IMovie[],
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed',
-  error: string | null | undefined;
+  movie: {
+    movie: IMovie | {},
+    loading: TLoading,
+    error: TError,
+  },
+  loading: TLoading,
+  error: TError;
 }
 
 const initialState: IState = {
@@ -96,6 +153,11 @@ const initialState: IState = {
     popular: [],
     watching: [],
     upcoming: [],
+    movie: {
+      movie: {},
+      loading: 'idle',
+      error: null,
+    },
     loading: 'idle',
     error: null
 }
@@ -111,7 +173,10 @@ const moviesSlice = createSlice({
     setMoviesPopular: (state, action: PayloadAction<IMovie[]>) => {      
       state.popular = action.payload;
       localStorage.setItem('movies-popular', JSON.stringify(state.popular))
-    }
+    },
+    setMovie: (state, action: PayloadAction<IMovie | {}>) => {      
+      state.movie.movie = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getOrFetchMovies.pending, (state) => {
@@ -139,9 +204,21 @@ const moviesSlice = createSlice({
     .addCase(getOrFetchMovies.rejected, (state, action) => {
       state.loading = 'failed';
       state.error = action.error.message
-    });
+    })
+
+    .addCase(fetchMovieWithId.pending, (state) => {
+      state.movie.loading = 'pending';
+    })
+    .addCase(fetchMovieWithId.fulfilled, (state, action: PayloadAction<IMovie>) => {
+      state.movie.movie = action.payload;
+      state.movie.loading = 'succeeded';
+    })
+    .addCase(fetchMovieWithId.rejected, (state, action) => {
+      state.movie.loading = 'failed';
+      state.movie.error = action.error.message
+    })
   },
 });
 
-export const { setMoviesHero, setMoviesPopular} = moviesSlice.actions;
+export const { setMoviesHero, setMoviesPopular, setMovie} = moviesSlice.actions;
 export default moviesSlice.reducer;

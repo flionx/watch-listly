@@ -2,6 +2,7 @@ import { FC } from "react"
 import { IMovie } from "@/types/movies"
 import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 import getColor from "@/utils/getColorVote"
+import { Link } from "react-router-dom"
 interface Props {
     movie: IMovie
 }
@@ -21,9 +22,11 @@ const HeroInfo:FC<Props> = ({movie}) => {
         </div>
         <p className="hero__text">{movie?.overview}</p>
         <div className="hero__info-btns">
-            <ButtonHero noBg onClick={() => {}}>Learn more</ButtonHero>
-            <ButtonHero onClick={() => {}}>Watch trailer</ButtonHero>
-            <ButtonHero onClick={() => {}}>Add to list</ButtonHero>
+            <Link to={`movie/${movie.id}`}>
+                <ButtonHero noBg onClick={() => {}}>Learn more</ButtonHero>
+            </Link>
+            <ButtonHero icon='triangle' onClick={() => {}}>Watch trailer</ButtonHero>
+            <ButtonHero icon='plus' onClick={() => {}}>Add to list</ButtonHero>
         </div>
     </div>
   )

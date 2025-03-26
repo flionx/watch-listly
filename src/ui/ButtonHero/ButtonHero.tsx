@@ -1,15 +1,16 @@
 import { FC, ReactNode } from 'react'
 interface Props {
     noBg?: boolean, 
+    icon?: string, 
     onClick: VoidFunction,
     children: ReactNode,
 }
 
-const ButtonHero: FC<Props> = ({noBg, onClick, children}) => {
+const ButtonHero: FC<Props> = ({noBg, icon, onClick, children}) => {
   return (
-    <button className={`hero__button ${noBg ? 'hero__button-nobg' : ''}`}
+    <button className={`hero__button ${(icon ? icon + ' ': '') + (noBg ? 'hero__button-nobg' : '')}`}
         onClick={onClick}
-    ><span></span>{children}</button>
+    ><span style={{display: `${icon ? '' : 'none'}`}}></span>{children}</button>
   )
 }
 
