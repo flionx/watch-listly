@@ -39,34 +39,6 @@
     margin-bottom: 10px;
 
 }
-.hero__vote {
-    padding: 5px 10px;
-    font-weight: 400;
-    font-size: 14px;
-    color: #ffffff;
-    border-radius: 4px;
-    position: relative;
-    margin-left: 23px;
-}
-.hero__vote::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -23px;
-    width: 19px;
-    height: 18px;
-    transform: translateY(-50%);
-    background-image: url('../../../public/hero/star.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.hero__vote-count {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 160%;
-    color: rgba(255, 255, 255, 0.4);
-}
 .hero__year {
     font-weight: 400;
     font-size: 14px;
@@ -99,14 +71,12 @@
     background: var(--main-color);
     border: 1px solid var(--main-color);
     transition: .3s all;
+    font-weight: 500;
     color: #000000;
 }
 .hero__button-nobg {
     background: transparent;
     color: #ffffff;
-}
-.hero__button-nobg span{
-    display: none;
 }
 
 .hero__button:hover {
@@ -116,12 +86,12 @@
     border: 1px solid #2bcaaf;
 }
 
-.hero__button:nth-child(2) span {
+.hero__button.triangle span {
     width: 10px;
     height: 15px;
     background-image: url('../../../public/hero/triangle-right.svg');
 }
-.hero__button:nth-child(3) span::after {
+.hero__button.plus span::after {
     content: '+';
     font-family: var(--second-font);
     font-weight: 700;
@@ -129,6 +99,11 @@
     line-height: 133%;
     text-align: center;
     color: #080808;
+}
+.hero__button.share span {
+    width: 21px;
+    height: 20px;
+    background-image: url('../../../public/moviePage/share.svg');
 }
 
 /* лист карточек */

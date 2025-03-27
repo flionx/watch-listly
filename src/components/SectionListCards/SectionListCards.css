@@ -1,7 +1,10 @@
 .card-list {
-    padding: 0 0 0 35px;
     position: relative;
+    padding: 0 0 0 35px;
     margin-bottom: 30px;
+}
+.card-list-p0 {
+    padding: 0;
 }
 .card-list__title {
     width: fit-content;

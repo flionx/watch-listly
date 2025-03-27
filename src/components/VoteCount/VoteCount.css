@@ -1,0 +1,34 @@
+.vote-block {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    column-gap: 10px;
+}
+.vote-avg {
+    padding: 5px 10px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 4px;
+    position: relative;
+    margin-left: 23px;
+}
+.vote-avg::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -23px;
+    width: 19px;
+    height: 18px;
+    transform: translateY(-50%);
+    background-image: url('../../../public/hero/star.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.vote-avg-count {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    color: rgba(255, 255, 255, 0.4);
+}
