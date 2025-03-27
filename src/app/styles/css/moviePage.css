@@ -35,7 +35,7 @@
     row-gap: 10px;
     position: relative;
     z-index: 2;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .movie-page-hero__title {
@@ -106,10 +106,36 @@
 .details-movie__row {
     font-weight: 400;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--gray-light-color);
     padding-left: 22px;
     position: relative;
     display: flex;
     align-items: center;
     column-gap: 6px;
+}
+
+.details-movie__line {
+    height: 1px;
+    width: 100%;
+    background: var(--gray-light-color);
+}
+.details-movie__genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.details-movie__genre {
+    padding: 8px;
+    width: fit-content;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--gray-light-color);
+    border: 1px solid var(--gray-light-color);
+    transition: color .3s, background .4s;
+}
+.details-movie__genre:hover {
+    color: #ffffff;
+    background: rgba(163, 163, 163, 0.23);
 }

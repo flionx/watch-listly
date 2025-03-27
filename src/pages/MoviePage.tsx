@@ -5,11 +5,12 @@ import ButtonHero from "@/ui/ButtonHero/ButtonHero";
 import getImageUrl from "@/utils/getImageUrl"
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import DetailsMovie from "@/components/DetailsMovie/DetailsMovie";
+import LineDetails from "@/components/DetailsMovie/LineDetails";
+import DetailsGenres from "@/components/DetailsMovie/DetailsGenres";
+import VoteCount from "@/components/VoteCount/VoteCount";
 import '@/app/styles/css/moviePage.css';
-import dateIcon from '/moviePage/date.svg?url'
-import clockIcon from '/moviePage/clock.svg?url'
-import countryIcon from '/moviePage/country.svg?url'
-import moneyIcon from '/moviePage/money.svg?url'
+import WideListSection from "@/components/WideListSection/WideListSection";
 
 const MoviePage = () => {
     const movie = useAppSelector(state => state.movies.movie.movie) as IMovie;
@@ -20,7 +21,7 @@ const MoviePage = () => {
         return () => {
             dispatch(setMovie({}))
         }
-    }, [])
+    }, [id])
 
   return (
     <>
@@ -46,25 +47,19 @@ const MoviePage = () => {
                     <div className="movie-main__detail">
                         <div className="movie-main__column details-movie">
                             <h4 className="details-movie__title">Details</h4>
-                            <p className="details-movie__row">
-                                <img src={dateIcon} alt="date icon" />
-                                {movie.release_date}
-                            </p>
-                            <p className="details-movie__row">
-                                <img src={clockIcon} alt="date icon" />
-                                {movie.runtime} mins
-                            </p>
-                            <p className="details-movie__row">
-                                <img src={countryIcon} alt="date icon" />
-                                {movie.production_countries[0]?.name ?? ''}
-                            </p>
-                            <p className="details-movie__row">
-                                <img src={moneyIcon} alt="date icon" />
-                                {movie.budget}
-                            </p>
+                            <DetailsMovie movie={movie} />
+                            <LineDetails />
+                            <h4 className="details-movie__title">Genres</h4>
+                            <DetailsGenres genres={movie.genres}/>
+                            <LineDetails />
+                            <VoteCount movie={movie}/>
                         </div>
                     </div>
                 </div>
+                <WideListSection title='See also'
+                    path='movie/now_playing' storageKey="movies-watching"
+                    padding={false}
+                />
             </section>
         }
     </>

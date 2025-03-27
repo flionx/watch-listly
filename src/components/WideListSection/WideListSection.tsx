@@ -8,9 +8,10 @@ interface Props {
   title: string,
   path: string,
   storageKey: 'movies-watching' | 'movies-upcoming',
+  padding?: boolean
 }
 
-const WideListSection:FC<Props> = ({title, path, storageKey}) => {
+const WideListSection:FC<Props> = ({title, path, storageKey, padding = true}) => {
   const dispatch = useAppDispatch();
     const moviesWatching =  useAppSelector(state => (
       storageKey === 'movies-watching' ? state.movies.watching : state.movies.upcoming
@@ -21,7 +22,7 @@ const WideListSection:FC<Props> = ({title, path, storageKey}) => {
     const listRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section className="card-list">
+    <section className={`card-list ${!padding ? 'card-list-p0' : ''}`}>
         <h3 className="card-list__title">{title}</h3>
         <ButtonsArrow 
             parentClass="arrows-full-w"

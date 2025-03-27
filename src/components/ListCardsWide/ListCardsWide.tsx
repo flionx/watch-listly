@@ -17,9 +17,9 @@ const ListCardsWide:FC<Props> = ({movies, listRef}) => {
             <div className='list-wide__card'
                 key={movie.id}
             >
-                <Link to='/' className="list-wide__card-img" style={{backgroundImage: `url(${getImageUrl(movie.backdrop_path, 'w500')})`}}></Link>
+                <Link to={`/movie/${movie.id}`} className="list-wide__card-img" style={{backgroundImage: `url(${getImageUrl(movie.backdrop_path, 'w500')})`}}></Link>
                 <div className="list-wide__card-bottom">
-                    <Link to='/' className="list-wide__card-title">{movie.title || movie.name}</Link>
+                    <Link to={`/movie/${movie.id}`} className="list-wide__card-title">{movie.title || movie.name}</Link>
                     <div className="list-wide__card-info">
                         {movie.vote_average > 0 && <div className="list-wide__card-vote">{(movie.vote_average).toFixed(1)}</div>}
                         <div className="list-wide__card-date">{movie.release_date}</div>

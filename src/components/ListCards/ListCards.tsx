@@ -1,8 +1,7 @@
+import { FC, Ref, RefObject } from "react"
 import { TSetState } from "@/types/global"
 import { IMovie } from "@/types/movies"
-import getColor from "@/utils/getColorVote"
-import getImageUrl from "@/utils/getImageUrl"
-import { FC, Ref, RefObject } from "react"
+import ListCardsCard from "./ListCardsCard"
 interface Props {
     listRef: RefObject<HTMLElement | null>,
     movies: IMovie[],
@@ -13,27 +12,20 @@ interface Props {
         setSelectMovie: TSetState<number>,
     },
 }
-const ListCards: FC<Props> = ({listRef, movies, select, hero = false, voting=false}) => {
-    const addedClass = ((index: number) => (index === select?.selectMovie) ? 'hero__card-active' : '');
+const ListCards: FC<Props> = ({listRef, movies, select, hero = false, voting = false}) => {
+    const listClass = hero ? 'hero__list' : '';
 
   return (
-    <div className={`card-list__row list-scroll ${hero ? 'hero__list' : ''}`} 
+    <div className={`card-list__row list-scroll ${listClass}`} 
         ref={listRef as Ref<HTMLDivElement>}>
         {movies.length > 0 &&  movies.map((movie, index) => (
-            <button 
-                className={`card-list__card ${hero ? 'hero__card ' + addedClass(index) : ''}`}
-                key={movie.id} 
-                onClick={select ? () => select?.setSelectMovie(index) :
-                    () => {}
-                }
-            >
-                {voting && movie.vote_average > 0 && 
-                    <div className="card-list__vote"
-                        style={{background: getColor(movie?.vote_average)}}>
-                        {movie.vote_average.toFixed(1)}
-                    </div>}
-                <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt={movie.title} />
-            </button>
+            <ListCardsCard key={movie.id}
+                index={index}
+                movie={movie} 
+                hero={hero} 
+                select={select} 
+                voting={voting}
+            />
         ))}
     </div>
   )
