@@ -59,8 +59,11 @@ const MoviePage = () => {
                             <LineDetails />
                             <h4 className="details-movie__title">Genres</h4>
                             <DetailsGenres genres={movie.genres}/>
-                            <LineDetails />
-                            <VoteCount movie={movie}/>
+                            {movie.vote_count > 0 && 
+                            <>
+                                <LineDetails />
+                                <VoteCount vote={movie.vote_average} count={movie.vote_count}/>
+                            </>}
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,11 @@
 }
 .hero__title {
     font-weight: 600;
-    font-size: 55px;
+    font-size: 45px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Количество строк */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .hero__info-info {
     display: flex;
