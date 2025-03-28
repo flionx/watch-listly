@@ -34,7 +34,7 @@ const ListCardsCard: FC<Props> = ({movie, index, hero, voting, select}) => {
             <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt={movie.title} />
         </button>
     ) : (
-        <Link to={`/movie/${movie.id}`} 
+        <Link to={`/${movie.media_type}/${movie.id}`} 
             className={`card-list__card ${hero ? 'hero__card ' + cardClass(index) : ''}`}
             key={movie.id} >
                 {voting && movie.vote_average > 0 && 

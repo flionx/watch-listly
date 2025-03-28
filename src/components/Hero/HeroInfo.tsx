@@ -20,7 +20,7 @@ const HeroInfo:FC<Props> = ({movie}) => {
         </div>
         <p className="hero__text">{movie?.overview}</p>
         <div className="hero__info-btns">
-            <Link to={`movie/${movie.id}`}>
+            <Link to={`/${movie.media_type}/${movie.id}`}>
                 <ButtonHero noBg onClick={() => {}}>Learn more</ButtonHero>
             </Link>
             <ButtonHero icon='triangle' onClick={() => {}}>Watch trailer</ButtonHero>

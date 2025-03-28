@@ -11,13 +11,16 @@ import DetailsGenres from "@/components/DetailsMovie/DetailsGenres";
 import VoteCount from "@/components/VoteCount/VoteCount";
 import '@/app/styles/css/moviePage.css';
 import WideListSection from "@/components/WideListSection/WideListSection";
+import DetailsTv from "@/components/DetailsMovie/DetailsTv";
 
 const MoviePage = () => {
     const movie = useAppSelector(state => state.movies.movie.movie) as IMovie;
-    const {id} = useParams();
+    const {id, type } = useParams();
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(fetchMovieWithId(String(id)));
+        dispatch(fetchMovieWithId(
+            {id: String(id), type: type as 'tv' | 'movie'}
+        ));
         return () => {
             dispatch(setMovie({}))
         }
@@ -48,6 +51,7 @@ const MoviePage = () => {
                         <div className="movie-main__column details-movie">
                             <h4 className="details-movie__title">Details</h4>
                             <DetailsMovie movie={movie} />
+                            {/* <DetailsTv movie={movie} /> */}
                             <LineDetails />
                             <h4 className="details-movie__title">Genres</h4>
                             <DetailsGenres genres={movie.genres}/>
@@ -59,6 +63,7 @@ const MoviePage = () => {
                 <WideListSection title='See also'
                     path='movie/now_playing' storageKey="movies-watching"
                     padding={false}
+                    type="movie"
                 />
             </section>
         }

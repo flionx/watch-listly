@@ -8,6 +8,7 @@ export type TStorageKey =
 | 'movies-popular' 
 | 'movies-watching' 
 | 'movies-upcoming' 
+| 'movies-series' 
 | 'movie';
 
 interface IFetchProps {
@@ -91,11 +92,11 @@ export const getOrFetchMovies = createAsyncThunk(
 
 export const fetchMovieWithId = createAsyncThunk(
   'movies/fetchMovieWithId',
-  async (id: string, {rejectWithValue}) => {
+  async ({id, type} : {id: string, type: 'tv' | 'movie'}, {rejectWithValue}) => {
     const ON_STORAGE_DAYS = 100;
 
     try {
-      const docRef = doc(db, "movies-id", id);
+      const docRef = doc(db, `${type}-id`, id);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -113,7 +114,7 @@ export const fetchMovieWithId = createAsyncThunk(
           await deleteDoc(docRef);
         }
       }
-      const response = await fetch(`/api/tmdb?path=movie/${id}&language=en-US`);
+      const response = await fetch(`/api/tmdb?path=${type}/${id}&append_to_response=videos&language=en-US`);
       if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
       }
@@ -138,6 +139,7 @@ interface IState {
   hero: IMovie[],
   popular: IMovie[],
   watching: IMovie[],
+  series: IMovie[],
   upcoming: IMovie[],
   movie: {
     movie: IMovie | {},
@@ -152,6 +154,7 @@ const initialState: IState = {
     hero: [],
     popular: [],
     watching: [],
+    series: [],
     upcoming: [],
     movie: {
       movie: {},
@@ -194,6 +197,9 @@ const moviesSlice = createSlice({
       }
       if (action.payload.key === "movies-upcoming") {
         state.upcoming = action.payload.movies;
+      }
+      if (action.payload.key === "movies-series") {
+        state.series = action.payload.movies;
       }
       localStorage.setItem(action.payload.key, JSON.stringify({ 
         movies: action.payload.movies, 

@@ -30,7 +30,7 @@ const router = createBrowserRouter([
                 element: <FriendsPage />
             },
             {
-                path: 'movie/:id',
+                path: ':type/:id/',
                 element: <MoviePage />
             },
             

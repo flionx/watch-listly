@@ -47,7 +47,7 @@ a {
   scroll-snap-type: x mandatory; 
   scroll-behavior: smooth; 
   -webkit-overflow-scrolling: touch; /* Инерция на iOS */
-  touch-action: pan-x;
+  touch-action: manipulation;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;
   align-items: center;

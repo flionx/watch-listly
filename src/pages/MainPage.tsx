@@ -10,10 +10,16 @@ const MainPage = () => {
       <PopularSection />
       <WideListSection title='Currently Watching'
         path='movie/now_playing' storageKey="movies-watching"
+        type='movie'
       />
       <MoodSection />
+      <WideListSection title='Popular Series' 
+        path='tv/top_rated' storageKey="movies-series"
+        type='tv'
+      />
       <WideListSection title='Upcoming' 
         path='movie/upcoming' storageKey="movies-upcoming"
+        type='movie'
       />
     </>
   )
