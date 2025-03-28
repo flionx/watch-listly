@@ -4,17 +4,21 @@ import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
 import { countScrollWide, wideCardWith } from "@/app/constants/movies";
 import ListCardsWide from "../ListCardsWide/ListCardsWide";
 import ButtonsArrow from "@/ui/ButtonsArrow/ButtonsArrow"
+import { TMovieMediaType } from "@/types/global";
 interface Props {
   title: string,
   path: string,
-  storageKey: 'movies-watching' | 'movies-upcoming',
+  type: TMovieMediaType,
+  storageKey: 'movies-watching' | 'movies-upcoming' | 'movies-series',
   padding?: boolean
 }
 
-const WideListSection:FC<Props> = ({title, path, storageKey, padding = true}) => {
+const WideListSection:FC<Props> = ({title, path, storageKey, padding = true, type}) => {
   const dispatch = useAppDispatch();
     const moviesWatching =  useAppSelector(state => (
-      storageKey === 'movies-watching' ? state.movies.watching : state.movies.upcoming
+      storageKey === 'movies-watching' ? state.movies.watching : 
+      (storageKey === 'movies-series') ? state.movies.series : 
+      state.movies.upcoming
     ));    
     useEffect(() => {
         dispatch(getOrFetchMovies({path, key: storageKey}))
@@ -32,7 +36,10 @@ const WideListSection:FC<Props> = ({title, path, storageKey, padding = true}) =>
             listRef={listRef}
         />
         <ListCardsWide
-            movies={moviesWatching} listRef={listRef}/>
+            movies={moviesWatching} 
+            listRef={listRef}
+            type={type}
+            />
     </section>
   )
 }

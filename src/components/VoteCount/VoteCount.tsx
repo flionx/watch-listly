@@ -3,17 +3,18 @@ import { IMovie } from '@/types/movies'
 import getColor from '@/utils/getColorVote'
 import './VoteCount.css'
 interface Props {
-    movie: IMovie,
+  vote: IMovie['vote_average'],
+  count: IMovie['vote_count'],
 }
 
-const VoteCount:FC<Props> = ({movie}) => {
+const VoteCount:FC<Props> = ({vote, count}) => {
   return (
     <div className='vote-block'>
-    {movie.vote_count > 0 && 
+    {count > 0 && 
         <div className="vote-avg" 
-            style={{background: getColor(movie?.vote_average)}}
-        >{movie?.vote_average.toFixed(1)}</div> }
-    <div className="vote-avg-count">{'(' + movie?.vote_count + ')'}</div>
+            style={{background: getColor(vote)}}
+        >{vote.toFixed(1)}</div> }
+    <div className="vote-avg-count">{'(' + count + ')'}</div>
     </div>
   )
 }

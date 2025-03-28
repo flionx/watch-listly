@@ -60,6 +60,7 @@
 }
 .movie-main__main {
     flex: 1 1;
+    padding-right: 15px;
 }
 .movie-main__detail {
     width: 300px;
