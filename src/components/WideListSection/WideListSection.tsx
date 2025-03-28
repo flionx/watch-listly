@@ -4,10 +4,11 @@ import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
 import { countScrollWide, wideCardWith } from "@/app/constants/movies";
 import ListCardsWide from "../ListCardsWide/ListCardsWide";
 import ButtonsArrow from "@/ui/ButtonsArrow/ButtonsArrow"
+import { TMovieMediaType } from "@/types/global";
 interface Props {
   title: string,
   path: string,
-  type: 'movie' | 'tv',
+  type: TMovieMediaType,
   storageKey: 'movies-watching' | 'movies-upcoming' | 'movies-series',
   padding?: boolean
 }

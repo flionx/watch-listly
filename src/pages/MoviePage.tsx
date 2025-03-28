@@ -1,17 +1,17 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { fetchMovieWithId, setMovie } from "@/app/store/slices/moviesSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { IMovie } from "@/types/movies";
 import ButtonHero from "@/ui/ButtonHero/ButtonHero";
 import getImageUrl from "@/utils/getImageUrl"
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import DetailsMovie from "@/components/DetailsMovie/DetailsMovie";
 import LineDetails from "@/components/DetailsMovie/LineDetails";
 import DetailsGenres from "@/components/DetailsMovie/DetailsGenres";
 import VoteCount from "@/components/VoteCount/VoteCount";
-import '@/app/styles/css/moviePage.css';
 import WideListSection from "@/components/WideListSection/WideListSection";
-import DetailsTv from "@/components/DetailsMovie/DetailsTv";
+import '@/app/styles/css/moviePage.css';
+import { TMovieMediaType } from "@/types/global";
 
 const MoviePage = () => {
     const movie = useAppSelector(state => state.movies.movie.movie) as IMovie;
@@ -21,6 +21,11 @@ const MoviePage = () => {
         dispatch(fetchMovieWithId(
             {id: String(id), type: type as 'tv' | 'movie'}
         ));
+        scrollTo({
+            top: 0,            
+            behavior:"smooth",
+        })
+
         return () => {
             dispatch(setMovie({}))
         }
@@ -50,8 +55,7 @@ const MoviePage = () => {
                     <div className="movie-main__detail">
                         <div className="movie-main__column details-movie">
                             <h4 className="details-movie__title">Details</h4>
-                            <DetailsMovie movie={movie} />
-                            {/* <DetailsTv movie={movie} /> */}
+                            <DetailsMovie movie={movie} type={type as TMovieMediaType}/> 
                             <LineDetails />
                             <h4 className="details-movie__title">Genres</h4>
                             <DetailsGenres genres={movie.genres}/>

@@ -9,7 +9,7 @@ export interface IMovie {
     vote_average: number,
     vote_count: number,
     runtime: number,
-    media_type: string,
+    media_type?: string,
     // for moviePage
     budget: number,
     video: boolean | string,
