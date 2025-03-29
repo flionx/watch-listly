@@ -1,0 +1,18 @@
+/* show mobile nav, hide sidebar */
+
+@media (max-width: 34.375rem), (pointer: coarse) and (max-width: 41.875rem) {
+    .mobile-nav {
+        display: flex !important;
+    }
+    .sidebar {
+        display: none !important;
+    }
+    body {
+        padding-bottom: 60px; /* mobile nav height */
+    }
+    .container-main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+
+    }
+}
