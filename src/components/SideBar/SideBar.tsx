@@ -1,22 +1,16 @@
-import { FC, useRef} from "react"
+import { useRef, useState} from "react"
 import { Link, NavLink } from "react-router-dom"
 import { mainSidebarLinks } from "./links"
 import { useAppSelector } from "@/hooks/useRedux"
-import { TSetState } from "@/types/global"
 import test1 from '/sidebar/test1.png?url'
 import test2 from '/sidebar/test2.png?url'
 import test3 from '/sidebar/test3.png?url'
 import logo from '/sidebar/logo.svg?url'
 import './Sidebar.css'
-interface Props {
-    open: {
-        isOpen: boolean,
-        setIsOpen: TSetState<boolean>,
-    }
-}
 
-const SideBar:FC<Props> = ({open}) => {
-    const {isOpen, setIsOpen} = open;
+const SideBar = () => {    
+    const [isOpen, setIsOpen] = useState(false);
+    // const callSetOpen = useCallback<TSetState<boolean>>((value) => setIsOpen(value), [])
     const defineClass = !isOpen ? 'anim-close' : 'anim-show';
     const searchRef = useRef<HTMLInputElement>(null);
     const searchHandle = () => {

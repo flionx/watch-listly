@@ -12,14 +12,16 @@ export interface IMovie {
     media_type?: string,
     // for moviePage
     budget: number,
-    video: boolean | string,
     production_countries: IProdCountries[],
     genres: IMovieGenre[],
     // series
     first_air_date?: string,
     number_of_seasons?: number,
     number_of_episodes?: number,
-
+    // videos(for trailer)
+    videos?: {
+        results: IMovieVideo[],
+    },
 }
 
 interface IProdCountries {
@@ -28,4 +30,12 @@ interface IProdCountries {
 export interface IMovieGenre {
     id: number,
     name: string
+}
+
+export interface IMovieVideo {
+    id: number,
+    key: string,
+    site: string,
+    official: boolean,
+    type: 'Teaser' | 'Clip' | 'Trailer',
 }
