@@ -12,7 +12,7 @@ const HeroInfo:FC<Props> = ({movie}) => {
     <div className="hero__info">
         <h2 className="hero__title">{movie?.title || movie?.name}</h2>
         <div className="hero__info-info">
-            {movie.vote_average > 0 && <VoteCount movie={movie} />}
+            {movie.vote_average > 0 && <VoteCount vote={movie.vote_average} count={movie.vote_count} />}
             {movie.release_date && <>
                 {movie.vote_average > 0 && <span>|</span>}
                 <div className="hero__year">{movie.release_date}</div>

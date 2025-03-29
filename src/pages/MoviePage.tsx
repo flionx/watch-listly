@@ -2,16 +2,14 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieWithId, setMovie } from "@/app/store/slices/moviesSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { IMovie } from "@/types/movies";
-import ButtonHero from "@/ui/ButtonHero/ButtonHero";
 import getImageUrl from "@/utils/getImageUrl"
-import DetailsMovie from "@/components/DetailsMovie/DetailsMovie";
-import LineDetails from "@/components/DetailsMovie/LineDetails";
-import DetailsGenres from "@/components/DetailsMovie/DetailsGenres";
-import VoteCount from "@/components/VoteCount/VoteCount";
+import ButtonHero from "@/ui/ButtonHero/ButtonHero";
 import WideListSection from "@/components/WideListSection/WideListSection";
-import '@/app/styles/css/moviePage.css';
+import DetailsColumn from "@/components/DetailsMovie/DetailsColumn";
 import { TMovieMediaType } from "@/types/global";
+import { IMovie, IMovieVideo } from "@/types/movies";
+import '@/app/styles/css/moviePage.css';
+import MovieTrailer, { renderTrailer } from "@/components/MovieTrailer/MovieTrailer";
 
 const MoviePage = () => {
     const movie = useAppSelector(state => state.movies.movie.movie) as IMovie;
@@ -46,37 +44,26 @@ const MoviePage = () => {
         </section>
         {'id' in movie && 
             <section className="movie-main">
-                <div className="movie-main__row">
-                    <div className="movie-main__main">
+                <div className="movie-main__container">
+                    <div className="movie-main__block-text">
                         <h3 className="movie-main__title">Description</h3>  
                         <h3 className="movie-main__text">{movie.overview}</h3>  
-                        {/* trailer */}
                     </div>
-                    <div className="movie-main__detail">
-                        <div className="movie-main__column details-movie">
-                            <h4 className="details-movie__title">Details</h4>
-                            <DetailsMovie movie={movie} type={type as TMovieMediaType}/> 
-                            <LineDetails />
-                            <h4 className="details-movie__title">Genres</h4>
-                            <DetailsGenres genres={movie.genres}/>
-                            {movie.vote_count > 0 && 
-                            <>
-                                <LineDetails />
-                                <VoteCount vote={movie.vote_average} count={movie.vote_count}/>
-                            </>}
-                        </div>
+                    <div className="movie-main__block-details">
+                        <DetailsColumn movie={movie} type={type as TMovieMediaType}/>
                     </div>
+                    {movie.videos?.results.length! > 0 && renderTrailer(movie.videos?.results!)}
                 </div>
-                <WideListSection title='See also'
-                    path='movie/now_playing' storageKey="movies-watching"
-                    padding={false}
-                    type="movie"
-                />
-            </section>
+                <div className="movie-main__list">
+                    <WideListSection title='See also'
+                        path='movie/now_playing' storageKey="movies-watching"
+                        padding={false}
+                        type="movie"
+                    />  
+                </div>
+            </section>           
         }
-    </>
-    
-  )
+    </>)
 }
 
 export default MoviePage
