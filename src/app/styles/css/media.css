@@ -8,11 +8,16 @@
         display: none !important;
     }
     body {
-        padding-bottom: 60px; /* mobile nav height */
+        padding-bottom: 40px; /* mobile nav height(60) */
     }
     .container-main-content {
         width: 100% !important;
         margin-left: 0 !important;
-
+    }
+    .mood {
+        padding: 0 !important;
+    }
+    .mood__content {
+        padding: 18px !important;
     }
 }

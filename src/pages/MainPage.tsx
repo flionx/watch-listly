@@ -4,6 +4,7 @@ import WideListSection from "@/components/WideListSection/WideListSection"
 import MoodSection from "@/components/MoodSection/MoodSection"
 
 const MainPage = () => {
+
   return (
     <>
       <Hero />
@@ -21,8 +22,7 @@ const MainPage = () => {
         path='movie/upcoming' storageKey="movies-upcoming"
         type='movie'
       />
-    </>
-  )
+  </>)
 }
 
 export default MainPage

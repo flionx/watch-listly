@@ -17,11 +17,6 @@
     justify-content: start;
     column-gap: 35px;
     margin-bottom: 25px;
-    /* overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;  */
     transition: transform .7s ease;
 }
 .mood__cards::-webkit-scrollbar {

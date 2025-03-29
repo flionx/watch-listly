@@ -1,0 +1,114 @@
+.loading-main {
+    width: 100%;
+    height: 100vh;
+    min-height: 35rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 0 0 0 35px;
+}
+.loading-main__info {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    max-width: 470px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 40px;
+
+}
+
+.loading-main__column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+
+.loading-main__title {
+    width: 90%;
+    height: 40px;
+    background: var(--second-bg-color);
+    border-radius: 10px;
+}
+.loading-main__text {
+    width: 100%;
+    height: 20px;
+    background: var(--second-bg-color);
+    border-radius: 10px;
+}
+
+.loading-main__btns {
+    margin-top: 15px;
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.loading-main__btn {
+    width: 120px;
+    height: 40px;
+    background: var(--second-bg-color);
+    border-radius: 10px;
+    
+}
+.loading-main__btns-right {
+    position: absolute;
+    display: flex;
+    column-gap: 35px;
+    z-index: 3;
+    bottom: 250px;
+    right: 50px;
+}
+.loading-main__btn-arr {
+    width: 50px;
+    height: 50px;
+    background: var(--second-bg-color);
+    border-radius: 10px;
+
+}
+
+.loading-main__list {
+    display: flex;
+    height: 215px;
+    column-gap: 25px;
+    position: relative;
+    bottom: 20px;
+}
+.loading-main__card {
+    min-width: 145px;
+    height: 100%;
+    border-radius: 8px;
+    background: var(--second-bg-color);
+}
+
+
+
+
+
+
+.load-anim {
+    position: relative;
+    overflow: hidden;
+}
+.load-anim::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -70px;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(42, 42, 42, 0) 0%, rgba(37, 37, 37, 0.27) 27%, #212121 50%, rgba(40, 40, 40, 0.47) 76.5%, rgba(46, 46, 46, 0) 100%);
+    animation: skeleton 1s infinite ease-in-out;
+}
+
+@keyframes skeleton {
+    100% {
+        left: 100%;
+    }
+}

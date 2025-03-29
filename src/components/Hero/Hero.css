@@ -18,7 +18,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 34.09%, rgba(0, 0, 0, 0.53) 100%);
+    background: var(--skeleton-gradient);
 }
 .hero__info {
     display: flex;
