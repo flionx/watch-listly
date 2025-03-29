@@ -5,8 +5,8 @@ import { TSetState } from '@/types/global';
 const useManageHero = () => {
     const [selectMovie, setSelectMovie] = useState(0);
     const callSetSelectMovie = useCallback<TSetState<number>>((value) => setSelectMovie(value), [])
-    
-    const movies = useAppSelector(state => state.movies.hero)
+    const loading = useAppSelector(state => state.movies.hero.loading)
+    const movies = useAppSelector(state => state.movies.hero.movies)
     
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -27,7 +27,7 @@ const useManageHero = () => {
         };
     }, [selectMovie, movies]);
     
-    return { movies, selectMovie, setSelectMovie: callSetSelectMovie, heroRef, listRef}
+    return { movies, selectMovie, setSelectMovie: callSetSelectMovie, heroRef, listRef, loading}
 }
 
 export default useManageHero

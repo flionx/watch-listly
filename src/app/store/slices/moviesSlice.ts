@@ -136,7 +136,10 @@ export const fetchMovieWithId = createAsyncThunk(
 type TLoading = 'idle' | 'pending' | 'succeeded' | 'failed';
 type TError = string | null | undefined;
 interface IState {
-  hero: IMovie[],
+  hero: {
+    movies:IMovie[],
+    loading: TLoading,
+  }
   popular: IMovie[],
   watching: IMovie[],
   series: IMovie[],
@@ -151,7 +154,10 @@ interface IState {
 }
 
 const initialState: IState = {
-    hero: [],
+    hero: {
+      movies: [],
+      loading: 'idle',
+    },
     popular: [],
     watching: [],
     series: [],
@@ -170,7 +176,7 @@ const moviesSlice = createSlice({
   initialState,
   reducers: {
     setMoviesHero: (state, action: PayloadAction<IMovie[]>) => {      
-      state.hero = action.payload;
+      state.hero.movies = action.payload;
       localStorage.setItem('movies-hero', JSON.stringify(state.hero))
     },
     setMoviesPopular: (state, action: PayloadAction<IMovie[]>) => {      
@@ -182,12 +188,16 @@ const moviesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getOrFetchMovies.pending, (state) => {
+    builder.addCase(getOrFetchMovies.pending, (state, action) => {
+      if (action.meta.arg.key === 'movies-hero') {
+        state.hero.loading = 'pending';
+      }
       state.loading = 'pending';
     })
     .addCase(getOrFetchMovies.fulfilled, (state, action: PayloadAction<IFetchResult>) => {
       if (action.payload.key === "movies-hero") {
-        state.hero = action.payload.movies;
+        state.hero.movies = action.payload.movies;
+        state.hero.loading = 'succeeded';
       }
       if (action.payload.key === "movies-popular") {
         state.popular = action.payload.movies;
