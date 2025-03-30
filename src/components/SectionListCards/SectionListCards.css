@@ -51,6 +51,10 @@
     left: 0;
     background: rgba(0, 0, 0, 0.3);
     border-radius: inherit;
+    transition: .3s all;
+}
+.card-list__card.hero__card:hover:not(.hero__card-active):after {
+    background: rgba(0, 0, 0, 0.3) !important;
 }
 .card-list__card img{
     width: 100%;

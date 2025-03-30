@@ -91,19 +91,9 @@
     z-index: 2;
     bottom: 20px;
 }
-.hero__card {
-    position: relative;
-}
 .hero__card::after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5) !important;
+    background: rgba(0, 0, 0, 0.45) !important;
 }
-
 .hero__card-active {
     transform: scale(1.1);
 }
