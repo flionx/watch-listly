@@ -11,7 +11,6 @@ interface Props {
 }
 
 const DetailsColumn: FC<Props> = ({movie, type}) => {
-  console.log(movie);
   
   return (
     <div className="movie-main__details">

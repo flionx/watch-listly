@@ -3,6 +3,7 @@ import { IMovie } from "@/types/movies"
 import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 import { Link } from "react-router-dom"
 import VoteCount from "../VoteCount/VoteCount"
+import { formatDate } from "@/utils/formatInfo"
 interface Props {
     movie: IMovie
 }
@@ -15,7 +16,7 @@ const HeroInfo:FC<Props> = ({movie}) => {
             {movie.vote_average > 0 && <VoteCount vote={movie.vote_average} count={movie.vote_count} />}
             {movie.release_date && <>
                 {movie.vote_average > 0 && <span>|</span>}
-                <div className="hero__year">{movie.release_date}</div>
+                <div className="hero__year">{formatDate(movie.release_date)}</div>
             </>}
         </div>
         <p className="hero__text">{movie?.overview}</p>
