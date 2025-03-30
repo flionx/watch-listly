@@ -27,8 +27,8 @@ const DetailsMovie:FC<Props> = ({movie, type}) => {
             </DetailRow>
         }
         <DetailRow icon={dateIcon}>{type === 'movie' ? movie.release_date : movie.first_air_date}</DetailRow>
-        {movie.runtime > 0 && <DetailRow icon={clockIcon}>{calcTime(movie.runtime)}</DetailRow>}
-        {movie.budget > 0 && <DetailRow icon={moneyIcon}>{movie.budget}</DetailRow>}
+        {movie.runtime && movie.runtime > 0 && <DetailRow icon={clockIcon}>{calcTime(movie.runtime)}</DetailRow>}
+        {movie.budget && movie.budget > 0 && <DetailRow icon={moneyIcon}>{movie.budget}</DetailRow>}
     </>
   )
 }

@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     justify-content: end;
-    padding: 0 0 0 35px;
+    padding: 0 0 0 var(--padding-main);
 }
 .hero::after {
     content: '';
@@ -66,37 +66,12 @@
     flex-wrap: wrap;
 }
 
-.hero__button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 8px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: var(--main-color);
-    border: 1px solid var(--main-color);
-    transition: .3s all;
-    font-weight: 500;
-    color: #000000;
-}
-.hero__button-nobg {
-    background: transparent;
-    color: #ffffff;
-}
-
-.hero__button:hover {
-    background: #2bcaaf;
-}
-.hero__button-nobg:hover {
-    border: 1px solid #2bcaaf;
-}
-
-.hero__button.triangle span {
+.ui__button.triangle span {
     width: 10px;
     height: 15px;
     background-image: url('../../../public/hero/triangle-right.svg');
 }
-.hero__button.plus span::after {
+.ui__button.plus span::after {
     content: '+';
     font-family: var(--second-font);
     font-weight: 700;
@@ -105,7 +80,7 @@
     text-align: center;
     color: #080808;
 }
-.hero__button.share span {
+.ui__button.share span {
     width: 21px;
     height: 20px;
     background-image: url('../../../public/moviePage/share.svg');

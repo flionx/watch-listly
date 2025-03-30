@@ -1,5 +1,5 @@
 .mood {
-    padding: 0 35px;
+    padding: 0 var(--padding-max30);
     margin: 45px 0;
 }
 .mood-container {
@@ -8,7 +8,7 @@
 .mood__content {
     background: #181818;
     border-radius: 20px;
-    padding: 30px;
+    padding: var(--padding-max30);
     overflow: hidden;
     position: relative;
 }

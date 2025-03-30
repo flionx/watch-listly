@@ -7,6 +7,7 @@ import test2 from '/sidebar/test2.png?url'
 import test3 from '/sidebar/test3.png?url'
 import logo from '/sidebar/logo.svg?url'
 import './Sidebar.css'
+import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 
 const SideBar = () => {    
     const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +47,7 @@ const SideBar = () => {
                     <Link to=''><img src={test1} alt="icon" /><li>My favorite</li></Link>
                     <Link to=''><img src={test2} alt="icon" /><li>Want</li></Link>
                 </ul>
-                <button className='sidebar__button'><span></span>Create list</button>
+                <ButtonHero icon='plus sidebar__button' onClick={() => {}}>Create list</ButtonHero>
             </nav>
             <div className='sidebar__profile profile-sidebar'>
                 {username ? 
@@ -63,9 +64,9 @@ const SideBar = () => {
                     <button className={`profile-sidebar__dots ${defineClass}`}></button>
                 </> : 
                 <div className={`profile-sidebar__auth ${defineClass}`}>
-                    <Link to='/auth/signin'>Log in</Link>
+                    <Link to='/auth/signin' className="ui__button ui__button-nobg">Log in</Link>
                     or
-                    <Link to='/auth/signup' className="auth-btn-main">Sign up</Link>
+                    <Link to='/auth/signup' className="ui__button">Sign up</Link>
                 </div>
                 }
             </div>

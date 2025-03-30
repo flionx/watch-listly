@@ -1,6 +1,6 @@
 .card-list {
     position: relative;
-    padding: 0 0 0 35px;
+    padding: 0 0 0 var(--padding-main);
     margin-bottom: 30px;
 }
 .card-list-p0 {

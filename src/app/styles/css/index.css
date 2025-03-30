@@ -8,11 +8,16 @@
   --bg-color: #0F0F0F;
   --second-bg-color: #181818;
   --sidebar-bg-color: #080808;
+  --sidebar-second-bg-color: #1c1b1b;
+  --sidebar-second-bg-hover-color: #101010;
   --main-color: #32E0C4;
   --gray-light-color: #A3A3A3;
   --mob-nav-color: #676D75;
   --skeleton-gradient: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 34.09%, rgba(0, 0, 0, 0.53) 100%);
   --light-secong-bg-color: #242424;
+
+  --padding-main: clamp(10px, 3vw, 35px);
+  --padding-max30: clamp(8px, 2.5vw, 30px);
 }
 
 body {
@@ -20,7 +25,6 @@ body {
   background: var(--bg-color);
   color: #ffff;
   overflow-x: hidden;
-
 }
 
 a {
@@ -51,4 +55,31 @@ a {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;
   align-items: center;
+}
+
+/* main buttons ui */
+.ui__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--main-color);
+  border: 1px solid var(--main-color);
+  transition: .3s all;
+  font-weight: 500;
+  color: #000000;
+}
+.ui__button-nobg {
+  background: transparent;
+  color: #ffffff;
+}
+
+.ui__button:hover:not(.ui__button-nobg) {
+  background: #33b29d;
+}
+.ui__button-nobg:hover {
+  background: rgba(57, 212, 186, 0.3);
+  border: 1px solid #35c7ae;
 }
