@@ -78,7 +78,7 @@
 }
 
 .sidebar__links a:hover:not(.active){
-    background: rgba(17, 17, 17, 0.6);
+    background: var(--sidebar-second-bg-hover-color);
 }
 .sidebar__links a::after{
     content: '';
@@ -104,7 +104,7 @@
     background-image: url('../../../public/sidebar/fliends.svg');
 }
 .sidebar__links a.active{
-    background: #1F1F1F;
+    background: var(--sidebar-second-bg-color);
 }
 
 .sidebar__bottom {
@@ -143,41 +143,26 @@
     line-height: 133%;
     color: #eaeaea;
     min-width: fit-content;
-    transition: background .3s all;
+    border-radius: 5px;
+    transition: .3s all;
 }
 .sidebar__lists a:hover {
-    background: rgba(17, 17, 17, 0.6);
+    background: var(--sidebar-second-bg-hover-color);
 }
-.sidebar__lists a >img {
+.sidebar__lists a > img {
     width: 24px;
     height: 24px;
     border-radius: 4px;
 }
 .sidebar__button {
     width: 100%;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;    
+    padding: 8px; 
     column-gap: 4px;
-    background: var(--main-color);
     font-weight: 700;
     font-size: 15px;
-    color: #080808;
     border-radius: 8px;
 }
-.sidebar__button span{
-    position: relative;
-}
-.sidebar__button span::after {
-    content: '+';
-    font-family: var(--second-font);
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 133%;
-    text-align: center;
-    color: #080808;
-}
+
 .sidebar__profile {
     width: 100%;
     display: flex;
@@ -257,21 +242,8 @@
     min-width: fit-content;
     white-space: nowrap;
     padding: 8px 10px;
-    border-radius: 5px;
-    border: 1px solid var(--main-color);
-    transition: .3s;
 }
-.profile-sidebar__auth a:hover:not(.auth-btn-main) {
-    background: #22ab94;
-    color: #080808;
-}
-.profile-sidebar__auth a.auth-btn-main {
-    color: #080808;
-    background: var(--main-color);
-}
-.profile-sidebar__auth a.auth-btn-main:hover {
-    background: #22ab94;
-}
+
 
 
 

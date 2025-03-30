@@ -1,0 +1,47 @@
+.loading-list {
+    justify-content: center;
+    align-items: center;
+}
+.loading-list__camera {
+    width: 67px;
+    height: 67px;
+    border-radius: 14px;
+    border: solid 5px var(--light-secong-bg-color);
+    position: relative;
+}
+
+.loading-list__camera::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -19px;
+    transform: translateY(-50%);
+    width: 19px;
+    height: 39px;
+    background-image: url('../../../../public/animation/camera-right-detail.svg');
+    background-position: center;
+    background-size: cover;
+}
+
+.loading-list__camera-reel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 47.06px;
+    height: 47.06px;
+    background-image: url('../../../../public/animation/reel-spin.svg');
+    background-position: 0 0;
+    animation: scroll-reel 1s linear infinite;
+
+}
+
+@keyframes scroll-reel {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

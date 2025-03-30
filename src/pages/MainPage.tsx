@@ -2,8 +2,13 @@ import Hero from "@/components/Hero/Hero"
 import PopularSection from "@/components/PopularSection/PopularSection"
 import WideListSection from "@/components/WideListSection/WideListSection"
 import MoodSection from "@/components/MoodSection/MoodSection"
+import { useEffect } from "react"
+import { scrollToUpPage } from "@/utils/scrollToUpPage"
 
 const MainPage = () => {
+  useEffect(() => {
+    scrollToUpPage();
+  }, [])
 
   return (
     <>

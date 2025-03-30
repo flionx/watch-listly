@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { IMovie } from "../../../types/movies";
 
@@ -44,7 +44,7 @@ export const getOrFetchMovies = createAsyncThunk(
         } 
 
       const docRef = doc(db, "movies", key);
-      const docSnap = await getDoc(docRef);
+      const docSnap = await getDoc(docRef);      
 
       if (docSnap.exists()) {
         const {movies, lastUpdated} = docSnap.data() as {
@@ -96,6 +96,15 @@ export const fetchMovieWithId = createAsyncThunk(
     const ON_STORAGE_DAYS = 100;
 
     try {
+
+      const storage = localStorage.getItem('movie');
+      if (storage) {
+        const movie = JSON.parse(storage) as IMovie; 
+        
+        if (id === String(movie.id)) {
+          return movie; // 1 - storage
+        }
+      } 
       const docRef = doc(db, `${type}-id`, id);
       const docSnap = await getDoc(docRef);
 
@@ -106,7 +115,7 @@ export const fetchMovieWithId = createAsyncThunk(
         };  
         const lastUploadDate = new Date(lastUpload);
         const now = new Date();
-        const daysDiff = (now.getTime() - lastUploadDate.getTime()) / 86400000  // 86400000 = 1000 / 60 / 60 / 24;
+        const daysDiff = (now.getTime() - lastUploadDate.getTime()) / 86400000;
         
         if (movie && daysDiff < ON_STORAGE_DAYS) {
           return movie
@@ -133,23 +142,26 @@ export const fetchMovieWithId = createAsyncThunk(
 
 )
 
+export type TMovieStateKeys = 'hero' | 'popular' | 'watching' | 'series' | 'upcoming';
 type TLoading = 'idle' | 'pending' | 'succeeded' | 'failed';
 type TError = string | null | undefined;
-interface IState {
-  hero: {
-    movies:IMovie[],
+interface IMoviesState {
+    movies: IMovie[],
     loading: TLoading,
-  }
-  popular: IMovie[],
-  watching: IMovie[],
-  series: IMovie[],
-  upcoming: IMovie[],
+    error: TError,
+}
+
+interface IState {
+  hero: IMoviesState,
+  popular: IMoviesState,
+  watching: IMoviesState,
+  series: IMoviesState,
+  upcoming: IMoviesState,
   movie: {
     movie: IMovie | {},
     loading: TLoading,
     error: TError,
   },
-  loading: TLoading,
   error: TError;
 }
 
@@ -157,17 +169,33 @@ const initialState: IState = {
     hero: {
       movies: [],
       loading: 'idle',
+      error: null
     },
-    popular: [],
-    watching: [],
-    series: [],
-    upcoming: [],
+    popular: {
+      movies: [],
+      loading: 'idle',
+      error: null
+    },
+    watching: {
+      movies: [],
+      loading: 'idle',
+      error: null
+    },
+    series: {
+      movies: [],
+      loading: 'idle',
+      error: null
+    },
+    upcoming: {
+      movies: [],
+      loading: 'idle',
+      error: null
+    },
     movie: {
       movie: {},
       loading: 'idle',
       error: null,
     },
-    loading: 'idle',
     error: null
 }
 
@@ -175,50 +203,28 @@ const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    setMoviesHero: (state, action: PayloadAction<IMovie[]>) => {      
-      state.hero.movies = action.payload;
-      localStorage.setItem('movies-hero', JSON.stringify(state.hero))
-    },
-    setMoviesPopular: (state, action: PayloadAction<IMovie[]>) => {      
-      state.popular = action.payload;
-      localStorage.setItem('movies-popular', JSON.stringify(state.popular))
-    },
     setMovie: (state, action: PayloadAction<IMovie | {}>) => {      
       state.movie.movie = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getOrFetchMovies.pending, (state, action) => {
-      if (action.meta.arg.key === 'movies-hero') {
-        state.hero.loading = 'pending';
-      }
-      state.loading = 'pending';
+      //'movies-hero' to 'hero' 
+      const stateKey = action.meta.arg.key.replace('movies-', '') as TMovieStateKeys;  
+      state[stateKey].loading = 'pending';
     })
     .addCase(getOrFetchMovies.fulfilled, (state, action: PayloadAction<IFetchResult>) => {
-      if (action.payload.key === "movies-hero") {
-        state.hero.movies = action.payload.movies;
-        state.hero.loading = 'succeeded';
-      }
-      if (action.payload.key === "movies-popular") {
-        state.popular = action.payload.movies;
-      }
-      if (action.payload.key === "movies-watching") {
-        state.watching = action.payload.movies;
-      }
-      if (action.payload.key === "movies-upcoming") {
-        state.upcoming = action.payload.movies;
-      }
-      if (action.payload.key === "movies-series") {
-        state.series = action.payload.movies;
-      }
+      const stateKey = action.payload.key.replace('movies-', '') as TMovieStateKeys;        
+      state[stateKey].movies = action.payload.movies;
+      state[stateKey].loading = 'succeeded';
       localStorage.setItem(action.payload.key, JSON.stringify({ 
         movies: action.payload.movies, 
         lastUpdated: action.payload.lastUpdated 
       }))
-      state.loading = 'succeeded';
     })
     .addCase(getOrFetchMovies.rejected, (state, action) => {
-      state.loading = 'failed';
+      const stateKey = action.meta.arg.key.replace('movies-', '') as TMovieStateKeys;        
+      state[stateKey].loading = 'failed';
       state.error = action.error.message
     })
 
@@ -228,6 +234,7 @@ const moviesSlice = createSlice({
     .addCase(fetchMovieWithId.fulfilled, (state, action: PayloadAction<IMovie>) => {
       state.movie.movie = action.payload;
       state.movie.loading = 'succeeded';
+      localStorage.setItem('movie', JSON.stringify(action.payload))
     })
     .addCase(fetchMovieWithId.rejected, (state, action) => {
       state.movie.loading = 'failed';
@@ -236,5 +243,5 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setMoviesHero, setMoviesPopular, setMovie} = moviesSlice.actions;
+export const {setMovie} = moviesSlice.actions;
 export default moviesSlice.reducer;

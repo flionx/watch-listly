@@ -18,8 +18,13 @@
     max-width: 470px;
     position: relative;
     z-index: 2;
+}
+.loading-main__info-m40 {
     margin-bottom: 40px;
-
+}
+.loading-main__info-h-auto-m40 {
+    margin-bottom: 40px;
+    height: auto;
 }
 
 .loading-main__column {
@@ -86,10 +91,6 @@
     border-radius: 8px;
     background: var(--second-bg-color);
 }
-
-
-
-
 
 
 .load-anim {

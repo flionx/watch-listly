@@ -1,29 +1,22 @@
-import { FC, useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
+import { FC} from "react";
 import { countScrollWide, wideCardWith } from "@/app/constants/movies";
 import ListCardsWide from "../ListCardsWide/ListCardsWide";
 import ButtonsArrow from "@/ui/ButtonsArrow/ButtonsArrow"
 import { TMovieMediaType } from "@/types/global";
+import LoadingListCard from "../Loading/LoadingListCard/LoadingListCard";
+import useMoviesWide from "@/hooks/useMoviesWide";
+export type TStorageWideKey = 'movies-watching' | 'movies-upcoming' | 'movies-series'
 interface Props {
   title: string,
   path: string,
   type: TMovieMediaType,
-  storageKey: 'movies-watching' | 'movies-upcoming' | 'movies-series',
+  storageKey: TStorageWideKey,
   padding?: boolean
 }
 
 const WideListSection:FC<Props> = ({title, path, storageKey, padding = true, type}) => {
-  const dispatch = useAppDispatch();
-    const moviesWatching =  useAppSelector(state => (
-      storageKey === 'movies-watching' ? state.movies.watching : 
-      (storageKey === 'movies-series') ? state.movies.series : 
-      state.movies.upcoming
-    ));    
-    useEffect(() => {
-        dispatch(getOrFetchMovies({path, key: storageKey}))
-    }, [])
-    const listRef = useRef<HTMLDivElement>(null)
+
+  const {movies, loading, listRef} = useMoviesWide(path, storageKey)
 
   return (
     <section className={`card-list ${!padding ? 'card-list-p0' : ''}`}>
@@ -35,11 +28,13 @@ const WideListSection:FC<Props> = ({title, path, storageKey, padding = true, typ
             countScroll={countScrollWide}
             listRef={listRef}
         />
-        <ListCardsWide
-            movies={moviesWatching} 
+        {(loading === 'pending' && <LoadingListCard wide />)}
+        {(loading === 'idle' || loading === 'succeeded') && 
+          <ListCardsWide
+            movies={movies} 
             listRef={listRef}
             type={type}
-            />
+        />}
     </section>
   )
 }

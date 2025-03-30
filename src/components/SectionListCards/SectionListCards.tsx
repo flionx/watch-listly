@@ -4,12 +4,15 @@ import ListCards from "../ListCards/ListCards"
 import ButtonsArrow from "@/ui/ButtonsArrow/ButtonsArrow"
 import { IMovie } from "@/types/movies"
 import './SectionListCards.css'
+import LoadingListCard from "../Loading/LoadingListCard/LoadingListCard"
+import { useAppSelector } from "@/hooks/useRedux"
 interface Props {
     movies: IMovie[],
 }
 
 const SectionListCards: FC<Props> = ({movies}) => {
     const listRef = useRef<HTMLDivElement>(null);  
+    const loading = useAppSelector(state => state.movies.popular.loading)
   return (
     <section className="card-list">
         <h3 className="card-list__title">Popular</h3>
@@ -20,11 +23,13 @@ const SectionListCards: FC<Props> = ({movies}) => {
             countScroll={countScrollSmall}
             cardWith={smallCardWith}
         />
-        <ListCards 
+        {loading === 'pending' && <LoadingListCard />}
+        {(loading === 'succeeded' || loading === 'idle') && 
+            <ListCards 
             listRef={listRef} 
             movies={movies} 
             voting
-        />
+        />}
     </section>
   )
 }
