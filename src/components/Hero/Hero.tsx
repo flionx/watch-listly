@@ -4,7 +4,7 @@ import HeroInfo from './HeroInfo';
 import getImageUrl from '@/utils/getImageUrl';
 import ButtonsArrow from '@/ui/ButtonsArrow/ButtonsArrow';
 import useManageHero from '@/hooks/useManageHero';
-import LoadingMainPage from '../Loading/LoadingMainPage';
+import LoadingMainPage from '../Loading/LoadingMainPage/LoadingMainPage';
 import './Hero.css'
 
 const Hero = () => {

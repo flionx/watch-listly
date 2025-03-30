@@ -5,7 +5,7 @@ import SectionListCards from "../SectionListCards/SectionListCards";
 import './PopularSection.css'
 
 const PopularSection = () => {
-  const moviesPopular =  useAppSelector(state => state.movies.popular);    
+  const moviesPopular =  useAppSelector(state => state.movies.popular.movies);    
   const dispatch = useAppDispatch();
     useEffect(() => {
       dispatch(getOrFetchMovies({path: 'movie/popular', key: 'movies-popular'}))

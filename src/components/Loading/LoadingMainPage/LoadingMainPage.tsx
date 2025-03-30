@@ -1,4 +1,4 @@
-import './Loading.css'
+import './LoadingMainPage.css'
 
 const LoadingMainPage = () => {
   return (
