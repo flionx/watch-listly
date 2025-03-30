@@ -2,7 +2,6 @@
 
 WatchListly is a modern platform for movie enthusiasts to discover, organize, and share their watchlists. Create personalized lists, mark movies as "want to watch" or "watched," and get tailored recommendations based on your mood. Built with a focus on usability and performance.
 
-
 📍 [Live Preview](https://watch-listly.vercel.app/)
 
 ## 🚀 Why WatchListly?
