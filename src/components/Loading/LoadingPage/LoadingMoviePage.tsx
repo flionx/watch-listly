@@ -3,7 +3,7 @@ import './LoadingPage.css'
 const LoadingMoviePage = () => {
   
   return (
-    <section className="loading-main">
+    <section className="loading-main loading-main-moviepage">
         <div className="loading-main__info loading-main__info-h-auto-m40">
             <div className="loading-main__title load-anim"></div>
             <div className="loading-main__btns">

@@ -11,6 +11,9 @@
     justify-content: end;
     padding: 0 0 0 35px;
 }
+.loading-main-moviepage {
+    height: 100dvh;
+}
 .loading-main__info {
     display: flex;
     flex-direction: column;

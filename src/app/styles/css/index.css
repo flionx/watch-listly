@@ -16,6 +16,7 @@
   --skeleton-gradient: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 34.09%, rgba(0, 0, 0, 0.53) 100%);
   --light-secong-bg-color: #242424;
 
+  --size-button-arrow: clamp(40px, 4vw, 50px);
   --padding-main: clamp(10px, 3vw, 35px);
   --padding-max30: clamp(8px, 2.5vw, 30px);
 }

@@ -6,7 +6,7 @@ interface Props {
 
 const LoadingListCard:FC<Props> = ({wide = false}) => {
   return (
-    <div className={`card-list__row ${wide ? 'list-wide__card' : 'loading-list'}`}>
+    <div className={`loading-list ${wide ? 'loading-wide__list' : 'card-list__row'}`}>
         <div className="loading-list__camera">
             <div className="loading-list__camera-reel"></div>
         </div>

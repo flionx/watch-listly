@@ -19,4 +19,13 @@
     .mood__content {
         padding: 18px !important;
     }
+    .loading-main-moviepage {
+        height: calc(100dvh - 60px) !important;
+    }
+    .hero__arrows {
+        width: 100% !important;
+        bottom: 100px !important;
+        justify-content: space-between !important;
+        z-index: 3 !important;
+    }
 }
