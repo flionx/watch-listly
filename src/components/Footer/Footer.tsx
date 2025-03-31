@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/hooks/useRedux'
 import { Link } from 'react-router-dom'
 import ExternalLink from '@/ui/ExternalLink/ExternalLink'
 import { followLinks } from './followLinks'
@@ -6,7 +7,8 @@ import tmdblogo from '/footer/tmdb.svg?url'
 import './Footer.css'
 
 const Footer = () => {
-  return (
+  const loadingMoviePage = useAppSelector(state => state.movies.movie.loading); //in movie page
+  return (!(loadingMoviePage === 'pending')  && 
     <footer className="footer">
       <div className="footer__column">
         <Link to='/'className="footer__logo">
