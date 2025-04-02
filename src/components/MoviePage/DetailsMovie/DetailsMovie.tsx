@@ -19,8 +19,8 @@ const DetailsMovie:FC<Props> = ({movie, type}) => {
     <>
         {type === 'tv' && 
         <>
-            {movie.number_of_seasons && <DetailRow icon={seasonIcon}>{movie.number_of_seasons} seasons</DetailRow>}
-            {movie.number_of_episodes && <DetailRow icon={seriesIcon}>{movie.number_of_episodes} series</DetailRow>}
+            {movie?.number_of_seasons! > 0 && <DetailRow icon={seasonIcon}>{movie.number_of_seasons} seasons</DetailRow>}
+            {movie?.number_of_episodes! > 0 && <DetailRow icon={seriesIcon}>{movie.number_of_episodes} series</DetailRow>}
         </>}
         {movie.production_countries?.[0]?.name &&
             <DetailRow icon={countryIcon}>

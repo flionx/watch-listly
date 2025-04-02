@@ -26,7 +26,7 @@ const LoadingMainPage = () => {
             <div className="loading-main__card load-anim"></div>
             <div className="loading-main__card load-anim"></div>
         </div>
-        <div className="loading-main__btns-right">
+        <div className="hero__arrows">
             <div className="loading-main__btn-arr load-anim"></div>
             <div className="loading-main__btn-arr load-anim"></div>
         </div>

@@ -31,7 +31,7 @@ const ListCardsCard: FC<Props> = ({movie, index, hero, voting, select}) => {
                     style={{background: getColor(movie?.vote_average)}}>
                     {movie.vote_average.toFixed(1)}
                 </div>}
-            <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt={movie.title} />
+            <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt='movie poster image' />
         </button>
     ) : (
         <Link to={`/${movie.media_type ?? 'movie'}/${movie.id}`} 
@@ -42,7 +42,7 @@ const ListCardsCard: FC<Props> = ({movie, index, hero, voting, select}) => {
                     style={{background: getColor(movie?.vote_average)}}>
                     {movie.vote_average.toFixed(1)}
                 </div>}
-                <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt={movie.title} />
+                <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt='movie poster image' />
         </Link>
     )
 }

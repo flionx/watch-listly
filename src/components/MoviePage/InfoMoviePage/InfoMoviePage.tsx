@@ -13,8 +13,10 @@ const InfoMoviePage:FC<Props> = ({movie, type}) => {
   return (
     <div className="movie-main__container">
         <div className="movie-main__block-text">
-            <h3 className="movie-main__title">Description</h3>  
-            {movie.overview && <p className="movie-main__text">{movie.overview}</p>}
+            {movie.overview && <>
+              <h3 className="movie-main__title">Description</h3>  
+              <p className="movie-main__text">{movie.overview}</p>
+            </>}
         </div>
         <div className="movie-main__block-details">
             <DetailsColumn movie={movie} type={type as TMovieMediaType}/>

@@ -1,4 +1,6 @@
 .loading-list {
+    width: 100%;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -44,4 +46,8 @@
     to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
+}
+
+.loading-wide__list {
+    height: 246.5px;
 }
