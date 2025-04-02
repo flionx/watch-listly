@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { getOrFetchMovies } from "@/app/store/slices/moviesSlice";
+import { getOrFetchMovies } from "@/app/store/thunks/movies/getOrFetchMovies";
 import SectionListCards from "../SectionListCards/SectionListCards";
 import './PopularSection.css'
 

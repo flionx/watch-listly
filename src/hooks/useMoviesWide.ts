@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from './useRedux';
-import { getOrFetchMovies, TMovieStateKeys } from '@/app/store/slices/moviesSlice';
 import { TStorageWideKey } from '@/components/WideListSection/WideListSection';
+import { TMovieStateKeys } from '@/app/store/slices/moviesSlice';
+import { getOrFetchMovies } from '@/app/store/thunks/movies/getOrFetchMovies';
 
 const useMoviesWide = (path: string, storageKey: TStorageWideKey) => {
     const stateKey = storageKey.replace('movies-', '') as TMovieStateKeys;        

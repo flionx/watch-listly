@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './useRedux';
-import { fetchMovieWithId, setMovie } from '@/app/store/slices/moviesSlice';
 import { scrollToUpPage } from '@/utils/scrollToUpPage';
+import { fetchMovieWithId } from '@/app/store/thunks/movies/fetchMovie';
 import { IMovie } from '@/types/movies';
+import { setMovie } from '@/app/store/slices/moviesSlice';
 
 const useMoviePage = () => {
     const {id, type } = useParams();

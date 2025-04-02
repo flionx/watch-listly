@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from './useRedux';
-import { getOrFetchMovies } from '@/app/store/slices/moviesSlice';
+import { getOrFetchMovies } from '@/app/store/thunks/movies/getOrFetchMovies';
 import { TSetState } from '@/types/global';
+
 const useManageHero = () => {
     const [selectMovie, setSelectMovie] = useState(0);
     const callSetSelectMovie = useCallback<TSetState<number>>((value) => setSelectMovie(value), [])
