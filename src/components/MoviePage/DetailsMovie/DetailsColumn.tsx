@@ -10,7 +10,8 @@ interface Props {
     type: TMovieMediaType
 }
 
-const DetailsColumn: FC<Props> = ({movie, type}) => {
+const DetailsColumn: FC<Props> = ({movie, type}) => {  
+  console.log(movie.genres);
   
   return (
     <div className="movie-main__details">
