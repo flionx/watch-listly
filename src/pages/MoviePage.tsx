@@ -12,7 +12,7 @@ const MoviePage = () => {
   return (
     <>
         {loading === 'pending' && <LoadingMoviePage />}
-        {(loading === 'succeeded' ) &&
+        {(loading === 'succeeded') &&
         <>
             <HeroMovie movie={movie}/>
             <section className="movie-main">
