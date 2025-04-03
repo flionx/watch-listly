@@ -10,6 +10,7 @@ import ErrorPage from "./ErrorPage";
 import SignUpStepPage from "./auth/SignUpStepPage";
 import SignUpEmailPage from "./auth/SignUpEmailPage";
 import MoviePage from "./MoviePage";
+import ProfilePage from "./ProfilePage";
 
 
 const router = createBrowserRouter([
@@ -30,9 +31,14 @@ const router = createBrowserRouter([
                 element: <FriendsPage />
             },
             {
-                path: ':type/:id/',
+                path: ':type/:id',
                 element: <MoviePage />
             },
+
+            {
+                path: 'user/:id',
+                element: <ProfilePage />
+            }
             
         ]
     },
