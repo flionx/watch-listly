@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     justify-content: end;
-    padding: 0 0 0 35px;
+    padding: 0 0 0 var(--padding-main);
     margin-bottom: 30px;
 }
 .movie-page-hero::before {
@@ -37,6 +37,7 @@
     position: relative;
     z-index: 2;
     margin-bottom: 40px;
+    padding-right: var(--padding-main);
 }
 
 .movie-page-hero__title {
@@ -51,7 +52,7 @@
 
 
 .movie-main {
-    padding: 0 35px;
+    padding: 0 var(--padding-main);
     margin-bottom: 20px;
 }
 .movie-main__container {
