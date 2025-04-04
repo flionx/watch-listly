@@ -1,0 +1,9 @@
+.user-lists__title {
+    font-family: var(--main-font);
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 160%;
+    letter-spacing: 0.03em;
+    color: #fff;
+    margin-bottom: 20px;
+}

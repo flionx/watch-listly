@@ -1,0 +1,15 @@
+.profile-main__create-list {
+    margin: 40px 0 20px 0;
+}
+.create-list__title {
+    margin-bottom: 15px;
+}
+.create-list__row {
+    display: flex;
+    column-gap: 15px;
+}
+.create-list__input {
+    padding: 0 12px;
+    background: var(--second-bg-color);
+    border-radius: 6px;
+}

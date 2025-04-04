@@ -1,0 +1,16 @@
+.select__row {
+    display: flex;
+    align-items: center;
+}
+.select__title {
+    margin-bottom: 15px;
+}
+.select__select {
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: var(--second-bg-color);
+    margin-right: 19px;
+}
+.select__row button {
+    margin-right: 10px;
+}
