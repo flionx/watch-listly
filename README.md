@@ -19,7 +19,8 @@ WatchListly is actively in development with an MVP targeted for **April, 2025**.
 - ✅ Sidebar with smooth open/close animations.  
 - ✅ Movie sections powered by TMDB API via a secure serverless function.
 - ✅ Movie pages, with detailed information and trailer.   
-- ⏳ User authentication and personalized lists (coming soon).  
+- ✅ User authentication.  
+- ⏳ User profile and personalized lists (in development).  
 - ⏳ "Mood Picker" feature for mood-based movie suggestions (coming soon).  
 
 ## Installation
