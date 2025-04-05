@@ -7,3 +7,26 @@
     color: #fff;
     margin-bottom: 20px;
 }
+
+.user-lists__row {
+    display: flex;
+    gap: var(--padding-max20);
+    flex-wrap: wrap;
+
+}
+
+.user-lists__card {
+    display: flex;
+    flex: 1 1;
+    min-width: 140px;
+    max-width: 150px;
+    height: 140px;
+    padding: 12px 15px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: .5s all;
+}
+.user-lists__card:hover {
+    transform: translateY(-2px);
+}

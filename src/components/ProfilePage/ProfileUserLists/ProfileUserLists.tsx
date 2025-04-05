@@ -1,4 +1,5 @@
 import { useAppSelector } from '@/hooks/useRedux'
+import ProfileListCard from '../ProfileListCard/ProfileListCard';
 import './ProfileUserLists.css'
 
 const ProfileUserLists = () => {
@@ -6,17 +7,10 @@ const ProfileUserLists = () => {
   return (
     <section className='profile-main__lists user-lists'>
         <div className="user-lists__title">My lists</div>
-        <div className="profile-main__row">
+        <div className="user-lists__row">
             {lists.length > 0 ? 
                 lists.map(list => (
-                    <button key={list.id} className='user-lists__card'
-                        style={{background: `${list.color}`}}>
-                        <div className="user-lists-card__title profile-main-title2">{list.name}</div>
-                        {list.poster && 
-                            <img src={list.poster} alt="movie poster" className='list-card__img'/>
-                        }
-                    </button>
-
+                    <ProfileListCard key={list.id} list={list}/>
                 ))
             :
                 <p>You dont have lists</p>

@@ -1,6 +1,6 @@
+import { FC } from 'react'
 import testImg from '/profilePage/testavatar.png'
 import './ProfileWIdeCard.css'
-import { FC } from 'react'
 interface Props {
     title: string,
 }

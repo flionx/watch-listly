@@ -1,6 +1,5 @@
 .list-wide-card {
     display: flex;
-    min-width: 280px;
     height: 130px;
     padding: 12px 15px;
     background: var(--second-bg-color);
