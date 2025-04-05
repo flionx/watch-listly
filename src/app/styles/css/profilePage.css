@@ -14,14 +14,30 @@
     font-size: 20px;
     line-height: 120%;
     color: #fff;
+    text-align: left;
+    overflow: hidden;
+    height: fit-content;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
 }
 .profile-main__row {
     display: flex;
     gap: var(--padding-max20);
     flex-wrap: wrap;
 }
-.profile-main__row.m40{
-    margin: 40px 0 20px 0;
+.profile-main__column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    margin: 30px 0;
+}
+.profile-main__column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    margin: 30px 0;
 }
 .user-lists__card {
     display: flex;

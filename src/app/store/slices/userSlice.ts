@@ -1,18 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser, IUserFriend, IUserList, TListsVisibility } from "@/types/user";
 
-interface IState {
-    username: string,
-    userid: string,
-    userIcon: string,
-}
-
-const initialState: IState = {
+const initialState: IUser = {
+    id: null,
     username: '',
-    userid: '',
-    userIcon: '',
+    avatar: '',
+    listsVisibility: 'everybody',
+    lists: [],
+    friends: [],
 }
 
-function getInitialState(): IState {
+function getInitialState(): IUser {
     const storage = localStorage.getItem('user');
     return storage ? JSON.parse(storage) : initialState;
 }
@@ -21,22 +19,38 @@ const userSlice = createSlice({
     name: 'user',
     initialState: getInitialState(),
     reducers: {
-        setUser: (state, action: PayloadAction<Pick<IState, 'username' | 'userid' | 'userIcon'>>) => {
+        setUser: (state, action: PayloadAction<Pick<IUser, 'id' | 'username'>>) => {
+            state.id = action.payload.id;
             state.username = action.payload.username;
-            state.userid = action.payload.userid;
-            if (action.payload.userIcon) {
-                state.userIcon = action.payload.userIcon;
-            }
-            localStorage.setItem('user', JSON.stringify(state));
         },
-        removeUser: (state) => {
-            state.userid = '';
-            state.username = '';
-            state.userIcon = '';
-            localStorage.setItem('user', JSON.stringify(state));
+        setUserAvatar: (state, action:PayloadAction<IUser['avatar']>) => {
+            state.avatar = action.payload;
+        },
+        addNewUserList: (state, action: PayloadAction<Pick<IUserList, 'name' | 'color'>>) => {
+            const newList = {
+                id: state.lists.length + 1,
+                name: action.payload.name,
+                movies: [],
+                color: action.payload.color,
+                poster: '',
+            }
+            state.lists.push(newList);
+        },
+        deleteUserList: (state, action: PayloadAction<IUserList['id']>) => {
+            state.lists = state.lists.filter(list => list.id != action.payload);
+        },
+        setUserFriends: (state, action: PayloadAction<IUserFriend[]>) => {
+            state.friends = action.payload;
+        },
+        setListsVisibility: (state, action: PayloadAction<TListsVisibility>) => {
+            state.listsVisibility = action.payload
         }
     }
 })
 
-export const {setUser, removeUser} = userSlice.actions; 
+export const {
+    setUser, setUserAvatar, addNewUserList, 
+    deleteUserList, 
+    setUserFriends, setListsVisibility
+} = userSlice.actions; 
 export default userSlice.reducer;

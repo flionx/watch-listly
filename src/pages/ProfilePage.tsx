@@ -2,11 +2,13 @@ import ProfileHeader from '@/components/ProfilePage/ProfileHeader/ProfileHeader'
 import ProfileWideCard from '@/components/ProfilePage/ProfileWideCard/ProfileWideCard'
 import ProfileCreateList from '@/components/ProfilePage/ProfileCreateList/ProfileCreateList'
 import ProfileUserLists from '@/components/ProfilePage/ProfileUserLists/ProfileUserLists'
-import '@/app/styles/css/profilePage.css'
 import ProfileSelect from '@/components/ProfilePage/ProfileSelect/ProfileSelect'
+import '@/app/styles/css/profilePage.css'
+import { useAppSelector } from '@/hooks/useRedux'
 
 const ProfilePage = () => {
-    
+  const userLists = useAppSelector(state => state.user.lists);
+
   return (
     <section className="profile-main">
         <ProfileHeader />
@@ -16,9 +18,9 @@ const ProfilePage = () => {
         </div>
         <ProfileCreateList />
         <ProfileUserLists />
-        <div className="profile-main__row m40">
-            <ProfileSelect />
-            <ProfileSelect />
+        <div className="profile-main__column">
+            <ProfileSelect visibility>Who can see your lists?</ProfileSelect>
+            <ProfileSelect lists={userLists}>Would you like to remove a list?</ProfileSelect>
         </div>
     </section>
   )
