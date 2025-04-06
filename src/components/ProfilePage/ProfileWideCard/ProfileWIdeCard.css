@@ -1,0 +1,43 @@
+.list-wide-card {
+    display: flex;
+    height: 130px;
+    padding: 12px 15px;
+    background: var(--second-bg-color);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: .5s all;
+}
+.list-wide-card__title {
+    text-align: left;
+    font-family: var(--main-font);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 143%;
+    color: #fff;
+}
+.list-card__img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    transform: translate(15%, 10%) rotate(30deg);
+    object-fit: cover;
+    object-position: center;
+    transition: .5s all;
+}
+.list-card__img-nolist {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    transform: translate(-20px, 2px) rotate(0);
+}
+
+.list-wide-card:hover {
+    background: var(--light-secong-bg-color);
+    transform: translateY(-2px);
+}

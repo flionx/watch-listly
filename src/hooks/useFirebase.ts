@@ -1,11 +1,13 @@
-import { auth, db, provider } from "@/app/firebase";
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, User } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useNavigate, useParams } from "react-router-dom";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, User } from "firebase/auth";
 import { useAppDispatch } from "./useRedux";
-import { setUser } from "@/app/store/slices/userSlice";
-import { TSetState } from "@/types/global";
+import { auth, db, provider } from "@/app/firebase";
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { useNavigate, useParams } from "react-router-dom";
+import { initialUserState, setUser } from "@/app/store/slices/userSlice";
 import { useRef } from "react";
+import randomUserId from "@/utils/randomUserId";
+import { TSetState } from "@/types/global";
+import { IUser } from "@/types/user";
 
 const useFirebase = () => {
     const navigate = useNavigate();
@@ -19,14 +21,7 @@ const useFirebase = () => {
     ) {
         createUserWithEmailAndPassword(auth, email, String(Math.random()))
             .then(async (result) => {
-                const user = result.user;
-                console.log(user);
-                
-                const dataRef = doc(db, 'users', user.uid);
-                const dataState = {
-                    user: username,
-                }
-                await setDoc(dataRef, dataState);
+                const user = result.user;                
                 callback(true);
                 sendVerifEmail(user);
             })
@@ -42,13 +37,32 @@ const useFirebase = () => {
                 intervalRef.current = setInterval(async () => {
                     if (!user) return
                     await user.reload();
-                    
-                    if (!user.emailVerified) return;
-                    dispatch(setUser({
-                        username: username!, 
-                        userid: username!, 
-                        userIcon: user.photoURL? user.photoURL : '',
-                    }))
+
+                    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+                    const querySnapshot = await getDocs(q);
+
+                    if (!querySnapshot.empty) {
+                        // There's already a user
+                        const existingUser = querySnapshot.docs[0];
+                        dispatch(setUser(existingUser.data() as IUser));
+                    } else {
+                        // if no user
+                        const uname = user.displayName?.trim() ? user.displayName : 
+                        `user${Math.floor(Math.random() * 9000) + 1000}`; //user4209 (4 nums)
+                        const uicon = user.photoURL || '';
+                        const newUserId = randomUserId();
+                        const dataState = {
+                            ...initialUserState,
+                            uid: user.uid,
+                            id: newUserId,
+                            username: uname,
+                            avatar: uicon,
+                        }
+                        const dataRef = doc(db, "users", newUserId);
+                        await setDoc(dataRef, dataState);
+                        dispatch(setUser(dataState));
+                    }
+
                     navigate('/auth/signup/create');
                     if (intervalRef.current) {
                         clearInterval(intervalRef.current);
@@ -65,24 +79,31 @@ const useFirebase = () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 const user = result.user;
-                const uname = user.displayName || `user${Math.floor(Math.random() * 9000) + 1000}`; //user4209 (4 nums)
-                const uicon = user.photoURL || '';
-                dispatch(setUser({
-                    username: uname, 
-                    userid: uname.replace(' ', '_'),
-                    userIcon: uicon,
-                }))
-                const userId = result.user.uid;
-                // const dataRef = doc(db, "Users", userId);
-                // const userDoc = await getDoc(dataRef);
+                const q = query(collection(db, "users"), where("uid", "==", user.uid));
+                const querySnapshot = await getDocs(q);
 
-                // if (userDoc.exists()) {
-                //     uploadUserData(userDoc.data() as IUploadData)
-                // }
-                // else {
-                //     const dataState = ...;
-                //     await setDoc(dataRef, dataState, { merge: true });
-                // }
+                if (!querySnapshot.empty) {
+                    // There's already a user
+                    const existingUser = querySnapshot.docs[0];
+                    dispatch(setUser(existingUser.data() as IUser));
+                } else {
+                    // if no user
+                    const uname = user.displayName?.trim() ? user.displayName : 
+                    `user${Math.floor(Math.random() * 9000) + 1000}`; //user4209 (4 nums)
+                    const uicon = user.photoURL || '';
+                    const newUserId = randomUserId();
+                    const dataState = {
+                        ...initialUserState,
+                        uid: user.uid,
+                        id: newUserId,
+                        username: uname,
+                        avatar: uicon,
+                    }
+                    const dataRef = doc(db, "users", newUserId);
+                    await setDoc(dataRef, dataState);
+                    dispatch(setUser(dataState));
+                }
+
                 navigate('/');
 
             }).catch((error) => {
@@ -94,15 +115,20 @@ const useFirebase = () => {
         if (!email || !password) return;
         signInWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
-                
-                // const uid = result.user.uid;
-                // const dataRef = doc(db, "Users", uid);
-                // const userDoc = await getDoc(dataRef);
-                // if (userDoc.exists()) {
-                //     const userData = userDoc.data() as IUploadData || {};  
-                //     uploadUserData({});
-                // }
-                navigate('/')
+                const firebaseUid = result.user.uid;
+
+                const q = query(collection(db, "users"),
+                    where('uid', "==", firebaseUid)
+                );
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    const userDoc = querySnapshot.docs[0];
+                    dispatch(setUser(userDoc.data() as IUser));
+                    navigate('/');
+                } else {
+                    setError("User data not found.");
+                }
             })
             .catch((error) => {
                 setError('Incorrect email or password.')

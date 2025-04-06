@@ -14,132 +14,69 @@
     font-size: 20px;
     line-height: 120%;
     color: #fff;
-}
-
-.profile-main__header {
-    margin-bottom: 50px;
-}
-
-.header-profile {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border-radius: 9px;
-    overflow: hidden;
-    position: relative;
-}
-.header-profile__cover {
-    height: 150px;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.header-profile__bottom {
-    background: var(--second-bg-color);
-    display: flex;
-    column-gap: 40px;
-    padding: 30px;
-}
-
-.header-profile__avatar {
-    position: absolute;
-    left: 30px;
-    bottom: 20px;
-}
-
-.header-profile__avatar img{
-    width: 110px;
-    height: 110px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-}
-
-
-.btn-header-profile {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
-    border: 1px solid var(--light-secong-bg-color);
-    background: var(--second-bg-color);
-    transition: background .3s;
-}
-.btn-header-profile:hover {
-    background: var(--light-secong-bg-color);
-}
-.btn-header-profile::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.header-profile__btn-edit {
-    top: 0;
-    right: -16px;
-}
-.header-profile__btn-edit::after {
-    background-image: url('../../../../public/profilePage/edit.svg');
-}
-
-.header-profile__dots {
-    top: 0;
-    right: 0;
-}
-.header-profile__dots::after {
-    background-image: url('../../../../public/sidebar/dots.svg');
-    background-size: auto;
-}
-
-.header-profile__user-info {
-    padding-left: 135px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
-}
-.header-profile__userdesc {
-    font-family: var(--main-font);
-    font-weight: 300;
-    color: #888888;
-}
-
-.header-profile__more-info {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.header-profile__dots-info {
-    position: relative;
-    right: 32px;
-    width: fit-content;
-    padding: 5px 10px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
-    border-radius: 5px;
-    background: var(--second-bg-color);
-    border: 1px solid var(--light-secong-bg-color);
-}
-.header-profile__dots-info button{
-    padding: 4px;
     text-align: left;
+    overflow: hidden;
+    height: fit-content;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+.profile-main__row {
+    display: flex;
+    gap: var(--padding-max20);
+    flex-wrap: wrap;
+}
+.profile-main__column {
     display: flex;
     flex-direction: column;
-    row-gap: 12px;
-    font-weight: 500;
-    line-height: 133%;
-    color: #eaeaea;
-    transition: background .3s;
+    row-gap: 15px;
+    margin: 30px 0;
 }
-.header-profile__dots-info button:hover {
-    background: var(--light-secong-bg-color);
+.profile-main__column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    margin: 30px 0;
+}
+
+.profile-main__cards-wide {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--padding-max20);
+
+}
+
+@media (max-width: 800px) {
+    .profile-main__cards-wide {
+        grid-template-columns: repeat(2, 1fr) 10%;
+    }
+}
+@media (max-width: 550px) {
+    .profile-main__cards-wide {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .user-lists__card {
+        min-width: 120px;
+        min-height: 125px;
+    }
+    .user-lists__card .list-card__img {
+        width: 70px;
+        height: 70px;
+    }
+    .user-lists__row {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    .user-lists__card {
+        width: auto;
+        max-width: none;
+        min-width: 150px;
+        height: 125px;
+    }
+}
+@media (max-width: 350px) {
+    .profile-main__cards-wide {
+        grid-template-columns: 1fr;
+    }
 }

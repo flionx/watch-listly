@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IMovie } from "../../../types/movies";
 import { getOrFetchMovies } from "../thunks/movies/getOrFetchMovies";
 import { fetchMovieWithId } from "../thunks/movies/fetchMovie";
+import { IMovie } from "../../../types/movies";
+import { TLoading } from "@/types/global";
 
 export type TMovieStorageKey = 
 | 'movies-hero' 
@@ -18,7 +19,6 @@ interface IFetchResult {
 }
 
 export type TMovieStateKeys = 'hero' | 'popular' | 'watching' | 'series' | 'upcoming';
-type TLoading = 'idle' | 'pending' | 'succeeded' | 'failed';
 type TError = string | null | undefined;
 
 interface IMoviesState {

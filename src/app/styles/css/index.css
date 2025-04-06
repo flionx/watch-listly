@@ -19,6 +19,7 @@
   --size-button-arrow: clamp(40px, 4vw, 50px);
   --padding-main: clamp(10px, 3vw, 35px);
   --padding-max30: clamp(8px, 2.5vw, 30px);
+  --padding-max20: clamp(8px, 2.2vw, 20px);
 
   --profile-second-bg: #1A1D1F;
 }

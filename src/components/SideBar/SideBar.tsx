@@ -2,12 +2,12 @@ import { useRef, useState} from "react"
 import { Link, NavLink } from "react-router-dom"
 import { mainSidebarLinks } from "./links"
 import { useAppSelector } from "@/hooks/useRedux"
+import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 import test1 from '/sidebar/test1.png?url'
 import test2 from '/sidebar/test2.png?url'
 import test3 from '/sidebar/test3.png?url'
 import logo from '/sidebar/logo.svg?url'
 import './Sidebar.css'
-import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 
 const SideBar = () => {    
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,7 @@ const SideBar = () => {
         if (!searchRef.current) return;
         searchRef.current.focus()
     }
-    const {username, userid, userIcon} = useAppSelector(state => state.user)
+    const {username, id, avatar} = useAppSelector(state => state.user);    
 
   return (
     <aside className={`sidebar ${!isOpen ? 'sidebar-close' : ''}`} 
@@ -53,12 +53,12 @@ const SideBar = () => {
                 {username ? 
                     <>
                     <div className="profile-sidebar__main">
-                        <div className="profile-sidebar__icon">
-                            <img src={userIcon || test3} alt="icon" />
-                        </div>
+                        <Link to={`user/${id}`} className="profile-sidebar__icon">
+                            <img src={avatar || test3} alt="icon" />
+                        </Link>
                         <div className={`profile-sidebar__info ${defineClass}`}>
                             <p className="profile-sidebar__name">{username}</p>
-                            <p className="profile-sidebar__id">@{userid}</p>
+                            <p className="profile-sidebar__id">@{id}</p>
                         </div>
                     </div>
                     <button className={`profile-sidebar__dots ${defineClass}`}></button>

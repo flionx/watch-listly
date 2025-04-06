@@ -186,6 +186,12 @@
     border: 1px solid #464646;
     overflow: hidden;
 }
+.profile-sidebar__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
 .profile-sidebar__info {}
 .profile-sidebar__name {
     font-weight: 700;
