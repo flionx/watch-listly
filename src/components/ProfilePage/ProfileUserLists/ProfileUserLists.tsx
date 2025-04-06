@@ -1,5 +1,6 @@
 import { useAppSelector } from '@/hooks/useRedux'
 import ProfileListCard from '../ProfileListCard/ProfileListCard';
+import nolistImage from '/profilePage/nolist.png'
 import './ProfileUserLists.css'
 
 const ProfileUserLists = () => {
@@ -13,7 +14,16 @@ const ProfileUserLists = () => {
                     <ProfileListCard key={list.id} list={list}/>
                 ))
             :
-                <p>You dont have lists</p>
+                <ProfileListCard key={0} 
+                    image
+                    list={{
+                        id: 0,
+                        poster: nolistImage,
+                        name: 'There are no lists',
+                        color: '#1f535f',
+                        movies: []
+                    }}
+                />
             }
         </div>
     </section>

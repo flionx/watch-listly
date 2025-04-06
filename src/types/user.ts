@@ -1,12 +1,18 @@
+import { TLoading } from "./global";
 import { IMovie } from "./movies";
 
 export interface IUser {
-    id: number | null,
+    id: string,
+    uid: string,
     username: string,
     avatar: string | null,
+    cover: string | null,
     listsVisibility: TListsVisibility,
+    seenList: IUserList[],
+    wantList: IUserList[],
     lists: IUserList[],
     friends: IUserFriend[],
+    loading: TLoading,
 }
 
 export interface IUserList {

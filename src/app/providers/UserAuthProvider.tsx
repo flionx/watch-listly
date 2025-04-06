@@ -9,7 +9,7 @@ export const UserAuth = createContext<boolean>(false);
 
 export const UserAuthProvider: FC<Props> = ({children}) => {
     const [user, setUser] = useState<boolean>(false);
-    useCheckAuth(setUser)
+    useCheckAuth(setUser);
     
     return (
         <UserAuth.Provider value={user}>

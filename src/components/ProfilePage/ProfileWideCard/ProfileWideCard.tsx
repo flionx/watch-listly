@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import testImg from '/profilePage/testavatar.png'
 import './ProfileWIdeCard.css'
 interface Props {
     title: string,
@@ -9,7 +8,7 @@ const ProfileWideCard:FC<Props> = ({title}) => {
   return (
     <button className='profile-main__card-wide list-wide-card'>
         <div className="list-wide-card__title">{title}</div>
-        <img src={testImg} alt="movie poster" className='list-card__img'/>
+        {/* <img src={''} alt="movie poster" className='list-card__img'/> */}
     </button>
   )
 }

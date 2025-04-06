@@ -1,14 +1,17 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/app/firebase';
 import { TSetState } from '@/types/global';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useAppDispatch } from './useRedux';
+import { getUserData } from '@/app/store/thunks/user/getUserInfo';
 
 const useCheckAuth = (setUser: TSetState<boolean>) => {
+    const dispatch = useAppDispatch();
 
-    onAuthStateChanged(auth, (user) => {
-        console.log('Проверка пользователя');
-        
+    onAuthStateChanged(auth, (user) => {        
         if (user) {
-            setUser(true)
+            setUser(true);
+            dispatch(getUserData(user.uid));
+            
         } else {
             setUser(false)
         }

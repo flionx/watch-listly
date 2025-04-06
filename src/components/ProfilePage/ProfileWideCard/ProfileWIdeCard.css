@@ -27,6 +27,15 @@
     object-position: center;
     transition: .5s all;
 }
+.list-card__img-nolist {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    transform: translate(-20px, 2px) rotate(0);
+}
 
 .list-wide-card:hover {
     background: var(--light-secong-bg-color);

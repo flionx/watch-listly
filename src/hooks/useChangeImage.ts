@@ -1,9 +1,11 @@
 import { ChangeEvent, useState } from 'react'
 import { supabase } from '@/app/supabaseClient';
+import { useAppDispatch } from './useRedux';
+import { setUserAvatar, setUserCover } from '@/app/store/slices/userSlice';
 
 const useChangeImage = () => {
-    const [imageUrl, setImageUrl] = useState('');
     const [uploading, setUploading] = useState(false);
+    const dispatch = useAppDispatch();
 
     const changeImage = async (
         e: ChangeEvent<HTMLInputElement>, 
@@ -28,9 +30,13 @@ const useChangeImage = () => {
                 .from('user')
                 .getPublicUrl(fileName);
         
-            // save to Firebase
+            if (path === 'covers') {
+                dispatch(setUserCover(publicUrl))
+            }
+            if (path === 'avatars') {
+                dispatch(setUserAvatar(publicUrl))
+            }
     
-            setImageUrl(publicUrl);
         } catch (error) {
             console.error("Error uploading image:", error instanceof Error ? error.message : error);
         } finally {
@@ -38,7 +44,7 @@ const useChangeImage = () => {
         }
     }
 
-    return {changeImage, imageUrl, uploading}
+    return {changeImage, uploading}
 }
 
 export default useChangeImage

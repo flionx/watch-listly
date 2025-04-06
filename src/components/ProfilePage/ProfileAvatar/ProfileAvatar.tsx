@@ -1,14 +1,16 @@
 import { useRef, FC } from "react"
 import testAvatar from '/profilePage/testavatar.png'
 import useChangeImage from "@/hooks/useChangeImage";
+import { useAppSelector } from "@/hooks/useRedux";
 
 const ProfileAvatar:FC = () => {
     const avatarRef = useRef<HTMLInputElement>(null);
-    const {changeImage, imageUrl, uploading} = useChangeImage();
+    const avatar = useAppSelector(state => state.user.avatar)
+    const {changeImage, uploading} = useChangeImage();
 
   return (
     <div className="header-profile__avatar">
-        <img src={imageUrl || testAvatar} alt="user avatar" />
+        <img src={avatar || testAvatar} alt="user avatar" />
         <input className='header__input-file'
             ref={avatarRef} 
             onChange={(e) => changeImage(e, 'avatars', 'flionx')}

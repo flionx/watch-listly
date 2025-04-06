@@ -63,7 +63,7 @@ const AuthForm: FC<Props> = ({isCreate = false}) => {
         <button className="auth__button"
             onClick={isCreate ? createUserStart : loginWithPassword}>{isCreate ? 'Sign Up' : 'Log In'}</button>
         <button className="auth__button auth__button-google"
-        onClick={signInWithGoogle}>{isCreate ? 'Sign Up' : 'Log In'} with Google</button>
+        onClick={signInWithGoogle}><span className='icon-google'></span>{isCreate ? 'Sign Up' : 'Log In'} with Google</button>
         {error && <ErrorMessage onClickClose={() => setError(null)}>{error}</ErrorMessage>}
     </form>
   )

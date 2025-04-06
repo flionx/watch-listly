@@ -1,30 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser, IUserFriend, IUserList, TListsVisibility } from "@/types/user";
+import { getUserData } from "../thunks/user/getUserInfo";
 
-const initialState: IUser = {
-    id: null,
+export const initialUserState: IUser = {
+    id: '',
+    uid: '',
     username: '',
     avatar: '',
+    cover: '',
     listsVisibility: 'everybody',
+    seenList: [],
+    wantList: [],
     lists: [],
     friends: [],
-}
-
-function getInitialState(): IUser {
-    const storage = localStorage.getItem('user');
-    return storage ? JSON.parse(storage) : initialState;
+    loading: 'idle',
 }
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: getInitialState(),
+    initialState: initialUserState,
     reducers: {
-        setUser: (state, action: PayloadAction<Pick<IUser, 'id' | 'username'>>) => {
-            state.id = action.payload.id;
-            state.username = action.payload.username;
+        setUser: (_, action: PayloadAction<IUser>) => {
+            return action.payload;
         },
         setUserAvatar: (state, action:PayloadAction<IUser['avatar']>) => {
             state.avatar = action.payload;
+        },
+        setUserCover: (state, action:PayloadAction<IUser['cover']>) => {
+            state.cover = action.payload;
         },
         addNewUserList: (state, action: PayloadAction<Pick<IUserList, 'name' | 'color'>>) => {
             const newList = {
@@ -45,12 +48,26 @@ const userSlice = createSlice({
         setListsVisibility: (state, action: PayloadAction<TListsVisibility>) => {
             state.listsVisibility = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getUserData.pending, (state) => {
+            state.loading = 'pending';
+        })
+        .addCase(getUserData.fulfilled, (state, action: PayloadAction<IUser | undefined>) => {
+            if (action.payload) {
+                return action.payload;
+            }
+            state.loading = 'succeeded';
+        })
+        .addCase(getUserData.rejected, (state) => {
+            state.loading = 'failed';
+        })
     }
 })
 
 export const {
     setUser, setUserAvatar, addNewUserList, 
-    deleteUserList, 
+    deleteUserList, setUserCover,
     setUserFriends, setListsVisibility
 } = userSlice.actions; 
 export default userSlice.reducer;

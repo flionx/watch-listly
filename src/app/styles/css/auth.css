@@ -110,20 +110,18 @@
 }
 .auth__button-google {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
 }
-.auth__button-google::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 23%;
-    transform: translateY(-50%);
+.icon-google {
     width: 20px;
     height: 20px;
     background-image: url('../../../../public/auth/google-icon.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
 }
 
 
