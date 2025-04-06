@@ -125,3 +125,7 @@
 .header-profile__dots-info button:hover {
     background: var(--light-secong-bg-color);
 }
+
+.header__input-file {
+    display: none;
+}
