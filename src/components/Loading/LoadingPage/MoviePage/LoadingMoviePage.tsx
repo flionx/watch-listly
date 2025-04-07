@@ -1,4 +1,4 @@
-import './LoadingPage.css'
+import '../LoadingPage.css'
 
 const LoadingMoviePage = () => {
   

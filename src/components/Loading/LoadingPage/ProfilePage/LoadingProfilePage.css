@@ -1,0 +1,99 @@
+@import url('../anim.css');
+
+.header-loading-prof {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 9px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    border: 1px solid var(--light-secong-bg-color);
+}
+.loading-profile__header {
+}
+.header-loading-prof__cover {
+    width: 100%;
+    height: 150px;
+    background: var(--second-bg-color);
+    border-bottom: 1px solid var(--light-secong-bg-color);
+}
+.header-loading-prof__bottom {
+    position: relative;
+    padding: 30px;
+    background: var(--second-bg-color);
+}
+.header-loading-prof__avatar {
+    position: absolute;
+    left: 30px;
+    bottom: 20px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 1px solid var(--light-secong-bg-color);
+    background: var(--second-bg-color);
+}
+.header-loading-prof__text {
+    padding-left: 135px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+.big-text {
+    width: 130px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--light-secong-bg-color);
+
+}
+.small-text {
+    width: 80px;
+    height: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--light-secong-bg-color);
+}
+.loading-profile-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.loading-main__title {
+    width: 200px;
+    max-width: 50%;
+    height: 30px;
+    background: var(--second-bg-color);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.loading-main__text {
+    width: 400px;
+    max-width: 80%;
+    height: 30px;
+    background: var(--second-bg-color);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.not-found-user {
+    margin: 0 auto;
+    background: var(--second-bg-color);
+    text-align: center;
+    padding: 110px 30px 20px 30px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 20px;
+    letter-spacing: 0.8px;
+}
+.not-found-user::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background-image: url('../../../../../public/profilePage/nouser.png');
+    background-position: center;
+    background-size: cover;
+}

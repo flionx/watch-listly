@@ -1,5 +1,5 @@
 import WideListSection from "@/components/WideListSection/WideListSection";
-import LoadingMoviePage from "@/components/Loading/LoadingPage/LoadingMoviePage";
+import LoadingMoviePage from "@/components/Loading/LoadingPage/MoviePage/LoadingMoviePage";
 import HeroMovie from "@/components/MoviePage/HeroMovie/HeroMovie";
 import InfoMoviePage from "@/components/MoviePage/InfoMoviePage/InfoMoviePage";
 import useMoviePage from "@/hooks/useMoviePage";

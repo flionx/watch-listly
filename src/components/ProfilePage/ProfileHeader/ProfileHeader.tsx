@@ -1,17 +1,18 @@
 import { FC, useRef, useState } from 'react';
-import { useAppSelector } from '@/hooks/useRedux';
 import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
 import useChangeImage from '@/hooks/useChangeImage';
 import testCover from '/profilePage/testcover.png'
-import './ProfileHeader.css'
 import { IUser } from '@/types/user';
+import './ProfileHeader.css'
 interface Props {
+    isCurrentUser: boolean,
     id: IUser['id'],
     cover: IUser['cover'],
     username: IUser['username'],
+    avatar: IUser['avatar'],
 }
 
-const ProfileHeader:FC<Props> = ({id, cover, username}) => {
+const ProfileHeader:FC<Props> = ({isCurrentUser, id, cover, username, avatar}) => {
     const [showSettings, setShowSettings] = useState(false);
     const coverRef = useRef<HTMLInputElement>(null)
     const {changeImage, uploading } = useChangeImage();
@@ -27,7 +28,7 @@ const ProfileHeader:FC<Props> = ({id, cover, username}) => {
                 </button>
                 {showSettings && 
                 <div className="header-profile__dots-info">
-                    <button>Copy your ID</button>
+                    <button>Copy user ID</button>
                     <input className='header__input-file'
                         ref={coverRef} 
                         onChange={(e) => changeImage(e, 'covers', 'flionx')}
@@ -35,17 +36,18 @@ const ProfileHeader:FC<Props> = ({id, cover, username}) => {
                         name="avatar" 
                         id="avatar" 
                         accept="image/*"
-                    />
-                    <button
-                        onClick={() => coverRef.current?.click()}
-                    >Change Cover</button>
-                    <button>Change Username</button>
-                    <button>Change Password</button>
-                    <button>Sign out</button>
+                    />{isCurrentUser && <>
+                        <button
+                            onClick={() => coverRef.current?.click()}
+                        >Change Cover</button>
+                        <button>Change Username</button>
+                        <button>Change Password</button>
+                        <button>Sign out</button>
+                    </>}
                 </div>}
             </div>
         </div>
-        <ProfileAvatar />
+        <ProfileAvatar avatar={avatar} isCurrentUser={isCurrentUser}/>
         <div className="header-profile__bottom">
             <div className="header-profile__user-info">
                 <div className="header-profile__username profile-main-title2">{username}</div>

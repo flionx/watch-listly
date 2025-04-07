@@ -1,11 +1,14 @@
 import { useRef, FC } from "react"
 import testAvatar from '/profilePage/testavatar.png'
 import useChangeImage from "@/hooks/useChangeImage";
-import { useAppSelector } from "@/hooks/useRedux";
+import { IUser } from "@/types/user";
+interface Props {
+  avatar: IUser['avatar'],
+  isCurrentUser: boolean,
 
-const ProfileAvatar:FC = () => {
+}
+const ProfileAvatar:FC<Props> = ({avatar, isCurrentUser}) => {
     const avatarRef = useRef<HTMLInputElement>(null);
-    const avatar = useAppSelector(state => state.user.avatar)
     const {changeImage, uploading} = useChangeImage();
 
   return (
@@ -19,9 +22,11 @@ const ProfileAvatar:FC = () => {
             id="avatar" 
             accept="image/*"
         />
-        <button className="header-profile__btn-edit btn-header-profile"
-            onClick={() => avatarRef.current?.click()}
-        ></button>
+        {isCurrentUser &&
+          <button className="header-profile__btn-edit btn-header-profile"
+              onClick={() => avatarRef.current?.click()}
+          ></button>
+        }
     </div>
   )
 }

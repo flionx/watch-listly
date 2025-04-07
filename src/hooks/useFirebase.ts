@@ -1,19 +1,20 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, User } from "firebase/auth";
 import { useAppDispatch } from "./useRedux";
 import { auth, db, provider } from "@/app/firebase";
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
-import { initialUserState, setUser } from "@/app/store/slices/userSlice";
+import { setUser } from "@/app/store/slices/userSlice";
 import { useRef } from "react";
-import randomUserId from "@/utils/randomUserId";
 import { TSetState } from "@/types/global";
 import { IUser } from "@/types/user";
+import useUploadSetUser from "./useUploadSetUser";
 
 const useFirebase = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const {username} = useParams();
-    
+    const uploadOrSetUser = useUploadSetUser();
+
     function signUpWithEmail(
         email: string, 
         callback: TSetState<boolean>, 
@@ -38,30 +39,9 @@ const useFirebase = () => {
                     if (!user) return
                     await user.reload();
 
-                    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-                    const querySnapshot = await getDocs(q);
+                    if (!user.emailVerified) return;
 
-                    if (!querySnapshot.empty) {
-                        // There's already a user
-                        const existingUser = querySnapshot.docs[0];
-                        dispatch(setUser(existingUser.data() as IUser));
-                    } else {
-                        // if no user
-                        const uname = user.displayName?.trim() ? user.displayName : 
-                        `user${Math.floor(Math.random() * 9000) + 1000}`; //user4209 (4 nums)
-                        const uicon = user.photoURL || '';
-                        const newUserId = randomUserId();
-                        const dataState = {
-                            ...initialUserState,
-                            uid: user.uid,
-                            id: newUserId,
-                            username: uname,
-                            avatar: uicon,
-                        }
-                        const dataRef = doc(db, "users", newUserId);
-                        await setDoc(dataRef, dataState);
-                        dispatch(setUser(dataState));
-                    }
+                    await uploadOrSetUser(user, username!);
 
                     navigate('/auth/signup/create');
                     if (intervalRef.current) {
@@ -79,30 +59,7 @@ const useFirebase = () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 const user = result.user;
-                const q = query(collection(db, "users"), where("uid", "==", user.uid));
-                const querySnapshot = await getDocs(q);
-
-                if (!querySnapshot.empty) {
-                    // There's already a user
-                    const existingUser = querySnapshot.docs[0];
-                    dispatch(setUser(existingUser.data() as IUser));
-                } else {
-                    // if no user
-                    const uname = user.displayName?.trim() ? user.displayName : 
-                    `user${Math.floor(Math.random() * 9000) + 1000}`; //user4209 (4 nums)
-                    const uicon = user.photoURL || '';
-                    const newUserId = randomUserId();
-                    const dataState = {
-                        ...initialUserState,
-                        uid: user.uid,
-                        id: newUserId,
-                        username: uname,
-                        avatar: uicon,
-                    }
-                    const dataRef = doc(db, "users", newUserId);
-                    await setDoc(dataRef, dataState);
-                    dispatch(setUser(dataState));
-                }
+                await uploadOrSetUser(user, username!);
 
                 navigate('/');
 
@@ -135,6 +92,7 @@ const useFirebase = () => {
                 console.log(error);
             })
     }
+
 
     return {signUpWithEmail, sendVerifEmail, signInWithGoogle, signInWithEmail};
 }
