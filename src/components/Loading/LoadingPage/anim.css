@@ -1,0 +1,31 @@
+.load-anim,
+.low-load-anim {
+    position: relative;
+    overflow: hidden;
+}
+.low-load-anim::after,
+.load-anim::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -70px;
+    width: 60px;
+    height: 100%;
+}
+
+.load-anim::after {
+    background: linear-gradient(90deg, rgba(42, 42, 42, 0) 0%, rgba(37, 37, 37, 0.20) 27%, #212121 50%, rgba(40, 40, 40, 0.40) 76.5%, rgba(46, 46, 46, 0) 100%);
+    animation: skeleton 1s infinite ease-in-out;
+}
+.low-load-anim::after {
+    left: -100px;
+    width: 100px;
+    background: linear-gradient(90deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.27) 27%, #212121 50%, rgba(20, 20, 20, 0.47) 76.5%, rgba(20, 20, 20, 0) 100%);
+    animation: skeleton 1.3s infinite ease-in-out;
+}
+
+@keyframes skeleton {
+    100% {
+        left: 100%;
+    }
+}

@@ -44,7 +44,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--padding-max20);
-
+    margin-bottom: 8px;
 }
 
 @media (max-width: 800px) {

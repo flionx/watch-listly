@@ -1,13 +1,18 @@
-import { useAppSelector } from '@/hooks/useRedux'
+import { FC } from 'react';
 import ProfileListCard from '../ProfileListCard/ProfileListCard';
 import nolistImage from '/profilePage/nolist.png'
 import './ProfileUserLists.css'
+import { IUserList } from '@/types/user';
+interface Props {
+    isCurrentUser: boolean,
+    lists: IUserList[],
+}
 
-const ProfileUserLists = () => {
-    const lists = useAppSelector(state => state.user.lists);
-  return (
+const ProfileUserLists:FC<Props> = ({isCurrentUser, lists}) => {
+
+    return (
     <section className='profile-main__lists user-lists'>
-        <div className="user-lists__title">My lists</div>
+        <div className="user-lists__title">{isCurrentUser ? 'My' : 'User'} lists</div>
         <div className="user-lists__row">
             {lists.length > 0 ? 
                 lists.map(list => (
