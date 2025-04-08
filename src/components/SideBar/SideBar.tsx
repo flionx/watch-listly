@@ -5,7 +5,7 @@ import { useAppSelector } from "@/hooks/useRedux"
 import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 import test1 from '/sidebar/test1.png?url'
 import test2 from '/sidebar/test2.png?url'
-import test3 from '/sidebar/test3.png?url'
+import defaultAvatar from '/profilePage/default-avatar.svg'
 import logo from '/sidebar/logo.svg?url'
 import './Sidebar.css'
 
@@ -53,8 +53,8 @@ const SideBar = () => {
                 {username ? 
                     <>
                     <div className="profile-sidebar__main">
-                        <Link to={`user/${id}`} className="profile-sidebar__icon">
-                            <img src={avatar || test3} alt="icon" />
+                        <Link to={id ? `/user/${id}` : '/signup'} className="profile-sidebar__icon">
+                            <img src={avatar || defaultAvatar} alt="icon" />
                         </Link>
                         <div className={`profile-sidebar__info ${defineClass}`}>
                             <p className="profile-sidebar__name">{username}</p>

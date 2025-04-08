@@ -1,5 +1,5 @@
 import { useRef, FC } from "react"
-import testAvatar from '/profilePage/testavatar.png'
+import defaultAvatar from '/profilePage/default-avatar.svg'
 import useChangeImage from "@/hooks/useChangeImage";
 import { IUser } from "@/types/user";
 interface Props {
@@ -13,20 +13,24 @@ const ProfileAvatar:FC<Props> = ({avatar, isCurrentUser}) => {
 
   return (
     <div className="header-profile__avatar">
-        <img src={avatar || testAvatar} alt="user avatar" />
-        <input className='header__input-file'
-            ref={avatarRef} 
-            onChange={(e) => changeImage(e, 'avatars', 'flionx')}
-            type="file" 
-            name="avatar" 
-            id="avatar" 
-            accept="image/*"
-        />
-        {isCurrentUser &&
-          <button className="header-profile__btn-edit btn-header-profile"
-              onClick={() => avatarRef.current?.click()}
-          ></button>
-        }
+      {uploading ? 
+        <div className="avatar__loading load-anim"></div>
+      :
+        <img src={avatar || defaultAvatar} alt="user avatar" />
+      }
+      <input className='header__input-file'
+          ref={avatarRef} 
+          onChange={(e) => changeImage(e, 'avatars', 'flionx')}
+          type="file" 
+          name="avatar" 
+          id="avatar" 
+          accept="image/*"
+      />
+      {isCurrentUser &&
+        <button className="header-profile__btn-edit btn-header-profile"
+            onClick={() => avatarRef.current?.click()}
+        ></button>
+      }
     </div>
   )
 }
