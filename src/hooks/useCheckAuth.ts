@@ -1,17 +1,15 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/app/firebase';
 import { TSetState } from '@/types/global';
-import { useAppDispatch } from './useRedux';
-import { getUserData } from '@/app/store/thunks/user/getUserInfo';
+import useUploadSetUser from './useUploadSetUser';
 
 const useCheckAuth = (setUser: TSetState<boolean>) => {
-    const dispatch = useAppDispatch();
+    const uploadOrSetUser = useUploadSetUser();
 
     onAuthStateChanged(auth, (user) => {        
         if (user) {
             setUser(true);
-            dispatch(getUserData(user.uid));
-            
+            uploadOrSetUser(user, '');            
         } else {
             setUser(false)
         }

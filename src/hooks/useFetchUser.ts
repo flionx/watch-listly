@@ -1,27 +1,36 @@
-import { db } from '@/app/firebase';
-import { TSetState } from '@/types/global';
-import { IUser } from '@/types/user';
+import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
-import { useState } from 'react';
+import { db } from '@/app/firebase';
+import { IUser } from '@/types/user';
 import { useAppSelector } from './useRedux';
+import { scrollToUpPage } from '@/utils/scrollToUpPage';
 
-const useFetchUser = () => {
+const useFetchUser = (id: string) => {
+    const currentUser = useAppSelector(state => state.user)
+    const [isCurrentUser, setIsCurrentUser] = useState<boolean>(currentUser.id === id ? true : false);
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<IUser>();
-    const currentUserId = useAppSelector(state => state.user.id) 
 
-    async function fetchUser(id: string, setIsCurrentUser: TSetState<boolean>) {
-        try {
-            setLoading(true);
+    useEffect(() => {
+        scrollToUpPage();
+        
+        if (isCurrentUser) return;
+        setIsCurrentUser(currentUser.id === id ? true : false)
+        
+        fetchUser();
+    }, [id, currentUser])
     
+
+    async function fetchUser() {
+        try {
+            if (isCurrentUser) return;
+            setLoading(true);
+
             const docRef = doc(db, 'users', id);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const user = docSnap.data() as IUser;  
                 setUser(user); 
-                setIsCurrentUser(curr => 
-                    curr = (currentUserId === id) ? true : false
-                )
             }
     
         } catch (err: unknown) {
@@ -32,7 +41,11 @@ const useFetchUser = () => {
         }
     }
 
-    return {loading, user, fetchUser}
+    return {
+        loading, 
+        isCurrentUser,
+        user: isCurrentUser ? currentUser : user, 
+    }
 }
 
 export default useFetchUser

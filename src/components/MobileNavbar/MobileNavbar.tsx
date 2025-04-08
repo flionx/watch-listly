@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/hooks/useRedux'
 import { NavLink } from 'react-router-dom'
-import testAvatar from '/profilePage/testavatar.png'
+import defaultAvatar from '/profilePage/default-avatar.svg'
 import './MobileNavbar.css'
 
 const MobileNavbar = () => {
@@ -11,8 +11,8 @@ const MobileNavbar = () => {
         <button className='mobile-nav__link mobile-nav__link-search'>Search</button>
         <NavLink to='/library' className="mobile-nav__link mobile-nav__link-library">Library</NavLink>
         <NavLink to='/friends' className="mobile-nav__link mobile-nav__link-friends">Friends</NavLink>
-        <NavLink to={`/user/${id}`} className='mobile-nav__profile'>
-            <img src={avatar || testAvatar} alt='avatar' className="profile__img"></img>
+        <NavLink to={id ? `/user/${id}` : '/signup'} className='mobile-nav__profile'>
+            <img src={avatar || defaultAvatar} alt='avatar' className="profile__img"></img>
             Profile</NavLink>
     </nav>
   )

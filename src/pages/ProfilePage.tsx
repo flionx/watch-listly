@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-import { useAppSelector } from '@/hooks/useRedux'
 import { useParams } from 'react-router-dom'
 import ProfileHeader from '@/components/ProfilePage/ProfileHeader/ProfileHeader'
 import ProfileWideCard from '@/components/ProfilePage/ProfileWideCard/ProfileWideCard'
@@ -12,20 +10,12 @@ import '@/app/styles/css/profilePage.css'
 
 const ProfilePage = () => {
   const {id} = useParams();
-  const {user, loading, fetchUser} = useFetchUser();
-  const [isCurrentUser, setIsCurrentUser] = useState(false);
-  const currentUserLists = useAppSelector(state => state.user.lists)
-  
-  useEffect(() => {
-    if (!id) return;
-
-    fetchUser(id, setIsCurrentUser);
-  }, [id])
+  const {user, isCurrentUser, loading} = useFetchUser(id!);
 
   return (
     <section className="profile-main">
-      {loading && <LoadingProfilePage user/>}
-      {!loading && !user && <LoadingProfilePage user={false}/>}
+      {!isCurrentUser && loading && <LoadingProfilePage user/>}
+      {!isCurrentUser && !loading && !user && <LoadingProfilePage user={false}/>}
       {!loading && user && <>
         <ProfileHeader 
           isCurrentUser={isCurrentUser}
@@ -39,11 +29,11 @@ const ProfilePage = () => {
             <ProfileWideCard title='Want to see it'/>
         </div>
         {isCurrentUser && <ProfileCreateList />}
-        <ProfileUserLists isCurrentUser={isCurrentUser} lists={isCurrentUser ? currentUserLists : user.lists}/>
+        <ProfileUserLists isCurrentUser={isCurrentUser} lists={user.lists}/>
         {isCurrentUser && 
           <div className="profile-main__column">
               <ProfileSelect visibility>Who can see your lists?</ProfileSelect>
-              <ProfileSelect lists={currentUserLists}>Would you like to remove a list?</ProfileSelect>
+              <ProfileSelect lists={user.lists}>Would you like to remove a list?</ProfileSelect>
           </div>
         }
       </>}
