@@ -11,7 +11,7 @@ const MobileNavbar = () => {
         <button className='mobile-nav__link mobile-nav__link-search'>Search</button>
         <NavLink to='/library' className="mobile-nav__link mobile-nav__link-library">Library</NavLink>
         <NavLink to='/friends' className="mobile-nav__link mobile-nav__link-friends">Friends</NavLink>
-        <NavLink to={id ? `/user/${id}` : '/signup'} className='mobile-nav__profile'>
+        <NavLink to={id ? `/user/${id}` : '/auth/signup'} className='mobile-nav__profile'>
             <img src={avatar || defaultAvatar} alt='avatar' className="profile__img"></img>
             Profile</NavLink>
     </nav>
