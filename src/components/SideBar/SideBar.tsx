@@ -53,7 +53,7 @@ const SideBar = () => {
                 {username ? 
                     <>
                     <div className="profile-sidebar__main">
-                        <Link to={id ? `/user/${id}` : '/signup'} className="profile-sidebar__icon">
+                        <Link to={id ? `/user/${id}` : '/auth/signup'} className="profile-sidebar__icon">
                             <img src={avatar || defaultAvatar} alt="icon" />
                         </Link>
                         <div className={`profile-sidebar__info ${defineClass}`}>

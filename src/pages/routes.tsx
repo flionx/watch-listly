@@ -55,11 +55,11 @@ const router = createBrowserRouter([
                 element: <SignUpPage />,
             },
             {
-                path: '/auth/signup/:username',
+                path: 'signup/:username',
                 element: <SignUpEmailPage />,
             },
             {
-                path: '/auth/signup/create',
+                path: 'signup/create',
                 element: <SignUpStepPage />,
             },
         ]

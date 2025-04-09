@@ -6,6 +6,7 @@ import ProfileUserLists from '@/components/ProfilePage/ProfileUserLists/ProfileU
 import ProfileSelect from '@/components/ProfilePage/ProfileSelect/ProfileSelect'
 import LoadingProfilePage from '@/components/Loading/LoadingPage/ProfilePage/LoadingProfilePage'
 import useFetchUser from '@/hooks/useFetchUser'
+import ModalAction from '@/components/ModalAction/ModalAction'
 import '@/app/styles/css/profilePage.css'
 
 const ProfilePage = () => {
@@ -24,6 +25,7 @@ const ProfilePage = () => {
           cover={user.cover}
           avatar={user.avatar}
         />
+        {/* <ModalAction></ModalAction> IN DEVELOPMENT for change password, description */}
         <div className="profile-main__cards-wide">
             <ProfileWideCard title='Seen it'/>
             <ProfileWideCard title='Want to see it'/>

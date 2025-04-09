@@ -2,6 +2,7 @@ import { FC, useRef, useState } from 'react';
 import testCover from '/profilePage/testcover.png'
 import { IUser } from '@/types/user';
 import useChangeImage from '@/hooks/useChangeImage';
+import useSignOut from '@/utils/useSignOut';
 interface Props {
     id: IUser['id'],
     cover: IUser['cover'],
@@ -11,6 +12,7 @@ const ProfileCover:FC<Props>= ({id, cover, isCurrentUser}) => {
     const coverRef = useRef<HTMLInputElement>(null)
     const {changeImage, uploading } = useChangeImage();
     const [showSettings, setShowSettings] = useState(false);
+    const signOutUser = useSignOut();
     
   return (
     <div className={`header-profile__cover ${uploading ? 'low-load-anim' : ''}`} 
@@ -35,7 +37,7 @@ const ProfileCover:FC<Props>= ({id, cover, isCurrentUser}) => {
                     >Change Cover</button>
                     <button>Change Username</button>
                     <button>Change Password</button>
-                    <button>Sign out</button>
+                    <button onClick={signOutUser}>Sign out</button>
                 </>}
             </div>}
         </div>

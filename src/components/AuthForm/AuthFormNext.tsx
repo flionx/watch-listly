@@ -1,14 +1,17 @@
 import { auth } from '@/app/firebase';
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage';
 import { updatePassword } from 'firebase/auth';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 interface IPasswords {
     main: string,
     confirm: string,
 }
+interface Props {
+    buttonText: string,
+}
 
-const AuthFormNext = () => {
+const AuthFormNext:FC<Props> = ({buttonText}) => {
     const [isPassVisible, setIsPassVisible] = useState(false);
     const [passwords, setPasswords] = useState<IPasswords>({
         main: '',
@@ -62,7 +65,7 @@ const AuthFormNext = () => {
         />  
 
         <button className="auth__button"
-            onClick={createAnAccount}>Sign Up</button>
+            onClick={createAnAccount}>{buttonText}</button>
         {error && <ErrorMessage onClickClose={() => {setError(null)}}>{error}</ErrorMessage>}
     </form>
   )
