@@ -60,5 +60,4 @@ Main interface.
 
  ## License  
 
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.   
-See the full version of the [license](LICENSE).
+This project is distributed under the MIT license. See the [LICENSE](LICENSE). file for details.
