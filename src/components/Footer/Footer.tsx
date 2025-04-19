@@ -8,6 +8,8 @@ import './Footer.css'
 
 const Footer = () => {
   const loadingMoviePage = useAppSelector(state => state.movies.movie.loading); //in movie page
+  const userId = useAppSelector(state => state.user.id);
+
   return (!(loadingMoviePage === 'pending')  && 
     <footer className="footer">
       <div className="footer__column">
@@ -18,7 +20,7 @@ const Footer = () => {
           <Link to='/'>Home</Link>
           <Link to='/library'>Library</Link>
           <Link to='/friends'>Friends</Link>
-          <Link to='/profile'>Profile</Link>
+          <Link to={userId ? `/user/${userId}` : '/auth/signin'}>Profile</Link>
         </nav>
       </div>
       <div className="footer__column">

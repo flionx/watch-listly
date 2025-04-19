@@ -16,9 +16,8 @@ const useFetchUser = (id: string) => {
         
         if (isCurrentUser) return;
         setIsCurrentUser(currentUser.id === id ? true : false)
-        
         fetchUser();
-    }, [id, currentUser])
+    }, [id])
     
 
     async function fetchUser() {
