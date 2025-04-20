@@ -3,6 +3,8 @@ import testCover from '/profilePage/testcover.png'
 import { IUser } from '@/types/user';
 import useChangeImage from '@/hooks/useChangeImage';
 import useSignOut from '@/utils/useSignOut';
+import copyToClipboard from '@/utils/copyToClipboard';
+import shareLink from '@/utils/shareLink';
 interface Props {
     id: IUser['id'],
     cover: IUser['cover'],
@@ -23,7 +25,8 @@ const ProfileCover:FC<Props>= ({id, cover, isCurrentUser}) => {
             </button>
             {showSettings && 
             <div className="header-profile__dots-info">
-                <button>Copy user ID</button>
+                <button onClick={() => copyToClipboard(id)}>Copy user ID</button>
+                <button onClick={() => shareLink(window.location.href)}>Share link</button>
                 <input className='header__input-file'
                     ref={coverRef} 
                     onChange={(e) => changeImage(e, 'covers', 'flionx')}
