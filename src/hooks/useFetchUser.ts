@@ -7,18 +7,21 @@ import { scrollToUpPage } from '@/utils/scrollToUpPage';
 
 const useFetchUser = (id: string) => {
     const currentUser = useAppSelector(state => state.user)
-    const [isCurrentUser, setIsCurrentUser] = useState<boolean>(currentUser.id === id ? true : false);
+    const [isCurrentUser, setIsCurrentUser] = useState<boolean>(currentUser.id === id);
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<IUser>();
 
     useEffect(() => {
         scrollToUpPage();
         
-        if (isCurrentUser) return;
-        setIsCurrentUser(currentUser.id === id ? true : false)
-        fetchUser();
-    }, [id])
-    
+        const newIsCurrUser = currentUser.id === id;
+        if (isCurrentUser !== newIsCurrUser ) {
+            setIsCurrentUser(newIsCurrUser)
+        }
+        if (!newIsCurrUser) {
+            fetchUser();
+        }
+    }, [id, currentUser.id])
 
     async function fetchUser() {
         try {
