@@ -1,15 +1,19 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { IMovie } from "@/types/movies"
 import ButtonHero from "@/ui/ButtonHero/ButtonHero"
 import { Link } from "react-router-dom"
 import VoteCount from "../VoteCount/VoteCount"
 import { formatDate } from "@/utils/formatInfo"
+import ModalAddToList from "../ModalAddToList/ModalAddToList"
 interface Props {
     movie: IMovie
 }
 
 const HeroInfo:FC<Props> = ({movie}) => {
+    const [hasAddModal, setHasAddModal] = useState(false);
+    
   return (
+    <>
     <div className="hero__info">
         <h2 className="hero__title">{movie?.title || movie?.name}</h2>
         <div className="hero__info-info">
@@ -25,9 +29,11 @@ const HeroInfo:FC<Props> = ({movie}) => {
                 <ButtonHero noBg onClick={() => {}}>Learn more</ButtonHero>
             </Link>
             <ButtonHero icon='triangle' onClick={() => {}}>Watch trailer</ButtonHero>
-            <ButtonHero icon='plus' onClick={() => {}}>Add to list</ButtonHero>
+            <ButtonHero icon='plus' onClick={() => setHasAddModal(true)}>Add to list</ButtonHero>
         </div>
     </div>
+    {hasAddModal && <ModalAddToList closeModal={() => setHasAddModal(false)}/>}
+    </>
   )
 }
 

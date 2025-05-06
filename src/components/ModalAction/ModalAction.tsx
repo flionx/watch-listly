@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react'
 import AuthFormNext from '../AuthForm/AuthFormNext'
-import styles from './ModalAction.module.css'
+import styles from './index.module.css'
 interface Props {
     children?: ReactNode,
 }
