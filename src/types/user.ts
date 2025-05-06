@@ -25,6 +25,7 @@ export interface IUserList {
 
 export interface IUserListMovie {
     movie: IMovie,
+    watched: boolean,
     rate: number | null,
 }
 export interface IUserFriend {

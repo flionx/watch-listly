@@ -14,14 +14,12 @@ WatchListly is a modern platform for movie enthusiasts to discover, organize, an
 
 ## Current Status
 
-WatchListly is actively in development with an MVP targeted for **April, 2025**.  
-- ✅ Hero section with auto-switching and manual navigation.  
-- ✅ Sidebar with smooth open/close animations.  
-- ✅ Movie sections powered by TMDB API via a secure serverless function.
-- ✅ Movie pages, with detailed information and trailer.   
-- ✅ User authentication.  
-- ⏳ User profile and personalized lists (in development).  
-- ⏳ "Mood Picker" feature for mood-based movie suggestions (coming soon).  
+WatchListly is in development
+- ✅ User Profile.
+- ⏳ Adding a movie to the list (in development).
+- ⏳ List page (coming soon).
+- ⏳ Rating a movie (coming soon).
+- ⏳ Mood Picker feature to suggest movies by mood (coming soon).
 
 ## Installation
 
