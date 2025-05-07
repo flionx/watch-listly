@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser, IUserFriend, IUserList, TListsVisibility } from "@/types/user";
+import { IUser, IUserFriend, IUserList, TBasicListsKey, TListsVisibility } from "@/types/user";
 import { getUserData } from "../thunks/user/getUserInfo";
+import { IMovie } from "@/types/movies";
 
 export const initialUserState: IUser = {
     id: '',
@@ -47,7 +48,24 @@ const userSlice = createSlice({
         },
         setListsVisibility: (state, action: PayloadAction<TListsVisibility>) => {
             state.listsVisibility = action.payload
-        }
+        },
+        addToUserList: (state, action: PayloadAction<{movie: IMovie, id: IUserList['id']}>) => {
+            const list = state.lists.find(list => list.id === action.payload.id);
+            const newMovie = {
+                movie: action.payload.movie,
+                watched: false,
+                rate: null
+            }
+            list?.movies.push(newMovie);
+        },
+        addToBasicList: (state, action: PayloadAction<{movie: IMovie, key: TBasicListsKey}>) => {
+            const newMovie = {
+                movie: action.payload.movie,
+                watched: false,
+                rate: null
+            }
+            state[action.payload.key].push(newMovie)
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getUserData.pending, (state) => {
@@ -68,6 +86,7 @@ const userSlice = createSlice({
 export const {
     setUser, setUserAvatar, addNewUserList, 
     deleteUserList, setUserCover,
-    setUserFriends, setListsVisibility
+    setUserFriends, setListsVisibility,
+    addToUserList, addToBasicList
 } = userSlice.actions; 
 export default userSlice.reducer;

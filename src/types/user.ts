@@ -35,3 +35,5 @@ export interface IUserFriend {
 }
 
 export type TListsVisibility = 'everybody' | 'nobody' | 'friends'; 
+
+export type TBasicListsKey = 'seenList' | 'wantList'; 
