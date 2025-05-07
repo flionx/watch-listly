@@ -99,12 +99,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
     position: relative;
 }
 .item:hover {
     background: var(--sidebar-second-bg-color);
     border: 1px solid var(--light-secong-bg-color)
 }
+.item:hover button {
+    opacity: 1;
+}
+
 .add {
     border: 1px solid var(--gray-light-color);
     color: var(--gray-light-color);
@@ -121,6 +126,9 @@
 }
 .added {
     background: var(--main-color);
+}
+.added {
+    opacity: 1 !important;
 }
 .added::after {
     content: '';
