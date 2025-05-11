@@ -10,6 +10,7 @@ WatchListly is a modern platform for movie enthusiasts to discover, organize, an
 - **Mood-Based Recommendations**: Find the perfect movie with the upcoming "Mood Picker" feature. *(In development)*  
 - **Secure & Synced**: Sign in with Google or email to sync your lists across devices.
 - **Optimized Performance**: Serverless API for fast and secure movie data fetching.  
+- **Multi-user**: Add other users as friends and view their open lists.
 - **Sleek Design**: Minimalistic UI with smooth animations and responsive layout.
 
 ## Current Status

@@ -4,8 +4,8 @@ import { FC, memo, ReactNode, useCallback, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
 import { IUserList, TBasicListsKey } from '@/types/user'
 import { IMovie } from '@/types/movies'
-import { addToBasicList, addToUserList } from '@/app/store/slices/userSlice'
 import { TSetState } from '@/types/global'
+import { addMovieToList, removeMovieFromList } from '@/app/store/slices/userSlice'
 interface Props {
     closeModal: VoidFunction,
     movie: IMovie,
@@ -22,12 +22,13 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
         if (tracked.length === 0) return;
         tracked.forEach(value => {
             if (typeof value === 'number') {
-                dispatch(addToUserList({movie, id: value}))
+                dispatch(addMovieToList({movie, type: 'user', listId: value}))
             } 
             if (typeof value === 'string') {
-                dispatch(addToBasicList({movie, key: value as TBasicListsKey}))
+                dispatch(addMovieToList({movie, type: 'basic', key: value as TBasicListsKey}))
             }
         })
+        closeModal();
     }
 
   return (
@@ -82,6 +83,7 @@ interface PropsRow {
 
 const RowList: FC<PropsRow> = memo(({name, movie, listId, listName, setTracked}) => {
     const [isAdded, setIsAdded] = useState(false);
+    const dispatch = useAppDispatch();
     const currList = useAppSelector(state => {
         if (listId) return state.user.lists.find(l => l.id === listId)?.movies;
         if (listName) return state.user[listName];
@@ -93,23 +95,35 @@ const RowList: FC<PropsRow> = memo(({name, movie, listId, listName, setTracked})
         }
     }, [currList])
 
-    function addToTracked() {
-        setTracked(arr => [...arr,
-            ...(typeof listId === 'number' ? [listId] : []),
-            ...(typeof listName === 'string' ? [listName] : [])
-        ]);
-        setIsAdded(c => !c)
+    function switchTracked() {
+        if (!isAdded) {
+            setTracked(arr => [...arr,
+                ...(typeof listId === 'number' ? [listId] : []),
+                ...(typeof listName === 'string' ? [listName] : [])
+            ]);
+            setIsAdded(c => !c);
+        } else {
+            if (typeof listId === 'number') {
+                dispatch(removeMovieFromList({movieId: movie.id, type: 'user', listId}))
+            } else if (typeof listName === 'string') {
+                dispatch(removeMovieFromList({movieId: movie.id, type: 'basic', key: listName}))
+            }
+            setIsAdded(c => !c)
+        }
     }
 
     return (
         <li className={styles.item}>{name}
             <button className={isAdded ? styles.added : styles.add}
-                onClick={addToTracked}>
+                onClick={switchTracked}>
             </button>
         </li>
     )
 })
-const LineCenterText = ({children} : {children: ReactNode}) => {
+interface LineProps {
+    children: ReactNode
+}
+const LineCenterText: FC<LineProps> = ({children}) => {
     return (
         <div className={styles.line}>
         <hr />

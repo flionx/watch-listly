@@ -2,6 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser, IUserFriend, IUserList, TBasicListsKey, TListsVisibility } from "@/types/user";
 import { getUserData } from "../thunks/user/getUserInfo";
 import { IMovie } from "@/types/movies";
+interface IAddToListParams extends IActionListParams {
+    movie: IMovie
+}
+interface IRemoveFromListParams extends IActionListParams {
+    movieId: IMovie['id']
+}
+interface IActionListParams {
+    listId?: IUserList['id'], 
+    key?: TBasicListsKey,
+    type: 'user' | 'basic'
+}
 
 export const initialUserState: IUser = {
     id: '',
@@ -49,22 +60,30 @@ const userSlice = createSlice({
         setListsVisibility: (state, action: PayloadAction<TListsVisibility>) => {
             state.listsVisibility = action.payload
         },
-        addToUserList: (state, action: PayloadAction<{movie: IMovie, id: IUserList['id']}>) => {
-            const list = state.lists.find(list => list.id === action.payload.id);
+        addMovieToList: (state, action: PayloadAction<IAddToListParams>) => {
             const newMovie = {
                 movie: action.payload.movie,
                 watched: false,
                 rate: null
             }
-            list?.movies.push(newMovie);
+            if (action.payload.type === 'user') {
+                const list = state.lists.find(list => list.id === action.payload.listId);
+                list?.movies.push(newMovie);
+            } else {
+                state[action.payload.key!].push(newMovie)
+            }
         },
-        addToBasicList: (state, action: PayloadAction<{movie: IMovie, key: TBasicListsKey}>) => {
-            const newMovie = {
-                movie: action.payload.movie,
-                watched: false,
-                rate: null
+        removeMovieFromList: (state, action: PayloadAction<IRemoveFromListParams>) => {
+            const movieId = action.payload.movieId;
+            if (action.payload.type === 'user') {
+                const list = state.lists.find(list => list.id === action.payload.listId);
+                if (list) {
+                    list.movies = list.movies.filter(movie => movie.movie.id !== movieId);                    
+                }
+            } else {
+                const key = action.payload.key!;
+                state[key] = state[key].filter(movie => movie.movie.id !== movieId)
             }
-            state[action.payload.key].push(newMovie)
         },
     },
     extraReducers: (builder) => {
@@ -87,6 +106,6 @@ export const {
     setUser, setUserAvatar, addNewUserList, 
     deleteUserList, setUserCover,
     setUserFriends, setListsVisibility,
-    addToUserList, addToBasicList
+    addMovieToList, removeMovieFromList
 } = userSlice.actions; 
 export default userSlice.reducer;
