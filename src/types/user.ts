@@ -8,8 +8,8 @@ export interface IUser {
     avatar: string | null,
     cover: string | null,
     listsVisibility: TListsVisibility,
-    seenList: IUserList[],
-    wantList: IUserList[],
+    seenList: IUserListMovie[],
+    wantList: IUserListMovie[],
     lists: IUserList[],
     friends: IUserFriend[],
     loading: TLoading,
@@ -35,3 +35,5 @@ export interface IUserFriend {
 }
 
 export type TListsVisibility = 'everybody' | 'nobody' | 'friends'; 
+
+export type TBasicListsKey = 'seenList' | 'wantList'; 
