@@ -1,31 +1,42 @@
-import ButtonHero from '@/ui/ButtonHero/ButtonHero'
-import styles from './index.module.css'
 import { FC, memo, ReactNode, useCallback, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
+import ButtonHero from '@/ui/ButtonHero/ButtonHero'
 import { IUserList, TBasicListsKey } from '@/types/user'
 import { IMovie } from '@/types/movies'
 import { TSetState } from '@/types/global'
 import { addMovieToList, removeMovieFromList } from '@/app/store/slices/userSlice'
+import styles from './index.module.css'
 interface Props {
     closeModal: VoidFunction,
     movie: IMovie,
 }
-type TTrackedArr = (string | number)[]
+type ITracked = {
+    value: string | number,
+    action: 'add' | 'remove', 
+}
 
 const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
     const dispatch = useAppDispatch();
     const userLists = useAppSelector(state => state.user.lists);
-    const [tracked, setTracked] = useState<TTrackedArr>([]);
-    const callSetTracked = useCallback<TSetState<TTrackedArr>>((value) => setTracked(value), []);
+    const [tracked, setTracked] = useState<ITracked[]>([]);
+    const callSetTracked = useCallback<TSetState<ITracked[]>>((value) => setTracked(value), []);
 
-    function addToList() {
+    function saveTracked() {
         if (tracked.length === 0) return;
-        tracked.forEach(value => {
-            if (typeof value === 'number') {
-                dispatch(addMovieToList({movie, type: 'user', listId: value}))
+        tracked.forEach(list => {
+            if (typeof list.value === 'number') {
+                if (list.action === 'add') {
+                    dispatch(addMovieToList({movie, type: 'user', listId: list.value}))
+                } else {
+                    dispatch(removeMovieFromList({movieId: movie.id, type: 'user', listId: list.value}))
+                }
             } 
-            if (typeof value === 'string') {
-                dispatch(addMovieToList({movie, type: 'basic', key: value as TBasicListsKey}))
+            if (typeof list.value === 'string') {
+                if (list.action === 'add') {
+                    dispatch(addMovieToList({movie, type: 'basic', key: list.value as TBasicListsKey}))
+                } else {
+                    dispatch(removeMovieFromList({movieId: movie.id, type: 'basic', key: list.value as TBasicListsKey}))
+                }
             }
         })
         closeModal();
@@ -64,7 +75,7 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
             </ul>
             <div className={styles.btns}>
                 <ButtonHero noBg onClick={closeModal}>Cancel</ButtonHero>
-                <ButtonHero onClick={addToList}>Add to list</ButtonHero>
+                <ButtonHero onClick={saveTracked}>Save</ButtonHero>
             </div>
         </div>
     </div>
@@ -78,12 +89,11 @@ interface PropsRow {
     movie: IMovie,
     listId?: IUserList['id'],
     listName?: TBasicListsKey,
-    setTracked: TSetState<TTrackedArr>
+    setTracked: TSetState<ITracked[]>
 }
 
 const RowList: FC<PropsRow> = memo(({name, movie, listId, listName, setTracked}) => {
     const [isAdded, setIsAdded] = useState(false);
-    const dispatch = useAppDispatch();
     const currList = useAppSelector(state => {
         if (listId) return state.user.lists.find(l => l.id === listId)?.movies;
         if (listName) return state.user[listName];
@@ -96,20 +106,14 @@ const RowList: FC<PropsRow> = memo(({name, movie, listId, listName, setTracked})
     }, [currList])
 
     function switchTracked() {
-        if (!isAdded) {
-            setTracked(arr => [...arr,
-                ...(typeof listId === 'number' ? [listId] : []),
-                ...(typeof listName === 'string' ? [listName] : [])
-            ]);
-            setIsAdded(c => !c);
-        } else {
-            if (typeof listId === 'number') {
-                dispatch(removeMovieFromList({movieId: movie.id, type: 'user', listId}))
-            } else if (typeof listName === 'string') {
-                dispatch(removeMovieFromList({movieId: movie.id, type: 'basic', key: listName}))
+        setTracked(arr => [...arr,
+            {
+                value: (typeof listId === 'number' ? listId : 
+                        typeof listName === 'string' ? listName : ''),
+                action: isAdded ? 'remove' : 'add'
             }
-            setIsAdded(c => !c)
-        }
+        ]);
+        setIsAdded(c => !c);
     }
 
     return (
