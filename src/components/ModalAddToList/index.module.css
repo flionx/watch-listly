@@ -43,7 +43,12 @@
     background-size: contain;
 }
 /* button add new list */
-.new {
+.newblock {
+    margin-bottom: 18px;
+    width: 100%;
+}
+.createlist {
+    width: 100%;
     padding: 10px;
     text-align: left;
     color: #D6D6D6;
@@ -51,11 +56,25 @@
     border: 1px solid transparent;
     border-radius: 8px;
     transition: all .3s ease;
-    margin-bottom: 15px;
 }
-.new:hover {
+.createlist:hover {
     background: var(--sidebar-second-bg-color);
     border: 1px solid var(--light-secong-bg-color)
+}
+/* enter new list name */
+.newinput {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+.newinput input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    padding: 10px;
+    text-align: left;
+    color: #D6D6D6;
 }
 /* line */
 .line {
