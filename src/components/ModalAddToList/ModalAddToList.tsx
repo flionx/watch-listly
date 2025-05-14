@@ -1,32 +1,45 @@
-import ButtonHero from '@/ui/ButtonHero/ButtonHero'
-import styles from './index.module.css'
-import { FC, memo, ReactNode, useCallback, useEffect, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
 import { IUserList, TBasicListsKey } from '@/types/user'
 import { IMovie } from '@/types/movies'
 import { TSetState } from '@/types/global'
-import { addMovieToList, removeMovieFromList } from '@/app/store/slices/userSlice'
+import { toggleMovieInList } from '@/app/store/slices/userSlice'
+import RowList from './RowList'
+import ButtonHero from '@/ui/ButtonHero/ButtonHero'
+import LineCenterText from './LineCenterText'
+import CreateNewList from './CreateNewList'
+import styles from './index.module.css'
 interface Props {
     closeModal: VoidFunction,
     movie: IMovie,
 }
-type TTrackedArr = (string | number)[]
+export interface ITracked {
+    value: string | number,
+    action: 'add' | 'remove', 
+}
 
 const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
     const dispatch = useAppDispatch();
     const userLists = useAppSelector(state => state.user.lists);
-    const [tracked, setTracked] = useState<TTrackedArr>([]);
-    const callSetTracked = useCallback<TSetState<TTrackedArr>>((value) => setTracked(value), []);
+    const [filterInput, setFilterInput] = useState('');
 
-    function addToList() {
+    const [tracked, setTracked] = useState<ITracked[]>([]);
+    const callSetTracked = useCallback<TSetState<ITracked[]>>((value) => setTracked(value), []);
+
+    const filteredUserLists = useMemo<IUserList[]>(() => {     
+        if (!filterInput) return userLists;
+        return userLists.filter(list => list.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
+    }, [filterInput, userLists])
+
+    function saveTracked() {
         if (tracked.length === 0) return;
-        tracked.forEach(value => {
-            if (typeof value === 'number') {
-                dispatch(addMovieToList({movie, type: 'user', listId: value}))
-            } 
-            if (typeof value === 'string') {
-                dispatch(addMovieToList({movie, type: 'basic', key: value as TBasicListsKey}))
-            }
+        tracked.forEach(list => {
+            dispatch(toggleMovieInList({
+                movie,
+                action: list.action,
+                type: typeof list.value === 'number' ? 'user' : 'basic',
+                listkey: list.value as number | TBasicListsKey,
+            }))
         })
         closeModal();
     }
@@ -35,12 +48,17 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
     <div className={styles.bg} onClick={closeModal}>
         <div className={styles.modal} onClick={(e) => {e.stopPropagation()}}>
             <button className={styles.input}>
-                <input type="text" placeholder='Enter list name'/>
+                <input 
+                    type="text" 
+                    placeholder='Search by list name'
+                    value={filterInput}
+                    onChange={e => setFilterInput(e.target.value)}
+                />
             </button>
-            <button className={styles.new}>+ Create new list</button>
-            <LineCenterText>My lists</LineCenterText>
+            <CreateNewList />
+            {filteredUserLists.length > 0 && <LineCenterText>My lists</LineCenterText>}
             <ul className={styles.list}>
-                {userLists.map(list => (
+                {filteredUserLists.map(list => (
                     <RowList key={list.id} 
                         listId={list.id} 
                         movie={movie}
@@ -64,7 +82,7 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
             </ul>
             <div className={styles.btns}>
                 <ButtonHero noBg onClick={closeModal}>Cancel</ButtonHero>
-                <ButtonHero onClick={addToList}>Add to list</ButtonHero>
+                <ButtonHero onClick={saveTracked}>Save</ButtonHero>
             </div>
         </div>
     </div>
@@ -72,62 +90,3 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
 }
 
 export default ModalAddToList
-
-interface PropsRow {
-    name: IUserList['name'],
-    movie: IMovie,
-    listId?: IUserList['id'],
-    listName?: TBasicListsKey,
-    setTracked: TSetState<TTrackedArr>
-}
-
-const RowList: FC<PropsRow> = memo(({name, movie, listId, listName, setTracked}) => {
-    const [isAdded, setIsAdded] = useState(false);
-    const dispatch = useAppDispatch();
-    const currList = useAppSelector(state => {
-        if (listId) return state.user.lists.find(l => l.id === listId)?.movies;
-        if (listName) return state.user[listName];
-    })
-        
-    useEffect(() => {
-        if (currList?.find(m => m.movie.id === movie.id)) {
-            setIsAdded(true)
-        }
-    }, [currList])
-
-    function switchTracked() {
-        if (!isAdded) {
-            setTracked(arr => [...arr,
-                ...(typeof listId === 'number' ? [listId] : []),
-                ...(typeof listName === 'string' ? [listName] : [])
-            ]);
-            setIsAdded(c => !c);
-        } else {
-            if (typeof listId === 'number') {
-                dispatch(removeMovieFromList({movieId: movie.id, type: 'user', listId}))
-            } else if (typeof listName === 'string') {
-                dispatch(removeMovieFromList({movieId: movie.id, type: 'basic', key: listName}))
-            }
-            setIsAdded(c => !c)
-        }
-    }
-
-    return (
-        <li className={styles.item}>{name}
-            <button className={isAdded ? styles.added : styles.add}
-                onClick={switchTracked}>
-            </button>
-        </li>
-    )
-})
-interface LineProps {
-    children: ReactNode
-}
-const LineCenterText: FC<LineProps> = ({children}) => {
-    return (
-        <div className={styles.line}>
-        <hr />
-        <span>{children}</span>
-    </div>
-    )
-}

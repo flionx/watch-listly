@@ -2,16 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser, IUserFriend, IUserList, TBasicListsKey, TListsVisibility } from "@/types/user";
 import { getUserData } from "../thunks/user/getUserInfo";
 import { IMovie } from "@/types/movies";
-interface IAddToListParams extends IActionListParams {
+import randomColorList from "@/utils/randomColorList";
+interface IToggleMovieInListParams {
     movie: IMovie
-}
-interface IRemoveFromListParams extends IActionListParams {
-    movieId: IMovie['id']
-}
-interface IActionListParams {
-    listId?: IUserList['id'], 
-    key?: TBasicListsKey,
-    type: 'user' | 'basic'
+    listkey: number | TBasicListsKey,
+    type: 'user' | 'basic',
+    action: 'add' | 'remove'
 }
 
 export const initialUserState: IUser = {
@@ -41,12 +37,12 @@ const userSlice = createSlice({
         setUserCover: (state, action:PayloadAction<IUser['cover']>) => {
             state.cover = action.payload;
         },
-        addNewUserList: (state, action: PayloadAction<Pick<IUserList, 'name' | 'color'>>) => {
+        addNewUserList: (state, action: PayloadAction<IUserList['name']>) => {
             const newList = {
                 id: state.lists.length + 1,
-                name: action.payload.name,
+                name: action.payload,
                 movies: [],
-                color: action.payload.color,
+                color: randomColorList(),
                 poster: '',
             }
             state.lists.push(newList);
@@ -60,29 +56,30 @@ const userSlice = createSlice({
         setListsVisibility: (state, action: PayloadAction<TListsVisibility>) => {
             state.listsVisibility = action.payload
         },
-        addMovieToList: (state, action: PayloadAction<IAddToListParams>) => {
-            const newMovie = {
-                movie: action.payload.movie,
-                watched: false,
-                rate: null
-            }
-            if (action.payload.type === 'user') {
-                const list = state.lists.find(list => list.id === action.payload.listId);
-                list?.movies.push(newMovie);
-            } else {
-                state[action.payload.key!].push(newMovie)
-            }
-        },
-        removeMovieFromList: (state, action: PayloadAction<IRemoveFromListParams>) => {
-            const movieId = action.payload.movieId;
-            if (action.payload.type === 'user') {
-                const list = state.lists.find(list => list.id === action.payload.listId);
-                if (list) {
-                    list.movies = list.movies.filter(movie => movie.movie.id !== movieId);                    
+        toggleMovieInList: (state, action: PayloadAction<IToggleMovieInListParams>) => {
+            if (action.payload.action === 'add') {
+                const newMovie = {
+                    movie: action.payload.movie,
+                    watched: false,
+                    rate: null
+                }
+                if (action.payload.type === 'user') {
+                    const list = state.lists.find(list => list.id === action.payload.listkey);
+                    list?.movies.push(newMovie);
+                } else {
+                    state[action.payload.listkey as TBasicListsKey].push(newMovie)
                 }
             } else {
-                const key = action.payload.key!;
-                state[key] = state[key].filter(movie => movie.movie.id !== movieId)
+                const movieId = action.payload.movie.id;
+                if (action.payload.type === 'user') {
+                    const list = state.lists.find(list => list.id === action.payload.listkey);
+                    if (list) {
+                        list.movies = list.movies.filter(movie => movie.movie.id !== movieId);                    
+                    }
+                } else {
+                    const key = action.payload.listkey as TBasicListsKey;
+                    state[key] = state[key].filter(movie => movie.movie.id !== movieId)
+                }
             }
         },
     },
@@ -106,6 +103,6 @@ export const {
     setUser, setUserAvatar, addNewUserList, 
     deleteUserList, setUserCover,
     setUserFriends, setListsVisibility,
-    addMovieToList, removeMovieFromList
+    toggleMovieInList
 } = userSlice.actions; 
 export default userSlice.reducer;

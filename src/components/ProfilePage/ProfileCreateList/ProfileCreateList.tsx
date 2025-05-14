@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { useAppDispatch } from '@/hooks/useRedux'
 import { addNewUserList } from '@/app/store/slices/userSlice';
 import ButtonHero from '@/ui/ButtonHero/ButtonHero'
-import randomColorList from '@/utils/randomColorList';
 import './ProfileCreateList.css'
 
 const ProfileCreateList = () => {
@@ -11,11 +10,7 @@ const ProfileCreateList = () => {
 
   function createNewList() {
     if (!newListName.trim()) return;
-    const cardColor = randomColorList();
-    dispatch(addNewUserList({
-      color: cardColor,
-      name: newListName
-    }))
+    dispatch(addNewUserList(newListName))
     setNewListName('');
     inputRef.current?.focus();
   } 
