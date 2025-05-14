@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser, IUserFriend, IUserList, TBasicListsKey, TListsVisibility } from "@/types/user";
 import { getUserData } from "../thunks/user/getUserInfo";
 import { IMovie } from "@/types/movies";
+import randomColorList from "@/utils/randomColorList";
 interface IAddToListParams extends IActionListParams {
     movie: IMovie
 }
@@ -41,12 +42,12 @@ const userSlice = createSlice({
         setUserCover: (state, action:PayloadAction<IUser['cover']>) => {
             state.cover = action.payload;
         },
-        addNewUserList: (state, action: PayloadAction<Pick<IUserList, 'name' | 'color'>>) => {
+        addNewUserList: (state, action: PayloadAction<IUserList['name']>) => {
             const newList = {
                 id: state.lists.length + 1,
-                name: action.payload.name,
+                name: action.payload,
                 movies: [],
-                color: action.payload.color,
+                color: randomColorList(),
                 poster: '',
             }
             state.lists.push(newList);

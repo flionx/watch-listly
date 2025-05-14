@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode, useCallback, useEffect, useState } from 'react'
+import { FC, memo, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
 import ButtonHero from '@/ui/ButtonHero/ButtonHero'
 import { IUserList, TBasicListsKey } from '@/types/user'
@@ -18,8 +18,15 @@ type ITracked = {
 const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
     const dispatch = useAppDispatch();
     const userLists = useAppSelector(state => state.user.lists);
+    const [filterInput, setFilterInput] = useState('');
+
     const [tracked, setTracked] = useState<ITracked[]>([]);
     const callSetTracked = useCallback<TSetState<ITracked[]>>((value) => setTracked(value), []);
+
+    const filteredUserLists = useMemo<IUserList[]>(() => {        
+        if (!filterInput) return userLists;
+        return userLists.filter(list => list.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
+    }, [filterInput, userLists])
 
     function saveTracked() {
         if (tracked.length === 0) return;
@@ -46,12 +53,17 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
     <div className={styles.bg} onClick={closeModal}>
         <div className={styles.modal} onClick={(e) => {e.stopPropagation()}}>
             <button className={styles.input}>
-                <input type="text" placeholder='Enter list name'/>
+                <input 
+                    type="text" 
+                    placeholder='Enter list name'
+                    value={filterInput}
+                    onChange={e => setFilterInput(e.target.value)}
+                />
             </button>
             <button className={styles.new}>+ Create new list</button>
-            <LineCenterText>My lists</LineCenterText>
+            {filteredUserLists.length > 0 && <LineCenterText>My lists</LineCenterText>}
             <ul className={styles.list}>
-                {userLists.map(list => (
+                {filteredUserLists.map(list => (
                     <RowList key={list.id} 
                         listId={list.id} 
                         movie={movie}
