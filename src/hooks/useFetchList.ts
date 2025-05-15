@@ -1,10 +1,10 @@
+import useCurrentUserId from './useCurrentUserId';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { IUser } from '@/types/user';
-import useCurrentUserId from './useCurrentUserId';
 
-const useFetchUser = (id: string) => {
-    const {currentUser, isCurrentUser, user, setUser, loading, setLoading} = 
+const useFetchList = (id: string) => {
+  const {currentUser, isCurrentUser, user, setUser, loading, setLoading} = 
         useCurrentUserId(id, fetchUser);
 
     async function fetchUser() {
@@ -20,7 +20,7 @@ const useFetchUser = (id: string) => {
             }
     
         } catch (err: unknown) {
-            console.error("Error fetching user data:", err);
+            console.error("Error fetching user list:", err);
         } 
         finally {
             setLoading(false);
@@ -34,4 +34,4 @@ const useFetchUser = (id: string) => {
     }
 }
 
-export default useFetchUser
+export default useFetchList
