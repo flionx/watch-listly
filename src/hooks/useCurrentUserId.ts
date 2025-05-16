@@ -9,11 +9,10 @@ const useCurrentUserId = (id: string, callback: VoidFunction) => {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<IUser>();
 
-    useEffect(() => {
+    useEffect(() => {        
         scrollToUpPage();
         
         const newIsCurrUser = currentUser.id === id;
-        console.log(newIsCurrUser);
         
         if (isCurrentUser !== newIsCurrUser ) {
             setIsCurrentUser(newIsCurrUser)
