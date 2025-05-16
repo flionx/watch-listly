@@ -10,14 +10,17 @@ export interface IUseFetchListProps {
 const useFetchList = ({id, listType, key}: IUseFetchListProps) => {
     const {isCurrentUser, loading, user} = useFetchUser(id);
     const [list, setList] = useState<IUserListMovie[]>([]);
+    const [listName, setListName] = useState('');
 
     useEffect(() => {
         if (!loading && user) {
             if (listType === 'basic') {
-                setList(user[key as TBasicListsKey])
+                setList(user[key as TBasicListsKey]);
+                setListName(key === 'seenList' ? 'Seen it' : 'Want to see it')
             } else {
                 const userList = user.lists.find(list => list.id === Number(key));
-                setList(userList?.movies ?? [])
+                setList(userList?.movies ?? []);
+                setListName(userList?.name!)
             }
         }
     }, [loading, user])
@@ -26,6 +29,7 @@ const useFetchList = ({id, listType, key}: IUseFetchListProps) => {
         loading, 
         isCurrentUser,
         list, 
+        listName
     }
 }
 

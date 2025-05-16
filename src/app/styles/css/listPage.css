@@ -1,4 +1,38 @@
+.banner {
+    padding: 10px var(--padding-main) var(--padding-main);
+    background: url('/listPage/banner.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: min(400px, 100vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
 .list {
     display: flex;
+    flex-direction: column;
     column-gap: 10px;
+    margin: var(--padding-main);
+}
+
+.list__card {
+    display: flex;
+    align-items: center;
+    height: 130px;
+    padding: 5px;
+    border-radius: 12px;
+}
+.list__card img {
+    margin-left: 30px;
+    width: 95px;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.list__info {
+    margin-left: 23px;
+    height: 100px;
 }
