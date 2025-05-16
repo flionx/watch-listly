@@ -11,6 +11,7 @@ import SignUpStepPage from "./auth/SignUpStepPage";
 import SignUpEmailPage from "./auth/SignUpEmailPage";
 import MoviePage from "./MoviePage";
 import ProfilePage from "./ProfilePage";
+import ListPage from "./ListPage";
 
 
 const router = createBrowserRouter([
@@ -37,8 +38,11 @@ const router = createBrowserRouter([
             {
                 path: 'user/:id',
                 element: <ProfilePage />
-            }
-            
+            },
+            {
+                path: 'list/:userId/:listType/:key',
+                element: <ListPage />
+            },
         ]
     },
     {

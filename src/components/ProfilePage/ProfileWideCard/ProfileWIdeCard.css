@@ -8,7 +8,7 @@
     overflow: hidden;
     transition: .5s all;
 }
-.list-wide-card__title {
+.list-wide-card h3 {
     text-align: left;
     font-family: var(--main-font);
     font-weight: 700;

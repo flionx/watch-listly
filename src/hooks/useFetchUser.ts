@@ -1,27 +1,11 @@
-import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { IUser } from '@/types/user';
-import { useAppSelector } from './useRedux';
-import { scrollToUpPage } from '@/utils/scrollToUpPage';
+import useCurrentUserId from './useCurrentUserId';
 
 const useFetchUser = (id: string) => {
-    const currentUser = useAppSelector(state => state.user)
-    const [isCurrentUser, setIsCurrentUser] = useState<boolean>(currentUser.id === id);
-    const [loading, setLoading] = useState(false);
-    const [user, setUser] = useState<IUser>();
-
-    useEffect(() => {
-        scrollToUpPage();
-        
-        const newIsCurrUser = currentUser.id === id;
-        if (isCurrentUser !== newIsCurrUser ) {
-            setIsCurrentUser(newIsCurrUser)
-        }
-        if (!newIsCurrUser) {
-            fetchUser();
-        }
-    }, [id, currentUser.id])
+    const {currentUser, isCurrentUser, user, setUser, loading, setLoading} = 
+        useCurrentUserId(id, fetchUser);
 
     async function fetchUser() {
         try {

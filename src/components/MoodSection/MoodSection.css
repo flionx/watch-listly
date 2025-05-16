@@ -12,6 +12,9 @@
     overflow: hidden;
     position: relative;
 }
+.mood__content h3 {
+    
+}
 .mood__cards {
     display: flex;
     justify-content: start;

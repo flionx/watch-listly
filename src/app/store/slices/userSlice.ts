@@ -57,6 +57,8 @@ const userSlice = createSlice({
             state.listsVisibility = action.payload
         },
         toggleMovieInList: (state, action: PayloadAction<IToggleMovieInListParams>) => {
+            console.log(action.payload.movie);
+            
             if (action.payload.action === 'add') {
                 const newMovie = {
                     movie: action.payload.movie,

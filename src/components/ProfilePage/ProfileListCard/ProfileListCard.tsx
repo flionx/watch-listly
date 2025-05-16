@@ -1,21 +1,24 @@
 import { FC } from 'react'
 import { IUserList } from '@/types/user'
+import { TitleSmall } from '@/ui/Text/Text'
+import { Link } from 'react-router-dom'
 interface Props {
     list: IUserList,
-    image?: boolean
+    image?: boolean,
+    id?: string
 }
 
-const ProfileListCard:FC<Props> = ({list, image}) => {
+const ProfileListCard:FC<Props> = ({list, image, id}) => {
   return (
-    <button className='user-lists__card'
+    <Link to={id ? `/list/${id}/user/${list.id}`: '/'} className='user-lists__card'
         style={{background: `${list.color}`}}>
-        <div className="user-lists-card__title profile-main-title2">{list.name}</div>
+        <h3><TitleSmall>{list.name}</TitleSmall></h3>
         {list.poster && 
             <img className={`list-card__img ${image && 'list-card__img-nolist'}`}
               src={list.poster} alt="movie poster" 
             />
         }
-    </button>
+    </Link>
   )
 }
 

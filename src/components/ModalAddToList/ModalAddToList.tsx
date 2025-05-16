@@ -33,6 +33,8 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
 
     function saveTracked() {
         if (tracked.length === 0) return;
+        console.log(tracked);
+        
         tracked.forEach(list => {
             dispatch(toggleMovieInList({
                 movie,
@@ -41,6 +43,7 @@ const ModalAddToList:FC<Props> = ({closeModal, movie}) => {
                 listkey: list.value as number | TBasicListsKey,
             }))
         })
+        setTracked([]);
         closeModal();
     }
 

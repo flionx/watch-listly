@@ -3,6 +3,7 @@ import { useAppDispatch } from '@/hooks/useRedux'
 import { addNewUserList } from '@/app/store/slices/userSlice';
 import ButtonHero from '@/ui/ButtonHero/ButtonHero'
 import './ProfileCreateList.css'
+import { TitleSmall } from '@/ui/Text/Text';
 
 const ProfileCreateList = () => {
   const [newListName, setNewListName] = useState('');
@@ -18,7 +19,7 @@ const ProfileCreateList = () => {
 
   return (
     <section className='profile-main__create-list'>
-        <div className="create-list__title profile-main-title2">Create new list</div>
+        <h2><TitleSmall>Create new list</TitleSmall></h2>
         <form className="create-list__row" onSubmit={e => {
           e.preventDefault();
           createNewList()

@@ -5,6 +5,7 @@ import DetailsGenres from './DetailsGenres'
 import VoteCount from '../../VoteCount/VoteCount'
 import { TMovieMediaType } from '@/types/global'
 import { IMovie } from '@/types/movies'
+import { TitleSmall } from '@/ui/Text/Text'
 interface Props {
     movie: IMovie,
     type: TMovieMediaType
@@ -15,11 +16,11 @@ const DetailsColumn: FC<Props> = ({movie, type}) => {
   return (
     <div className="movie-main__details">
         <div className="movie-main__column details-movie">
-            <h4 className="details-movie__title">Details</h4>
+            <h4><TitleSmall>Details</TitleSmall></h4>
             <DetailsMovie movie={movie} type={type}/> 
             <LineDetails />
             {movie?.genres.length > 0 && <>
-              <h4 className="details-movie__title">Genres</h4>
+              <h4><TitleSmall>Genres</TitleSmall></h4>
               <DetailsGenres genres={movie.genres}/>
             </>}
             {movie.vote_count > 0 && movie.vote_average > 0 &&
