@@ -27,11 +27,11 @@ const ProfilePage = () => {
         />
         {/*<ModalAction></ModalAction> IN DEVELOPMENT for change password, description */}
         <div className="profile-main__cards-wide">
-            <ProfileWideCard title='Seen it'/>
-            <ProfileWideCard title='Want to see it'/>
+            <ProfileWideCard title='Seen it' pathKey='seenList' id={id!}/>
+            <ProfileWideCard title='Want to see it' pathKey='wantList' id={id!}/>
         </div>
         {isCurrentUser && <ProfileCreateList />}
-        <ProfileUserLists isCurrentUser={isCurrentUser} lists={user.lists}/>
+        <ProfileUserLists isCurrentUser={isCurrentUser} id={id!} lists={user.lists}/>
         {isCurrentUser && 
           <div className="profile-main__column">
               <ProfileSelect visibility>Who can see your lists?</ProfileSelect>
