@@ -6,25 +6,6 @@
 .card-list-p0 {
     padding: 0;
 }
-.card-list__title {
-    width: fit-content;
-    font-family: var(--main-font);
-    font-weight: 700;
-    font-size: 24px;
-    color: #fdfdfd;
-    position: relative;
-    margin-bottom: 25px;
-}
-
-.card-list__title::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    height: 2px;
-    width: 60px;
-    background: var(--main-color);
-}
 .card-list__row {
     display: flex;
     height: 215px;

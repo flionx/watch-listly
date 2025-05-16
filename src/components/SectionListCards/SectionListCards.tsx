@@ -6,6 +6,7 @@ import { IMovie } from "@/types/movies"
 import './SectionListCards.css'
 import LoadingListCard from "../Loading/LoadingListCard/LoadingListCard"
 import { useAppSelector } from "@/hooks/useRedux"
+import { TitleUnderline } from "@/ui/Text/Text"
 interface Props {
     movies: IMovie[],
 }
@@ -15,7 +16,7 @@ const SectionListCards: FC<Props> = ({movies}) => {
     const loading = useAppSelector(state => state.movies.popular.loading)
   return (
     <section className="card-list">
-        <h3 className="card-list__title">Popular</h3>
+        <h3><TitleUnderline>Popular</TitleUnderline></h3>
         <ButtonsArrow 
             parentClass="arrows-full-w"
             buttonClass="arrow-circle arrow-btn"

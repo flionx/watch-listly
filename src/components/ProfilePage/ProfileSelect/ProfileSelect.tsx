@@ -5,6 +5,7 @@ import { visibilityOptions } from "./selectOptions";
 import { deleteUserList, setListsVisibility } from "@/app/store/slices/userSlice";
 import { IUserList, TListsVisibility } from "@/types/user";
 import './ProfileSelect.css';
+import { TitleSmall } from "@/ui/Text/Text";
 
 interface Props {
   visibility?: boolean;
@@ -61,7 +62,7 @@ const ProfileSelect: FC<Props> = ({ visibility = false, lists, children }) => {
 
   return (
     <section className="profile-main__select">
-      <div className="select__title profile-main-title2">{children}</div>
+      <h2><TitleSmall>{children}</TitleSmall></h2>
       <div className="select__row">
         <select
           className="select__select"

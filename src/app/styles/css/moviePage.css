@@ -40,11 +40,6 @@
     padding-right: var(--padding-main);
 }
 
-.movie-page-hero__title {
-    font-weight: 600;
-    font-size: 55px;
-}
-
 .movie-page-hero__btns {
     display: flex;
     column-gap: 10px;
@@ -94,15 +89,6 @@
     grid-area: trailer;
 }
 
-
-.movie-main__title {
-    font-weight: 600;
-    font-size: 25px;
-    line-height: 160%;
-    letter-spacing: 0.03em;
-    color: #fff;
-    margin-bottom: 10px;
-}
 .movie-main__text {
     font-weight: 500;
     font-size: 16px;
@@ -124,13 +110,9 @@
     flex-direction: column;
     row-gap: 14px;
 }
-.details-movie__title {
-    text-align: center;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 160%;
+.details-movie h4 {
     letter-spacing: 0.03em;
-    color: #fff;
+    text-align: center;
 }
 
 .details-movie__row {

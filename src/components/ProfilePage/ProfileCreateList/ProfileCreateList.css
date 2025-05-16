@@ -1,7 +1,7 @@
 .profile-main__create-list {
     margin: 40px 0 20px 0;
 }
-.create-list__title {
+.profile-main__create-list h2 {
     margin-bottom: 15px;
 }
 .create-list__row {

@@ -3,6 +3,7 @@ import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
 import ProfileCover from '../ProfileCover/ProfileCover';
 import { IUser } from '@/types/user';
 import './ProfileHeader.css'
+import { TitleSmall } from '@/ui/Text/Text';
 interface Props {
     isCurrentUser: boolean,
     id: IUser['id'],
@@ -19,7 +20,7 @@ const ProfileHeader:FC<Props> = ({isCurrentUser, id, cover, username, avatar}) =
         <ProfileAvatar avatar={avatar} isCurrentUser={isCurrentUser}/>
         <div className="header-profile__bottom">
             <div className="header-profile__user-info">
-                <div className="header-profile__username profile-main-title2">{username}</div>
+                <h3><TitleSmall>{username}</TitleSmall></h3>
                 <p className="header-profile__userdesc">Description</p>
             </div>
         </div>

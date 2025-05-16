@@ -5,6 +5,7 @@ import ButtonsArrow from "@/ui/ButtonsArrow/ButtonsArrow"
 import { TMovieMediaType } from "@/types/global";
 import LoadingListCard from "../Loading/LoadingListCard/LoadingListCard";
 import useMoviesWide from "@/hooks/useMoviesWide";
+import { TitleUnderline } from "@/ui/Text/Text";
 export type TStorageWideKey = 'movies-watching' | 'movies-upcoming' | 'movies-series'
 interface Props {
   title: string,
@@ -20,7 +21,7 @@ const WideListSection:FC<Props> = ({title, path, storageKey, padding = true, typ
 
   return (
     <section className={`card-list ${!padding ? 'card-list-p0' : ''}`}>
-        <h3 className="card-list__title">{title}</h3>
+        <h3><TitleUnderline>{title}</TitleUnderline></h3>
         <ButtonsArrow 
             parentClass="arrows-full-w"
             buttonClass="arrow-circle arrow-btn"

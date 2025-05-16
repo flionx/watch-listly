@@ -7,7 +7,7 @@ interface Props {
 const ProfileWideCard:FC<Props> = ({title}) => {
   return (
     <button className='profile-main__card-wide list-wide-card'>
-        <div className="list-wide-card__title">{title}</div>
+        <h3>{title}</h3>
         {/* <img src={''} alt="movie poster" className='list-card__img'/> */}
     </button>
   )

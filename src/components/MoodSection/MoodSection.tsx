@@ -4,6 +4,7 @@ import ButtonsArrow from '@/ui/ButtonsArrow/ButtonsArrow'
 import { moodCardWith } from '@/app/constants/movies'
 import { moodList } from './moodList'
 import './MoodSection.css'
+import { TitleUnderline } from '@/ui/Text/Text'
 
 const MoodSection = () => {
     const listRef = useRef<HTMLDivElement>(null);
@@ -12,7 +13,7 @@ const MoodSection = () => {
     <section className='mood'>
         <div className="mood-container">
             <div className="mood__content">
-                <h3 className="card-list__title">What’s your mood today?</h3>
+                <h3><TitleUnderline>What’s your mood today?</TitleUnderline></h3>
                 <div className="mood__arrows">
                     <ButtonsArrow
                         parentClass="arrows-full-w"

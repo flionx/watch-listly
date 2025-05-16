@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { IMovieVideo } from '@/types/movies'
+import { TitleMiddle } from '@/ui/Text/Text'
 interface Props {
     trailerKey: IMovieVideo['key'],
 }
@@ -7,7 +8,7 @@ interface Props {
 const MovieTrailer: FC <Props> = ({trailerKey}) => {
     return (
     <section className='movie-main__trailer'>
-        <h3 className='movie-main__title'>Trailer</h3>
+        <h3><TitleMiddle>Trailer</TitleMiddle></h3>
         <div className="movie-main__trailer-block">
             <iframe 
                 src={`https://www.youtube.com/embed/${trailerKey}?origin=${window.location.origin}`} 

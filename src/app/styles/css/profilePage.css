@@ -8,20 +8,7 @@
     line-height: 120%;
     color: #fff;
 }
-.profile-main-title2 {
-    font-family: var(--main-font);
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 120%;
-    color: #fff;
-    text-align: left;
-    overflow: hidden;
-    height: fit-content;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
-}
+
 .profile-main__row {
     display: flex;
     gap: var(--padding-max20);

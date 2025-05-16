@@ -9,6 +9,9 @@ const ListPage = () => {
     
   return (
     <>
+      <section className='banner'>
+        <h1></h1>
+      </section>
       <ul className="list">
           {!loading && list.map(({movie}) => (
               <li key={movie.id}>

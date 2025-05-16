@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
 }
-.select__title {
+.profile-main__select h2 {
     margin-bottom: 15px;
 }
 .select__select {
