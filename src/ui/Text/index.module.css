@@ -46,3 +46,9 @@
     -webkit-box-orient: vertical;
     word-wrap: break-word;
 }
+.textgray {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 110%;
+    color: rgba(244, 244, 244, 0.81);
+}

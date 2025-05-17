@@ -21,7 +21,7 @@
     width: 19px;
     height: 18px;
     transform: translateY(-50%);
-    background-image: url('../../../public/hero/star.svg');
+    background-image: url('/hero/star.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -31,4 +31,26 @@
     font-size: 14px;
     line-height: 160%;
     color: rgba(255, 255, 255, 0.4);
+}
+
+.vote-star {
+    position: relative;
+    padding-left: 18px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 110%;
+    color: #fff;
+}
+.vote-star::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 15px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-image: url('/hero/star.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }

@@ -2,7 +2,7 @@ import { FC } from 'react'
 import DetailsMovie from './DetailsMovie'
 import LineDetails from './LineDetails'
 import DetailsGenres from './DetailsGenres'
-import VoteCount from '../../VoteCount/VoteCount'
+import { StarVoteCount } from '../../VoteCount/VoteCount'
 import { TMovieMediaType } from '@/types/global'
 import { IMovie } from '@/types/movies'
 import { TitleSmall } from '@/ui/Text/Text'
@@ -26,7 +26,7 @@ const DetailsColumn: FC<Props> = ({movie, type}) => {
             {movie.vote_count > 0 && movie.vote_average > 0 &&
             <>
               <LineDetails />
-              <VoteCount vote={movie.vote_average} count={movie.vote_count}/>
+              <StarVoteCount vote={movie.vote_average} count={movie.vote_count}/>
             </>}
         </div>
     </div>

@@ -2,36 +2,24 @@ import { FC, useState } from "react"
 import { Link } from "react-router-dom"
 import { formatDate } from "@/utils/formatInfo"
 import ButtonHero from "@/ui/ButtonHero/ButtonHero"
-import VoteCount from "../VoteCount/VoteCount"
+import { StarVoteCount } from "../VoteCount/VoteCount"
 import ModalAddToList from "../ModalAddToList/ModalAddToList"
 import { IMovie } from "@/types/movies"
 import { TitleSubBig } from "@/ui/Text/Text"
+import useModalAdd from "@/hooks/useModalAdd"
 interface Props {
     movie: IMovie
 }
-interface IModalAdd {
-    show: boolean,
-    movie: IMovie | null,
-}
 
 const HeroInfo:FC<Props> = ({movie}) => {
-    const [modalAdd, setModalAdd] = useState<IModalAdd>({
-        show: false,
-        movie: null,
-    });
-    function showModalAdd() {
-        setModalAdd({movie: movie, show: true})        
-    }
-    function hideModalAdd() {
-        setModalAdd(c => ({...c, show: false})) 
-    }
+    const {modalAdd, showModalAdd, hideModalAdd} = useModalAdd(movie);
     
   return (
     <>
     <div className="hero__info">
         <h2 className="hero__title"><TitleSubBig>{movie?.title || movie?.name}</TitleSubBig></h2>
         <div className="hero__info-info">
-            {movie.vote_average > 0 && <VoteCount vote={movie.vote_average} count={movie.vote_count} />}
+            {movie.vote_average > 0 && <StarVoteCount vote={movie.vote_average} count={movie.vote_count} />}
             {movie.release_date && <>
                 {movie.vote_average > 0 && <span>|</span>}
                 <div className="hero__year">{formatDate(movie.release_date)}</div>

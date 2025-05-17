@@ -6,7 +6,6 @@ import useMoviePage from "@/hooks/useMoviePage";
 import '@/app/styles/css/moviePage.css';
 
 const MoviePage = () => {
-
     const {movie, loading, type} = useMoviePage();
 
   return (
