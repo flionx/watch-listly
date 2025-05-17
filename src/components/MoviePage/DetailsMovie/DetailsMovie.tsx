@@ -27,7 +27,7 @@ const DetailsMovie:FC<Props> = ({movie, type}) => {
                 {movie.production_countries[0].name}
             </DetailRow>
         }
-        <DetailRow icon={dateIcon}>{formatDate(type === 'movie' ? movie.release_date : movie.first_air_date!)}</DetailRow>
+        <DetailRow icon={dateIcon}>{formatDate(movie.release_date ?? movie.first_air_date)}</DetailRow>
         {Number(movie.runtime) > 0 && <DetailRow icon={clockIcon}>{formatTime(movie.runtime)}</DetailRow>}
         {Number(movie.budget) > 0  && <DetailRow icon={moneyIcon}>{formatBudget(movie.budget)}</DetailRow>}
     </>

@@ -2,21 +2,28 @@ import { FC } from 'react'
 import { IMovie } from '@/types/movies'
 import getColor from '@/utils/getColorVote'
 import './VoteCount.css'
-interface Props {
-  vote: IMovie['vote_average'],
+interface PropsVote {
+  vote: IMovie['vote_average']
+}
+interface PropsWithCount extends PropsVote {
   count: IMovie['vote_count'],
 }
 
-const VoteCount:FC<Props> = ({vote, count}) => {
+const StarVoteCount: FC<PropsWithCount> = ({vote, count}) => {
   return (
     <div className='vote-block'>
-    {count > 0 && 
+      {count > 0 && 
         <div className="vote-avg" 
-            style={{background: getColor(vote)}}
+          style={{background: getColor(vote)}}
         >{vote.toFixed(1)}</div> }
-    <div className="vote-avg-count">{'(' + count + ')'}</div>
+      <div className="vote-avg-count">{'(' + count + ')'}</div>
     </div>
   )
 }
+const StarVote: FC<PropsVote> = ({vote}) => {
+  return (
+    <div className="vote-star">{(vote).toFixed(1)}</div>
+  )
+}
 
-export default VoteCount
+export {StarVoteCount, StarVote}

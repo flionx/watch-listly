@@ -2,9 +2,11 @@ import { FC, Ref, RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import getImageUrl from '@/utils/getImageUrl'
 import { IMovie } from '@/types/movies'
-import './ListCardsWide.css'
 import { TMovieMediaType } from '@/types/global'
 import { formatDate } from '@/utils/formatInfo'
+import { StarVote } from '../VoteCount/VoteCount'
+import { TextGray } from '@/ui/Text/Text'
+import './ListCardsWide.css'
 interface Props {
     movies: IMovie[],
     listRef: RefObject<HTMLElement | null>,
@@ -24,8 +26,8 @@ const ListCardsWide:FC<Props> = ({movies, listRef, type}) => {
                 <div className="list-wide__card-bottom">
                     <Link to={`/${movie.media_type ?? type}/${movie.id}`} className="list-wide__card-title">{movie.title || movie.name}</Link>
                     <div className="list-wide__card-info">
-                        {movie.vote_average > 0 && <div className="list-wide__card-vote">{(movie.vote_average).toFixed(1)}</div>}
-                        <div className="list-wide__card-date">{formatDate(type === 'movie' ?  movie.release_date : movie.first_air_date!)}</div>
+                        {movie.vote_average > 0 && <StarVote vote={movie.vote_average} />}
+                        <TextGray>{formatDate(type === 'movie' ?  movie.release_date : movie.first_air_date!)}</TextGray>
                     </div>
                 </div>
             </div>

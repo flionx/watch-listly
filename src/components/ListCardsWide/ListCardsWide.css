@@ -68,29 +68,6 @@
     align-items: center;
 }
 
-
-.list-wide__card-vote {
-    position: relative;
-    padding-left: 18px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 110%;
-    color: #fff;
-}
-.list-wide__card-vote::before {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 15px;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    background-image: url('../../../public/hero/star.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
 .list-wide__card-date {
     font-weight: 400;
     font-size: 14px;

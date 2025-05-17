@@ -3,11 +3,17 @@ import { IUser, IUserFriend, IUserList, TBasicListsKey, TListsVisibility } from 
 import { getUserData } from "../thunks/user/getUserInfo";
 import { IMovie } from "@/types/movies";
 import randomColorList from "@/utils/randomColorList";
-interface IToggleMovieInListParams {
+export interface IToggleMovieInListParams {
     movie: IMovie
     listkey: number | TBasicListsKey,
     type: 'user' | 'basic',
     action: 'add' | 'remove'
+}
+export interface IChangeMovieRateParams {
+    movieId: number
+    listkey: number | TBasicListsKey,
+    type: 'user' | 'basic',
+    value: number
 }
 
 export const initialUserState: IUser = {
@@ -56,9 +62,7 @@ const userSlice = createSlice({
         setListsVisibility: (state, action: PayloadAction<TListsVisibility>) => {
             state.listsVisibility = action.payload
         },
-        toggleMovieInList: (state, action: PayloadAction<IToggleMovieInListParams>) => {
-            console.log(action.payload.movie);
-            
+        toggleMovieInList: (state, action: PayloadAction<IToggleMovieInListParams>) => {            
             if (action.payload.action === 'add') {
                 const newMovie = {
                     movie: action.payload.movie,
@@ -84,6 +88,18 @@ const userSlice = createSlice({
                 }
             }
         },
+        changeMovieRate: (state, action: PayloadAction<IChangeMovieRateParams>) => {            
+            if (action.payload.type === 'user') {
+                const list = state.lists.find(list => list.id === Number(action.payload.listkey));
+                const movie = list?.movies.find(movie => movie.movie.id === action.payload.movieId);
+                if (!movie) return;
+                movie.rate = action.payload.value;
+            } else {
+                const movie = state[action.payload.listkey as TBasicListsKey].find(movie => movie.movie.id === action.payload.movieId);
+                if (!movie) return;
+                movie.rate = action.payload.value
+            }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getUserData.pending, (state) => {
@@ -105,6 +121,6 @@ export const {
     setUser, setUserAvatar, addNewUserList, 
     deleteUserList, setUserCover,
     setUserFriends, setListsVisibility,
-    toggleMovieInList
+    toggleMovieInList, changeMovieRate
 } = userSlice.actions; 
 export default userSlice.reducer;

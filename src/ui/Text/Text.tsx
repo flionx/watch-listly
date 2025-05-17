@@ -30,5 +30,13 @@ const TitleSmall:FC<Props> = ({children}) => {
     <span className={styles.titlesmall}>{children}</span>
   )
 }
+const TextGray:FC<Props> = ({children}) => {
+  return (
+    <span className={styles.textgray}>{children}</span>
+  )
+}
 
-export {TitleBig, TitleSubBig, TitleMiddle, TitleUnderline, TitleSmall}
+export {
+  TitleBig, TitleSubBig, TitleMiddle, TitleUnderline, TitleSmall,
+  TextGray
+}
