@@ -129,6 +129,25 @@
     mask-repeat: no-repeat;
     background: #ffffff;
 }
+.transparent {
+    background: transparent;
+}
+.more {
+    position: relative;
+}
+.more::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 5px;
+    background-image: url('/sidebar/dots.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 /* modal */
 .modal-rate {
     position: absolute;
@@ -142,3 +161,4 @@
 .modal-rate.small {
     padding: 4px 11px;
 }
+

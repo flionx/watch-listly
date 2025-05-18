@@ -10,6 +10,7 @@ import { StarVote } from '@/components/VoteCount/VoteCount';
 import { IMovie } from '@/types/movies';
 import StarRating from '@/components/StarRating/StarRating';
 import '@/app/styles/css/listPage.css'
+import getMovieType from '@/utils/getMovieType';
 
 const ListPage = () => {
   const {userId, listType, key} = useParams();
@@ -54,11 +55,11 @@ const ListPage = () => {
           {!loading && list.map(({movie, rate}, index) => (
               <li className='list__card' key={movie.id}>
                 <TitleMiddle>{index + 1}</TitleMiddle>
-                <Link to={`/${movie.media_type}/${movie.id}`} className='card__image'>
+                <Link to={`/${movie.media_type ?? getMovieType(movie.first_air_date)}/${movie.id}`} className='card__image'>
                   <img src={getImageUrl(movie.poster_path)} alt="movie poster" />
                 </Link>
                 <div className="card__info">
-                  <Link to={`/${movie.media_type}/${movie.id}`} className='card__name'>
+                  <Link to={`/${movie.media_type ?? getMovieType(movie.first_air_date)}/${movie.id}`} className='card__name'>
                     <TitleSmall>{movie.name ?? movie.title}</TitleSmall>
                   </Link>
                   <TextGray>{formatDate(movie.first_air_date ?? movie.release_date)}</TextGray>
@@ -82,6 +83,11 @@ const ListPage = () => {
                     </div>
                     }
                   </div>
+                  <div className="more-block">
+                    <ButtonGray noPadding transparent handleClick={() => {}}>
+                      <span className='more'></span>
+                    </ButtonGray>
+                  </div>
                 </div>
               </li>
           ))}
@@ -95,10 +101,14 @@ export default ListPage
 interface ButtonProps {
   children: ReactNode,
   handleClick: VoidFunction,
-  noPadding?: boolean
+  noPadding?: boolean,
+  transparent?: boolean
 }
-const ButtonGray: FC<ButtonProps> = ({children, handleClick, noPadding}) => {
+const ButtonGray: FC<ButtonProps> = ({children, handleClick, noPadding, transparent}) => {
   return (
-    <button className={`button-gray ${!noPadding ? 'btn-p' : '' }`} onClick={handleClick}>{children}</button>
+    <button className={`button-gray ${!noPadding ? 'btn-p' : ''} ${transparent ? 'transparent' : ''} `} 
+      onClick={handleClick}>
+      {children}
+    </button>
   )
 }
