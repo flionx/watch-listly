@@ -5,6 +5,7 @@ import useChangeImage from '@/hooks/useChangeImage';
 import useSignOut from '@/utils/useSignOut';
 import copyToClipboard from '@/utils/copyToClipboard';
 import shareLink from '@/utils/shareLink';
+import ModalMore from '@/components/ModalMore/ModalMore';
 interface Props {
     id: IUser['id'],
     cover: IUser['cover'],
@@ -24,7 +25,7 @@ const ProfileCover:FC<Props>= ({id, cover, isCurrentUser}) => {
                 onClick={() => setShowSettings(curr => !curr)}>
             </button>
             {showSettings && 
-            <div className="header-profile__dots-info">
+            <ModalMore>
                 <button onClick={() => copyToClipboard(id)}>Copy user ID</button>
                 <button onClick={() => shareLink(window.location.href)}>Share link</button>
                 <input className='header__input-file'
@@ -34,15 +35,16 @@ const ProfileCover:FC<Props>= ({id, cover, isCurrentUser}) => {
                     name="avatar" 
                     id="avatar" 
                     accept="image/*"
-                />{isCurrentUser && <>
+                />
+                {isCurrentUser && <>
                     <button
                         onClick={() => coverRef.current?.click()}
-                    >Change Cover</button>
+                        >Change Cover</button>
                     <button>Change Username</button>
                     <button>Change Password</button>
                     <button onClick={signOutUser}>Sign out</button>
                 </>}
-            </div>}
+            </ModalMore>}
         </div>
     </div>
   )

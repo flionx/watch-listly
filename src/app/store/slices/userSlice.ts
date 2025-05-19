@@ -5,13 +5,13 @@ import { IMovie } from "@/types/movies";
 import randomColorList from "@/utils/randomColorList";
 export interface IToggleMovieInListParams {
     movie: IMovie
-    listkey: number | TBasicListsKey,
+    listKey: number | TBasicListsKey,
     type: 'user' | 'basic',
     action: 'add' | 'remove'
 }
 export interface IChangeMovieRateParams {
     movieId: number
-    listkey: number | TBasicListsKey,
+    listKey: number | TBasicListsKey,
     type: 'user' | 'basic',
     value: number
 }
@@ -70,32 +70,32 @@ const userSlice = createSlice({
                     rate: null
                 }
                 if (action.payload.type === 'user') {
-                    const list = state.lists.find(list => list.id === action.payload.listkey);
+                    const list = state.lists.find(list => list.id === action.payload.listKey);
                     list?.movies.push(newMovie);
                 } else {
-                    state[action.payload.listkey as TBasicListsKey].push(newMovie)
+                    state[action.payload.listKey as TBasicListsKey].push(newMovie)
                 }
             } else {
                 const movieId = action.payload.movie.id;
                 if (action.payload.type === 'user') {
-                    const list = state.lists.find(list => list.id === action.payload.listkey);
+                    const list = state.lists.find(list => list.id === action.payload.listKey);
                     if (list) {
                         list.movies = list.movies.filter(movie => movie.movie.id !== movieId);                    
                     }
                 } else {
-                    const key = action.payload.listkey as TBasicListsKey;
+                    const key = action.payload.listKey as TBasicListsKey;
                     state[key] = state[key].filter(movie => movie.movie.id !== movieId)
                 }
             }
         },
         changeMovieRate: (state, action: PayloadAction<IChangeMovieRateParams>) => {            
             if (action.payload.type === 'user') {
-                const list = state.lists.find(list => list.id === Number(action.payload.listkey));
+                const list = state.lists.find(list => list.id === Number(action.payload.listKey));
                 const movie = list?.movies.find(movie => movie.movie.id === action.payload.movieId);
                 if (!movie) return;
                 movie.rate = action.payload.value;
             } else {
-                const movie = state[action.payload.listkey as TBasicListsKey].find(movie => movie.movie.id === action.payload.movieId);
+                const movie = state[action.payload.listKey as TBasicListsKey].find(movie => movie.movie.id === action.payload.movieId);
                 if (!movie) return;
                 movie.rate = action.payload.value
             }

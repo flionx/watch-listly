@@ -1,0 +1,21 @@
+.button {
+    background: var(--second-bg-color);
+    font-weight: 500;
+    height: 39px;
+    min-width: 39px;
+    border-radius: 8px;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+.button:hover {
+    background: var(--sidebar-second-bg-color);
+}
+.padding {
+    padding: 0 var(--padding-max40);
+}
+.transparent {
+    background: transparent;
+}
