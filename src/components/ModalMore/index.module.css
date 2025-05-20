@@ -1,0 +1,30 @@
+.modal {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 100%;
+    width: fit-content;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    border-radius: 5px;
+    background: var(--second-bg-color);
+    border: 1px solid var(--light-secong-bg-color);
+}
+.modal button {
+    padding: 4px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    font-weight: 500;
+    line-height: 133%;
+    color: #eaeaea;
+    border-radius: 5px;
+    transition: background .3s;
+    white-space: nowrap;
+}
+.modal button:hover {
+    background: var(--light-secong-bg-color);
+}

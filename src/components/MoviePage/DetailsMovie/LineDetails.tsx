@@ -1,7 +1,7 @@
-
+import styles from './index.module.css'
 const LineDetails = () => {
   return (
-    <hr className='details-movie__line'/>
+    <hr className={styles.line}/>
   )
 }
 

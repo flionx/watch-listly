@@ -100,37 +100,11 @@
 }
 
 .header-profile__more-info {
+    width: 32px;
+    height: 32px;
     position: absolute;
     top: 10px;
     right: 10px;
-}
-
-.header-profile__dots-info {
-    position: relative;
-    z-index: 2;
-    right: 32px;
-    width: fit-content;
-    padding: 5px 10px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
-    border-radius: 5px;
-    background: var(--second-bg-color);
-    border: 1px solid var(--light-secong-bg-color);
-}
-.header-profile__dots-info button{
-    padding: 4px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
-    font-weight: 500;
-    line-height: 133%;
-    color: #eaeaea;
-    transition: background .3s;
-}
-.header-profile__dots-info button:hover {
-    background: var(--light-secong-bg-color);
 }
 
 .header__input-file {

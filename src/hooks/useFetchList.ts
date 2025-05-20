@@ -23,13 +23,14 @@ const useFetchList = ({id, listType, key}: IUseFetchListProps) => {
                 setListName(userList?.name!)
             }
         }
-    }, [loading, user])
+    }, [loading, user, listType, key])
 
     return {
         loading, 
         isCurrentUser,
         list, 
-        listName
+        listName,
+        userLists: user?.lists,
     }
 }
 

@@ -1,0 +1,85 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 14px;
+    background: var(--second-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+}
+.details h4 {
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.row {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--gray-light-color);
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+}
+.rowLink {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--gray-light-color);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 6px;
+    transition: .3s ease;
+}
+.rowLink:hover .linkIcon {
+    display: inline-block;
+}
+.rowLink:hover {
+    color: #b1b1b1;
+}
+.linkIcon {
+    display: none;
+    width: 11px;
+    height: 11px;
+    position: relative;
+}
+.linkIcon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 11px;
+    height: 11px;
+    background-image: url('/listPage/visit.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background: var(--gray-light-color);
+}
+.genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.genre {
+    padding: 8px;
+    width: fit-content;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--gray-light-color);
+    border: 1px solid var(--gray-light-color);
+    transition: color .3s, background .4s;
+}
+.genre:hover {
+    color: #ffffff;
+    background: rgba(163, 163, 163, 0.23);
+}

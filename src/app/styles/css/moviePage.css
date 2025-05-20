@@ -100,16 +100,15 @@
 
 
 .movie-main__column {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 14px;
     background: var(--second-bg-color);
     padding: 20px;
     border-radius: 8px;
 }
 
-.details-movie {
-    display: flex;
-    flex-direction: column;
-    row-gap: 14px;
-}
 .details-movie h4 {
     letter-spacing: 0.03em;
     text-align: center;
