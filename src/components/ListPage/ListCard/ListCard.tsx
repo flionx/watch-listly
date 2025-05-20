@@ -24,9 +24,7 @@ interface Props {
     isCurrentUser: boolean,
     index: number
 }
-const ListCard:FC<Props> = ({userId, listType, listKey, movie, rate, isCurrentUser, index}) => {    
-    console.log(isCurrentUser);
-    
+const ListCard:FC<Props> = ({userId, listType, listKey, movie, rate, isCurrentUser, index}) => {        
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [modalInfo, setModalInfo] = useState<IModalInfo>({id: null, type: null});

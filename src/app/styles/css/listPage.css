@@ -13,9 +13,39 @@
     display: flex;
     flex-direction: column;
     column-gap: 10px;
+    grid-area: list;
+}
+.details {
+    display: grid;
+    grid-area: details;
+    min-width: 300px;
+    max-width: 350px;
+}
+.list-page-container {
+    display: grid;
+    column-gap: 40px;
+    row-gap: 20px;
+    grid-template-areas:
+        "list details"
+        "list details";
+    grid-template-columns: 1fr auto;
+    margin: var(--padding-main);
+}
+.list-page-main {
     margin: var(--padding-main);
 }
 
+@media (max-width: 960px) {
+    .list-page-container {
+        grid-template-areas:
+            "list"
+            "details";
+        grid-template-columns: 1fr;
+    }
+    .details { 
+        margin: 0 auto;
+    }
+}
 .list__card {
     width: 100%;    
     display: flex;
