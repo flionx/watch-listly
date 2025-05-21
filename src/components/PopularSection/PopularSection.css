@@ -1,6 +1,5 @@
 .popular-movies {
     position: relative;
-    padding-top: 10px;
 }
 .popular-movies::before {
     content: '';

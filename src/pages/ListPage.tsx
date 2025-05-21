@@ -6,10 +6,16 @@ import '@/app/styles/css/listPage.css'
 import DetailsSection from '@/components/MoviePage/DetailsMovie/DetailsSection';
 import LineDetails from '@/components/MoviePage/DetailsMovie/LineDetails';
 import DetailRowLink from '@/components/MoviePage/DetailsMovie/DetailRowLink';
+import { useEffect } from 'react';
+import { scrollToUpPage } from '@/utils/scrollToUpPage';
 
 const ListPage = () => {
   const {userId, listType, key} = useParams();
   const { isCurrentUser, loading, list, listName, userLists } = useFetchList({id: userId, listType, key} as IUseFetchListProps);
+
+  useEffect(() => {
+    scrollToUpPage();
+  }, [userId, listType, key])
 
   return (
     <>

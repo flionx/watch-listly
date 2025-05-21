@@ -6,7 +6,7 @@ import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 export const fetchMovieWithId = createAsyncThunk(
   'movies/fetchMovieWithId',
   async ({id, type} : {id: string, type: 'tv' | 'movie'}, {rejectWithValue}) => {
-    const ON_STORAGE_DAYS = 100;
+    const ON_STORAGE_DAYS = 7;
 
     try {
 

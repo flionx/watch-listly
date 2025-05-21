@@ -8,7 +8,7 @@ const PopularSection = () => {
   const moviesPopular =  useAppSelector(state => state.movies.popular.movies);    
   const dispatch = useAppDispatch();
     useEffect(() => {
-      dispatch(getOrFetchMovies({path: 'movie/popular', key: 'movies-popular'}))
+      dispatch(getOrFetchMovies({path: 'movie/top_rated', key: 'movies-popular'}))
     }, [])
 
   return (
