@@ -42,9 +42,9 @@ const ListPage = () => {
                       {list.name}
                     </DetailRowLink>
                   )}
+                  <LineDetails />
                 </>
               }
-              <LineDetails />
               <h4><TitleSmall>Basic Lists</TitleSmall></h4>
               <DetailRowLink link={`/list/${userId}/basic/seenList`}>Seen it</DetailRowLink>
               <DetailRowLink link={`/list/${userId}/basic/wantList`}>Want to see it</DetailRowLink>
