@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom'
 import useFetchList, { IUseFetchListProps } from '@/hooks/useFetchList';
-import { TitleBig, TitleSmall} from '@/ui/Text/Text';
+import { TitleSmall} from '@/ui/Text/Text';
 import ListCard from '@/components/ListPage/ListCard/ListCard';
-import '@/app/styles/css/listPage.css'
 import DetailsSection from '@/components/MoviePage/DetailsMovie/DetailsSection';
 import LineDetails from '@/components/MoviePage/DetailsMovie/LineDetails';
 import DetailRowLink from '@/components/MoviePage/DetailsMovie/DetailRowLink';
 import { useEffect } from 'react';
 import { scrollToUpPage } from '@/utils/scrollToUpPage';
+import '@/app/styles/css/listPage.css'
+import ListBanner from '@/components/ListPage/ListBanner/ListBanner';
 
 const ListPage = () => {
   const {userId, listType, key} = useParams();
@@ -19,9 +20,13 @@ const ListPage = () => {
 
   return (
     <>
-      <section className='banner'>
-        <h1><TitleBig>{listName}</TitleBig></h1>
-      </section>
+      <ListBanner 
+        listName={listName} 
+        listKey={key!} 
+        listType={listType!}
+        userId={userId!}
+        isCurrentUser={isCurrentUser}
+      />
       <main className={isCurrentUser ? 'list-page-container' : 'list-page-main'}>
         <ul className="list">
             {!loading && list.map(({movie, rate}, index) => (
