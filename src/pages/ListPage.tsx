@@ -1,21 +1,32 @@
 import { useParams } from 'react-router-dom'
 import useFetchList, { IUseFetchListProps } from '@/hooks/useFetchList';
-import { TitleBig, TitleSmall} from '@/ui/Text/Text';
+import { TitleSmall} from '@/ui/Text/Text';
 import ListCard from '@/components/ListPage/ListCard/ListCard';
-import '@/app/styles/css/listPage.css'
 import DetailsSection from '@/components/MoviePage/DetailsMovie/DetailsSection';
 import LineDetails from '@/components/MoviePage/DetailsMovie/LineDetails';
 import DetailRowLink from '@/components/MoviePage/DetailsMovie/DetailRowLink';
+import { useEffect } from 'react';
+import { scrollToUpPage } from '@/utils/scrollToUpPage';
+import '@/app/styles/css/listPage.css'
+import ListBanner from '@/components/ListPage/ListBanner/ListBanner';
 
 const ListPage = () => {
   const {userId, listType, key} = useParams();
   const { isCurrentUser, loading, list, listName, userLists } = useFetchList({id: userId, listType, key} as IUseFetchListProps);
 
+  useEffect(() => {
+    scrollToUpPage();
+  }, [userId, listType, key])
+
   return (
     <>
-      <section className='banner'>
-        <h1><TitleBig>{listName}</TitleBig></h1>
-      </section>
+      <ListBanner 
+        listName={listName} 
+        listKey={key!} 
+        listType={listType!}
+        userId={userId!}
+        isCurrentUser={isCurrentUser}
+      />
       <main className={isCurrentUser ? 'list-page-container' : 'list-page-main'}>
         <ul className="list">
             {!loading && list.map(({movie, rate}, index) => (
@@ -42,9 +53,9 @@ const ListPage = () => {
                       {list.name}
                     </DetailRowLink>
                   )}
+                  <LineDetails />
                 </>
               }
-              <LineDetails />
               <h4><TitleSmall>Basic Lists</TitleSmall></h4>
               <DetailRowLink link={`/list/${userId}/basic/seenList`}>Seen it</DetailRowLink>
               <DetailRowLink link={`/list/${userId}/basic/wantList`}>Want to see it</DetailRowLink>

@@ -3,11 +3,10 @@ import { Link, NavLink } from "react-router-dom"
 import { mainSidebarLinks } from "./links"
 import { useAppSelector } from "@/hooks/useRedux"
 import ButtonHero from "@/ui/ButtonHero/ButtonHero"
-import test1 from '/sidebar/test1.png?url'
-import test2 from '/sidebar/test2.png?url'
 import defaultAvatar from '/profilePage/default-avatar.svg'
 import logo from '/sidebar/logo.svg?url'
 import './Sidebar.css'
+import getImageUrl from "@/utils/getImageUrl"
 
 const SideBar = () => {    
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +17,7 @@ const SideBar = () => {
         if (!searchRef.current) return;
         searchRef.current.focus()
     }
-    const {username, id, avatar} = useAppSelector(state => state.user);    
+    const {username, id, avatar, lists} = useAppSelector(state => state.user);  
 
   return (
     <aside className={`sidebar ${!isOpen ? 'sidebar-close' : ''}`} 
@@ -42,11 +41,20 @@ const SideBar = () => {
         </nav>
         <div className="sidebar__bottom">
             <nav className={`sidebar__middle-nav ${defineClass}`}>
-                <p className="sidebar__middle-text">My lists</p>
-                <ul className="sidebar__lists">
-                    <Link to=''><img src={test1} alt="icon" /><li>My favorite</li></Link>
-                    <Link to=''><img src={test2} alt="icon" /><li>Want</li></Link>
-                </ul>
+                {lists.length > 0 &&
+                <>
+                    <p className="sidebar__middle-text">My lists</p>
+                    <ul className="sidebar__lists">
+                        {lists.map(list => 
+                            <Link to={`/list/${id}/user/${list.id}`} key={list.id}>
+                                {list.movies.length > 0 && 
+                                    <img src={getImageUrl(list.movies[0].movie.poster_path)} alt="icon" />
+                                }
+                                <li>{list.name}</li>
+                            </Link>
+                        )}
+                    </ul>
+                </>}
                 <ButtonHero icon='plus sidebar__button' onClick={() => {}}>Create list</ButtonHero>
             </nav>
             <div className='sidebar__profile profile-sidebar'>

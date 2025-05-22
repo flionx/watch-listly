@@ -112,7 +112,7 @@ const ListCard:FC<Props> = ({userId, listType, listKey, movie, rate, isCurrentUs
                             <button onClick={() => {
                                 dispatch(toggleMovieInList({
                                 movie,
-                                listKey,
+                                listKey: listType === 'user' ? Number(listKey) : listKey,
                                 type: listType,
                                 action: 'remove'
                                 } as IToggleMovieInListParams))

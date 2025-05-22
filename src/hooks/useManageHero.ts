@@ -11,7 +11,7 @@ const useManageHero = () => {
     
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(getOrFetchMovies({path: 'trending/all/day', key: 'movies-hero'}))
+        dispatch(getOrFetchMovies({path: 'movie/popular', key: 'movies-hero'}))
     }, [])
 
     const heroRef = useRef<HTMLElement>(null)

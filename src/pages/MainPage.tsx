@@ -23,7 +23,7 @@ const MainPage = () => {
         path='tv/top_rated' storageKey="movies-series"
         type='tv'
       />
-      <WideListSection title='Upcoming' 
+      <WideListSection title='Newest movies' 
         path='movie/upcoming' storageKey="movies-upcoming"
         type='movie'
       />
