@@ -7,6 +7,7 @@ import ModalAddToList from "../ModalAddToList/ModalAddToList"
 import { IMovie } from "@/types/movies"
 import { TitleSubBig } from "@/ui/Text/Text"
 import useModalAdd from "@/hooks/useModalAdd"
+import getMovieType from "@/utils/getMovieType"
 interface Props {
     movie: IMovie
 }
@@ -27,7 +28,7 @@ const HeroInfo:FC<Props> = ({movie}) => {
         </div>
         <p className="hero__text">{movie?.overview}</p>
         <div className="hero__info-btns">
-            <Link to={`/${movie.media_type}/${movie.id}`}>
+            <Link to={`/${movie.media_type ?? getMovieType(movie.first_air_date)}/${movie.id}`}>
                 <ButtonHero noBg onClick={() => {}}>Learn more</ButtonHero>
             </Link>
             <ButtonHero icon='triangle' onClick={() => {}}>Watch trailer</ButtonHero>
