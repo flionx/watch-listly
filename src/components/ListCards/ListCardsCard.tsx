@@ -4,6 +4,7 @@ import { IMovie } from '@/types/movies';
 import getColor from '@/utils/getColorVote';
 import getImageUrl from '@/utils/getImageUrl';
 import { Link } from 'react-router-dom';
+import getMovieType from '@/utils/getMovieType';
 interface Props {
     movie: IMovie,
     index: number,
@@ -34,7 +35,7 @@ const ListCardsCard: FC<Props> = ({movie, index, hero, voting, select}) => {
             <img src={`${getImageUrl(movie.poster_path, 'w300')}`} alt='movie poster image' />
         </button>
     ) : (
-        <Link to={`/${movie.media_type ?? 'movie'}/${movie.id}`} 
+        <Link to={`/${movie.media_type ?? getMovieType(movie.first_air_date)}/${movie.id}`} 
             className={`card-list__card ${hero ? 'hero__card ' + cardClass(index) : ''}`}
             key={movie.id} >
                 {voting && movie.vote_average > 0 && 

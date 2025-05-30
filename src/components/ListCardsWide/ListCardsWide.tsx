@@ -7,6 +7,7 @@ import { formatDate } from '@/utils/formatInfo'
 import { StarVote } from '../VoteCount/VoteCount'
 import { TextGray } from '@/ui/Text/Text'
 import './ListCardsWide.css'
+import getMovieType from '@/utils/getMovieType'
 interface Props {
     movies: IMovie[],
     listRef: RefObject<HTMLElement | null>,
@@ -22,9 +23,9 @@ const ListCardsWide:FC<Props> = ({movies, listRef, type}) => {
             <div className='list-wide__card'
                 key={movie.id}
             >
-                <Link to={`/${movie.media_type ?? type}/${movie.id}`} className="list-wide__card-img" style={{backgroundImage: `url(${getImageUrl(movie.backdrop_path, 'w500')})`}}></Link>
+                <Link to={`/${movie.media_type ?? getMovieType(movie.first_air_date)}/${movie.id}`} className="list-wide__card-img" style={{backgroundImage: `url(${getImageUrl(movie.backdrop_path, 'w500')})`}}></Link>
                 <div className="list-wide__card-bottom">
-                    <Link to={`/${movie.media_type ?? type}/${movie.id}`} className="list-wide__card-title">{movie.title || movie.name}</Link>
+                    <Link to={`/${movie.media_type ?? getMovieType(movie.first_air_date)}/${movie.id}`} className="list-wide__card-title">{movie.title || movie.name}</Link>
                     <div className="list-wide__card-info">
                         {movie.vote_average > 0 && <StarVote vote={movie.vote_average} />}
                         <TextGray>{formatDate(type === 'movie' ?  movie.release_date : movie.first_air_date!)}</TextGray>
